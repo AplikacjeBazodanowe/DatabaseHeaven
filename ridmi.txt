@@ -1,0 +1,26 @@
+Dobra, wrzucam pierwszy zarys umla (w StarUML-u) i zakresu naszego projektu.
+
+Na razie jest 13 tabel, ale w wielu jest pole "typ", które roboczo s¹ jako enum, a mo¿na je zrobiæ jako osobne tabele. Zreszt¹, to na razie szkic.
+
+Nie zaznacza³em kluczy g³ównych (wszêdzie sztuczne id auto_increment) ani obcych (wynikaj¹ z asocjacji)
+
+Mamy sobie statki, które przewo¿¹ ³adunki (³adunek = towar w konkretnej iloœci w konkretnym miejscu). £adunki mog¹ byæ za³adowywane lub wy³adowywane ze statków do magazynów (tabela ZaIWy³adunek, te¿ mo¿na rozbiæ na dwie, ale jak dla mnie mo¿na zrobiæ jako jedn¹ z flag¹ boolowsk¹ czy przenosimy ze statku do maga czy z maga do statku). Ponadto mo¿na ³adowaæ z NULLa do statku i roz³adowywaæ do NULLa (tzn. niekoniecznie z/do magazynu, mo¿e coœ przyjechaæ i byæ za³adowane od razu, co oznacza ¿e NadanieLadunku.data=ZaIWyladunek.data), podobnie mo¿na ³adowaæ do magazynu z NULL-a, jeœli daty siê zgadzaj¹. Ale z NULL-a do NULL-a ju¿ nie za³adujemy. Ten system trochê uniemo¿liwia prze³adunek ze statku na statek i z magazynu do magazynu - chyba ¿eby zrobiæ osobno tabele dla ka¿dego przypadku, albo jedn¹ tabelê typu (idStatku1,idStatku2,idMag1,idMag2, ...) i wtedy mog³o by byæ: idStatku1, idStatku2, NULL, NULL; NULL, NULL, idMag1, idMag2; idStatku1, NULL, idMag1, NULL.
+
+Kontrahent mo¿e byæ armatorem, albo nadawc¹ lub odbiorc¹ ³adunku.
+
+Z c³ami i kontrol¹ celn¹ w sumie nie wiem co do koñca zrobiæ. Nie wiem czy bawimy siê w c³a importowe i eksportowe (tzn. czy tylko przy wy³adunku czy przy za³adunku te¿ - pierwotne za³o¿enie ¿e tylko przy wy³adunku). Kontrola celna jest przypisana do ³adunku - wszystko co chcemy roz³adowaæ do magazynu lub umo¿liwiæ odbiór klientowi, jeœli podlega ocleniu musi mieæ pozytywn¹ kontrolê celn¹ (tu takie milcz¹ce za³o¿enie ¿e kontrabandê rekwiruje milicja albo wyrzuca w morze).
+
+Userzy s¹ tacy jak wypisa³em: admin systemu który tworzy konta innych userów i nimi zarz¹dza, admin portu, który rejestruje zadokowania/wyp³yniêcia statków (jak jakiegoœ nie ma w bazie to dopisuje), admin ladunkow ktory rejestruje za³adunki, wy³adunki i inspektor celny który podbija kontrolê celn¹ lub j¹ odrzuca.
+
+Wszêdzie tam gdzie jest asocjacja z userem = mo¿emy ustaliæ który user wykona³ dan¹ akcjê
+
+Przyk³adowe Use-case'y:
+- admin systemu ma listê u¿ytkowników, mo¿e nadawaæ im uprawnienia, przegl¹daæ, usuwaæ
+- admin portu mo¿e przegl¹daæ listê wszystkich aktualnie przebywaj¹cych w porcie statków, zg³aszaæ statki do zadokowania i oddokowania
+- admin portu po klikniêciu "zadokuj statek" mo¿e wybraæ statek z listy, albo dodaæ nowy. Po wybraniu statku pojawi¹ mu siê wolne doki, które pomieszcz¹ dany statek
+- admin portu mo¿e przegl¹daæ historiê statków przebywaj¹cych w danym okresie w porcie
+- admin portu po klikniêciu w statek mo¿e podgl¹daæ informacje o ³adunkach, ktore zosta³y na niego za³adowane/wy³adowane (ostatnie, albo historia)
+- admin zaladunkow mo¿e przegl¹daæ listê statków aktualnie przebywaj¹cych w porcie, dla ka¿dego mo¿e klikn¹æ za³adunek lub wy³adunek, automatycznie zostanie przekierowany na stronê, gdzie mo¿e dodaæ ³adunki (1 za³adunek/wy³adunek dotyczy co najmniej jednego ³adunku). Nie mo¿na dodaæ ³adunków podlegaj¹cych ocleniu, jeœli nie maj¹ pozytywnej kontroli celnej.
+- admin zaladunkow mo¿e przegl¹daæ listê ³adunków, dodawaæ nowe ³adunki
+- admin zaladunkow mo¿e przegl¹daæ listê magazynów i dla ka¿dego ma aktualnie/historycznie przebywaj¹ce tam ³adunki
+- inspektor celny mo¿e przegl¹daæ listê ³adunków oczekuj¹cych na kontrolê celn¹ i zaznaczaæ ¿e siê odby³a
