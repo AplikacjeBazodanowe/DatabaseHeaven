@@ -1,1 +1,1 @@
-function add_toggle() {	var dark = document.getElementById( "dark" );	var add = document.getElementById( "adding" );	dark.style.visibility = dark.style.visibility != 'visible' ? 'visible' : 'hidden';	adding.style.visibility = adding.style.visibility != 'visible' ? 'visible' : 'hidden';}
+function add_toggle() {	var dark = document.getElementById( "dark" );	var add = document.getElementById( "adding" );	dark.style.visibility = dark.style.visibility != 'visible' ? 'visible' : 'hidden';	add.style.visibility = add.style.visibility != 'visible' ? 'visible' : 'hidden';}
