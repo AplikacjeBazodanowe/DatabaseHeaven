@@ -1,0 +1,20 @@
+dobra wiec tak, zapewne Wy bedziecie wymyslac wiekszosc zapytan a ja bede je integrowac ze strona, no ale w razie czego wyjasnie organizacje tej strony. Jak na razie jest zrobiony panel admina systemu.
+
+admin_system.php - glowna strona, ktora includuje pliki z folderow users/ships/terminals/docks/magazines w zaleznosci od tego co wybralismy w menu na gorze. W kazdym z wyzej wymienionych folderow sa 3 pliki (czwarty .txt to tak tylko testowo i tak bedziemy dane wybierali z bazy danych):
+XXX_adding.php - warstwa ktora sie wyswietla po kliknieciu dodawania userow/statkow itp.
+XXX_desc_field.php - warstwa na ktorej sa szczegoly, opisy itd (pole po prawej).
+XXX_left_group.php - warstwa na ktorej znajduje sie spis userow/statkow itd (pole po lewej).
+
+jesli chodzi o skrypty to:
+fade.js - przyciemnianie strony i wyswietlenie odpowiedniego formularza do dodawania
+edits.js - wszystko zwiazane z edit fieldami:
++ on_off_edit() - zmienia atrybut disabled dla editow
++ clr - czysci edity jesli jest tam "From", "To", "Surname" etc
++ back - jesli nic nie wpisalismy do edita to tekst wraca do domyslnych ustawien
+
+co do dokow i magazynow, w formularzu jest combobox "Terminal" i tam bedzie sie wybierac do ktorego (z dostepnych) terminalu to nalezy
+
+co do linkow (przy obsludze ich w php) to tak:
+menu=XXX - to wiadomo, wybor z menu
+action=Y
+gdzie Y = add, search lub show, oznaczaja odpowiednio obsluge dodawania, wyszukiwania po nazwie, wyszukiwania po atrybutach (takich jak dlugosc, szerokosc etc.)
