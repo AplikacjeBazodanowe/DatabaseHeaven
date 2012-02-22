@@ -1,1 +1,63 @@
-Aplikacje bazodanowe
+Dobra, wrzucam poprawioną wersję poprawionej wersji UML-a. Poprawek jest kilka, jedne upraszczają, inne komplikują, ale wprowadzając wszystkie miałem na uwadze to, żeby usprawnić pracę aplikacji, ułatwić zapytania, nadać sens itp.
+
+lista zmian:
+- Powróciłem do pierwotnej wersji z jedną tabelą Kontrahent, który może być zarówno armatorem albo właścicielem ładunku (dodałem pole typ). Unikamy przez to trzymania dwóch tabel, które przechowują de facto te same dane, ponadto w tabeli Opłaty teraz nie trzymamy tylu NULL-i. No i mamy teraz dokładnie 15 tabel :)
+- relacja £adunek-Przeładunek nie jest już relacją *-1..*, *-1. Tzn. jeden przeładunek dotyczy tylko jednego ładunku. Wynika to głównie z tego co podam w następnym punkcie, ale także z tego, że jest to zupełnie niepotrzebne na poziomie bazy danych i swobodnie można to zamodelować na poziomie aplikacji. (Jeśli kilka przeładunków ma to zamo źródło, cel i czas to można je traktować jako jeden przeładunek kilku towarów).
+- relacja Przeładunek na dodatkowy atrybut - czyAktualnePołożenie. O co chodzi? Otóż ta tabela ma w zamyśle reprezentować cały "cykl życiowy" każdego ładunku od momentu pojawienia się w porcie do opuszczenia portu. Dzięki niej możemy sprawdzić 
+	1) to co wspomniałem, wszystkie miejsca gdzie przebywał ładunek, 
+	2) miejsce gdzie aktualnie przebywa ładunek (order by time desc i pierwszy rekord z góry) oraz 
+	3) pobrać wszystkie ładunki z danego statku/magazynu. Tu wkracza pole czyAktualnePolozenie. Możemy zrobić:
+		SELECT ladunek FROM Statek INNER JOIN Przeładunek USING (Przeładunek.Statek2) WHERE AktualnePolozenie=true AND Statek.nazwa="lalala"
+	bez tego musielibyśmy szukać po wszystkich ładunkach, które kiedykolwiek znajdowały się na danym statku. Dlatego też zrezygnowałem z relacji wiele do wielu między ładunkiem a przeładunkiem, bo wówczas czyAktualnePołożenie dotyczyłoby całej grupy ładunków = nie można byłoby ich już nigdy rozdzielić
+- cena za pobyt w terminalu została przesunieta na magazyn i dok. Uważam, że jedna cena na cały terminal to trochę bez sensu, tak mamy większe flexibility, możemy mieć w jednym terminalu przecież doki większe, mniejsze, mniej lub bardziej nowoczesne itp.
+- ładunek może mieć kilka kontroli celnych. Np pierwsza kontrola celna może byc negatywna i wstrzymać ładunek, a kolejna może być pozytywna (powiedzmy, że armator zapłacił jakąś karę, albo się okazało że to nieporozumienie i kokaina to jednak cukier puder. Ewentualnie łapówa :D Ale tego już nie przechowujemy w bazie). Ponadto inspektor celny ma teraz znacznie ciekawszą pracę - patrz use-case'y
+
+
+Nie zaznaczałem kluczy głównych (wszędzie sztuczne id auto_increment) ani obcych (wynikają z asocjacji). Wyjątek - tabela Przeładunek - tam statek i magazyn pojawiają się dwa razy, 1 oznacza źródło, 2 oznacza cel.
+
+Userzy są tacy jak wypisałem: admin systemu który tworzy konta innych userów i nimi zarządza, admin portu, który rejestruje zadokowania/wypłynięcia statków (jak jakiegoś nie ma w bazie to dopisuje), admin ladunkow ktory rejestruje załadunki, wyładunki i inspektor celny który podbija kontrolę celną lub ją odrzuca.
+
+Wszędzie tam gdzie jest asocjacja z userem = możemy ustalić który user wykonał daną akcję
+
+Przykładowe Use-case'y:
+Admin Systemu
+- ma listę użytkowników, może nadawać im uprawnienia, przeglądać, usuwać
+- ma listę terminali, doków, magazynów, może je przeglądać, dodawać, modyfikować i usuwać. Chodzi o to, że te obiekty są względnie stałe i zwykły użytkownik nie powinien móc zmieniać ich danych, a jedynie móc wybierać je z listy.
+
+Admin Portu
+- może przeglądać listę wszystkich aktualnie przebywających w porcie statków, zgłaszać statki do zadokowania oddokowania
+- po kliknięciu "zadokuj statek" może wybrać statek z listy, albo dodać nowy. Po wybraniu statku pojawią mu się wolne doki, które pomieszczą dany statek
+- oddokowanie oczywiście tylko poprzez wybór z listy (tak przy okazji to osobne tabele Zadokowany/Oddokowany służą tylko i wyłącznie temu, żeby zadokowanie i oddokowanie mogły być zgłoszone przez różnych użytkowników - pierwotnie miało to być jedna tabelą)
+- może przeglądać historię statków przebywających w danym okresie w porcie
+- po kliknięciu w statek może podglądać informacje o ładunkach, ktore zostały na niego załadowane/wyładowane (ostatnie, albo historia), podejrzeć szczegółowe info o nim (pola tabeli Statek)
+- system nie może zezwolić na opuszczenie portu zadokowanemu statku, który ma na pokładzie ładunek z negatywną kontrolą celną
+
+Admin Załadunków
+- admin zaladunkow może przeglądać listę statków aktualnie przebywających w porcie, dla każdego może kliknąć załadunek lub wyładunek, automatycznie zostanie przekierowany na stronę, gdzie może dodać ładunek z listy albo nowy.
+	1) Przy załadunku na statek, na liście pojawią się tylko te ładunki, które aktualnie przebywają na statkach albo w magazynach w tym samym terminalustat
+	2) Przy rozładunku, najpierw musimy zgłosić towary które są na statku. Innymi słowy, gdy statek przybywa, musimy wprowadzić ładunki, które na nim są. Po 	wprowadzeniu, jeśli ładunek nie podlega kontroli celnej mamy możliwość go od razu rozładować do jakiegoś magazynu. Ewentualnie możemy potem do niego wrócić i 	wybrać go ze stworzonej już przez nas listy
+- admin zaladunkow może przeglądać listę magazynów i dla każdego widzi aktualnie/historycznie przebywające tam ładunki.
+	1) Przy załadunku na liście pojawią się najpierw wszystkie statki i magazyny z właściwego terminala, ale można też przemieszczać ładunki z innych terminali. 	Ponadto możemy też dodać towar "z dupy" tzn zakładamy że towar przybył do magazynu "skądś" np. tirem albo pociągiem
+	2) Przy rozładunku pojawia się lista towarów na magazynie (magazyn w przeciwieństwie do statku należy do nas i zawsze wiemy co w nim jest)
+- admin zaladunkow może przeglądać listę wszystkich ładunków przebywających aktualnie w porcie i je przemieszczać także z tego widoku
+	1) Przemieszczanie ładunków z udziałem statków - patrz pierwszy myślnik
+	2) Przemieszczanie ładunków między magazynami może być także między różnymi terminalami (patrz drugi myślnik)
+
+Inspektor Celny
+- może przeglądać listę ładunków oczekujących na kontrolę celną i otwierać okno kontroli celnej
+- po przejściu w okno kontroli celnej ma następujące możliwości
+	1) może zatwierdzić i heja, wówczas zostanie automatycznie naliczona opłata celna (na podstawie tabeli Opłaty) i dodana to tabeli opłaty
+	2) może nie zatwierdzić, teraz są dwie możliwości: wstrzymaj ładunek (pozostaje on na statku, ale nie może być rozładowany) oraz konfiskata (ładunek zostaje 		rozładowany do NULL-a i dalsze jego dzieje nas nie interesują). W tym przypadku automatycznie naliczona opłata wynosi 0.
+	3) niezależnie od wyniku kontroli, celnik może naliczyć dodatkową opłatę, która zostanie doliczona do automatycznie nabitej
+
+
+Na koniec dokładnie analiza krok po kroku esencji wszystkiego co tu się ma dziać:
+- Administrator Portu zgłasza zadokowanie statku w porcie. Zauważmy, że nie mamy żadnej listy statków oczekujących na redzie ani nic z tych rzeczy. Po prostu zakładamy, że te informacje są dostępne "z zewnątrz" np od jakiegoś innego dyspozytora, z radaru etc. 
+- Na tym etapie nie mamy pojęcia co znajduje się na statku (tzn. jeśli jest to kontenerowiec to raczej nie przewozi ropy, ale nie wiemy nic ponad to). £adunek statku zostaje wprowadzony dopiero przez Administratora £adunków. W tym momencie ładunki z tego statku rozpoczynają żywot. Do tabeli Przeładunek dla każdego ładunku zostaje wprowadzony rekord Statek1=NULL, Statek2=idStatku, Mag1=NULL, Mag2=NULL. W ogólności 3 NULL-e oznaczają pierwsze pojawienie się ładunku w porcie lub ostateczne opuszczenie portu (w zależności od tego czy nie-NULL pojawia się na pozycji Statek/Magazyn 1 czy 2). Oczywiście zostaje wprowadzony też wpis do tabeli £adunek i Nadanie£adunku (czyli transakcja tu będzie).
+- Po zarejestrowaniu ładunków, Administrator £adunków może rozładować te ładunki np. do magazynu. Pojawi się wpis w tabeli Przeładunek postaci Statek1=idStatku, Statek2=NULL, Mag1=NULL, Mag2=idMagazynu
+- Teraz Administrator Portu może oddokować statek (statek oddokowany a nigdzie niezadokowany = nie przebywa już w porcie) albo przenieść go do doku postojowego lub innego doku rozładunkowego żeby rozładować resztę ładunku.
+- w końcu klient decyduje się odebrać swój kontener i podjeżdża jakimś tirem pod magazyn. W tym momencie do tabeli Przeładunek dodany zostanie rekord Statek1=NULL, Statek2=NULL, Mag1=idMagazynu, Mag2=NULL, zostanie także dodany wpis w tabeli Odbiór£adunku (transakcja). £adunek ostatecznie opuszcza port. W tym momencie jest on dostępny tylko w danych historycznych, NIE MO¯NA go już nigdy nigdzie ponownie załadować/wysłać/etc. 
+
+Właśnie, ważna uwaga, ładunku NIE DA się usunąć. Tzn. powiedzmy, że dopuszczamy usuwanie czegoś co jest postaci "trzy NULL-e" wtedy, gdy dopiero to wprowadziliśmy, ale nigdzie nie przenosiliśmy lub wtedy gdy opuściło to port X lat temu. Ale nie może być tak że sobie kasujemy archiwa. Podobnie nie możemy usunąć historii zadokowań, jeśli się pomyliliśmy możemy dać oddokowanie i w uwagach "sorry klikło mi się przez pomyłkę". Ewentualnie możemy dać możliwość Administratorowi Systemu możliwość decydowania o wspomnianych danych.
+
+
