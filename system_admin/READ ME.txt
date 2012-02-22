@@ -18,3 +18,9 @@ co do linkow (przy obsludze ich w php) to tak:
 menu=XXX - to wiadomo, wybor z menu
 action=Y
 gdzie Y = add, search lub show, oznaczaja odpowiednio obsluge dodawania, wyszukiwania po nazwie, wyszukiwania po atrybutach (takich jak dlugosc, szerokosc etc.)
+
+co do bugow, ktore zauwazylem i jeszcze nie poprawilem:
+w Firefoxie nie wyswietla sie warstwa do dodawania...
+W operze troche sie rozjechaly edity z checkboxami
+W IE to nawet gradientow nie ma... no i edity z checkboxami tez sie rozjechaly
+(pisane bylo na chromie)
