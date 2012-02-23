@@ -1,6 +1,6 @@
 dobra wiec tak, zapewne Wy bedziecie wymyslac wiekszosc zapytan a ja bede je integrowac ze strona, no ale w razie czego wyjasnie organizacje tej strony. Jak na razie jest zrobiony panel admina systemu.
 
-report bugow dla mnie mile widziany
+report bugow dla mnie mile widziany xD
 
 admin_system.php - glowna strona, ktora includuje pliki z folderow users/ships/terminals/docks/magazines w zaleznosci od tego co wybralismy w menu na gorze. W kazdym z wyzej wymienionych folderow sa 3 pliki (czwarty .txt to tak tylko testowo i tak bedziemy dane wybierali z bazy danych):
 XXX_adding.php - warstwa ktora sie wyswietla po kliknieciu dodawania userow/statkow itp.
