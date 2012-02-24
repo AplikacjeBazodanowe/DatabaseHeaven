@@ -31,7 +31,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `wysokosc` INT NOT NULL ,
 
-  `kapitan` INT NOT NULL ,
+  `kapitan` VARCHAR(255) NOT NULL ,
 
   `data_produkcji` DATE NOT NULL ,
 
@@ -76,17 +76,13 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `id_Towar` INT NOT NULL AUTO_INCREMENT ,
 
-  `czy_podlega_ocleniu` TINYINT NOT NULL ,
-
   `clo_jednostkowe` INT NOT NULL ,
   
   `jednostka` VARCHAR(45) NOT NULL ,
 
-  `typ_przechowania` VARCHAR(45) NOT NULL ,
+  `typ_przechowania` ENUM('Kontener', 'Zbiornik', 'Luzem') NOT NULL ,
 
   `wartosc_jednostkowa` INT NOT NULL ,
-
-  `id_Ladunek` INT NULL ,
 
   PRIMARY KEY (`id_Towar`));
   
@@ -104,6 +100,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `objetosc` INT NOT NULL ,
   `id_Towar` INT NOT NULL ,
+  `czy_kontrola_celna` TINYINT NOT NULL ,
   PRIMARY KEY (`id_Ladunek`),
   FOREIGN KEY (`id_Towar`) REFERENCES Towar(`id_Towar`)
   );
@@ -115,7 +112,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
-  `typ` VARCHAR(45) NULL ,
+  `typ` ENUM('Kontenerowy', 'Rudowy', 'Weglowy', 'Mas rolnych', 'Ropy naftowej', 'Przetworow naftowych', 'Innych cieklych masowcow', 'Inne') NULL ,
 
   PRIMARY KEY (`id_Terminal`) ,
 
@@ -179,7 +176,7 @@ CREATE  TABLE `databaseheaven`.`Dok` (
 
   `maks_wysokosc_statku` INT NOT NULL ,
 
-  `typ` VARCHAR(45) NOT NULL ,
+  `typ` ENUM('Kontenerowy', 'Rudowy', 'Weglowy', 'Mas rolnych', 'Ropy naftowej', 'Przetworow naftowych', 'Innych cieklych masowcow', 'Inne') NOT NULL ,
 
   `cena_za_pobyt` INT NOT NULL ,
 
@@ -254,7 +251,7 @@ CREATE  TABLE `databaseheaven`.`Oplata` (
 
   `id_oplata` INT NOT NULL AUTO_INCREMENT ,
 
-  `typ` VARCHAR(45) NOT NULL ,
+  `typ` ENUM('Celna',  'Portowa') NOT NULL ,
 
   `kwota` INT NOT NULL ,
 
