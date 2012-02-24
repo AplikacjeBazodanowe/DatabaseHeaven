@@ -1,3 +1,19 @@
+//----------------------------
+// release notes 24.02
+//----------------------------
+- obsluga blednych inputow (liczby xx,x zamieniane sa na xx.x, sprawdzanie pozniej ogolnie czy jest to liczba)
+- czerwony edit jesli wartosc jest niepoprawna
+- jesli cos jest niepoprawne to nie przejdzie dalej po nacisnieciu przycisku
+- informowanie mnie o bugach wrecz wskazane ;P
+//----------------------------
+// release notes 23.02
+//----------------------------
+- dodalem kody php do obslugi wszystkich zdarzen
+- jesli chodzi o X_adding.php, tu trzeba bedzie dodac kod php na pobranie listy terminali (w przypadku dokow i magazynow)
+- dodalem pliki X_editing.php, ktore edytuja dana rzecz, dziala to tak, ze po kliknieciu edit na liscie userow/etc za pomoca funkcji js edit_toggle( id ) ustawiana jest wartosc action formularza (a dokladnie chodzi o to, ze ustawia nam id usera przy ktorym kliknelismy edit). No i tu tez bedzie trzeba dodac kod na pobranie listy terminali (dla dokow i magazynow) 
+- X_desc_field - nic wartego uwagi, po prostu wywalilem ten tekst i dalem wzor na kod na fotke i pobranie id
+- X_left_group.php - dodalem obsluge search/show/delete/edit
+//----------------------------
 dobra wiec tak, zapewne Wy bedziecie wymyslac wiekszosc zapytan a ja bede je integrowac ze strona, no ale w razie czego wyjasnie organizacje tej strony. Jak na razie jest zrobiony panel admina systemu.
 
 report bugow dla mnie mile widziany xD
