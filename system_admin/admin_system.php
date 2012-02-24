@@ -17,7 +17,7 @@
 				<a href="?menu=docks"><input class="button baseFont menu_button" type="button" value="Docks"></a>
 				<a href="?menu=warehouses"><input class="button baseFont menu_button" type="button" value="Warehouses"></a>
 			</div>
-			<div id="adding">
+			<div id="adding" class="add_edit">
 				<?php 
 					if( !isset( $GET['menu'] ) ) {
 						if( $_GET['menu'] == "ships" ) {
@@ -33,6 +33,25 @@
 						}
 					} else {
 						include( "users/users_adding.php" );
+					}
+				?>
+			</div>
+			<div id="editing" class="add_edit">
+				<?php 
+					if( !isset( $GET['menu'] ) ) {
+						if( $_GET['menu'] == "ships" ) {
+							include( "ships/ships_editing.php" );
+						} elseif( $_GET['menu'] == "terminals" ) {
+							include( "terminals/terminals_editing.php" );
+						} elseif( $_GET['menu'] == "docks" ) {
+							include( "docks/docks_editing.php" );
+						} elseif( $_GET['menu'] == "warehouses" ) {
+							include( "warehouses/warehouses_editing.php" );
+						} else {
+							include( "users/users_editing.php" );
+						}
+					} else {
+						include( "users/users_editing.php" );
 					}
 				?>
 			</div>
