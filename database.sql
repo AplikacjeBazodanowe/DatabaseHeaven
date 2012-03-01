@@ -1,3 +1,14 @@
+CREATE DATABASE `databaseheaven`;
+
+CREATE  TABLE `databaseheaven`.`TypLadunku` (
+
+  `id_TypLadunku` INT NOT NULL AUTO_INCREMENT ,
+
+  `nazwa` VARCHAR(100) NOT NULL ,
+
+  PRIMARY KEY (`id_TypLadunku`) );
+
+
 CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `id_Kontrahent` INT NOT NULL AUTO_INCREMENT ,
@@ -8,7 +19,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `kraj` VARCHAR(255) NOT NULL ,
 
-  `typ` VARCHAR(255) NOT NULL ,
+  `typ` ENUM('Armator','Właściciel ładunku','Inny') NOT NULL ,
 
   PRIMARY KEY (`id_Kontrahent`) );
   
@@ -19,7 +30,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
-  `typ` VARCHAR(255) NOT NULL ,
+  `id_TypLadunku` INT NOT NULL ,
 
   `wypornosc` INT NOT NULL ,
 
@@ -38,7 +49,8 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Kontrahent` INT NULL ,
 
   PRIMARY KEY (`id_Statek`) ,
-  FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`) );
+  FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
+  FOREIGN KEY (`id_TypLadunku`) REFERENCES TypLadunku(`id_TypLadunku`) );
   
   
   
@@ -75,16 +87,19 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
    CREATE  TABLE `databaseheaven`.`Towar` (
 
   `id_Towar` INT NOT NULL AUTO_INCREMENT ,
+  
+  `wartosc_jednostkowa` INT NOT NULL ,
 
   `clo_jednostkowe` INT NOT NULL ,
   
-  `jednostka` VARCHAR(45) NOT NULL ,
+  `masa_jadnostkowa` INT NOT NULL ,
+  
+  `objetosc_jadnostkowa` INT NOT NULL ,
 
-  `typ_przechowania` ENUM('Kontener', 'Zbiornik', 'Luzem') NOT NULL ,
+  `id_TypLadunku` INT NOT NULL ,  
 
-  `wartosc_jednostkowa` INT NOT NULL ,
-
-  PRIMARY KEY (`id_Towar`));
+  PRIMARY KEY (`id_Towar`),
+  FOREIGN KEY (`id_TypLadunku`) REFERENCES TypLadunku(`id_TypLadunku`));
   
   
   
@@ -96,11 +111,10 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `uwagi` LONGTEXT NULL ,
 
-  `masa` INT NOT NULL ,
-
-  `objetosc` INT NOT NULL ,
   `id_Towar` INT NOT NULL ,
-  `czy_kontrola_celna` TINYINT NOT NULL ,
+  
+  `czy_kontrola_celna` BOOLEAN NOT NULL ,
+  
   PRIMARY KEY (`id_Ladunek`),
   FOREIGN KEY (`id_Towar`) REFERENCES Towar(`id_Towar`)
   );
@@ -112,9 +126,11 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
-  `typ` ENUM('Kontenerowy', 'Rudowy', 'Weglowy', 'Mas rolnych', 'Ropy naftowej', 'Przetworow naftowych', 'Innych cieklych masowcow', 'Inne') NULL ,
+  `id_TypLadunku` INT NOT NULL ,  
 
   PRIMARY KEY (`id_Terminal`) ,
+  
+  FOREIGN KEY (`id_TypLadunku`) REFERENCES TypLadunku(`id_TypLadunku`),
 
   UNIQUE INDEX `nazwa_UNIQUE` (`nazwa` ASC) );
  
@@ -129,7 +145,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `cenaZaPrzechowanie` INT NULL ,
 
-  `id_Terminal` INT NULL ,
+  `id_Terminal` INT NOT NULL ,
 
   PRIMARY KEY (`id_Magazyn`) ,
 
@@ -145,9 +161,9 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `uwagi` LONGTEXT NULL ,
 
-  `czy_aktualne_polozenie` TINYINT NOT NULL ,
+  `czy_aktualne_polozenie` BOOLEAN NOT NULL ,
 
-  `id_statek1` INT NOT NULL ,
+  `id_statek1` INT NULL ,
 
   `id_statek2` INT NULL ,
 
@@ -155,8 +171,9 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `id_magazyn2` INT NULL ,
 
-  `id_Uzytkownik` INT NULL ,
-  `id_Ladunek` INT NULL, 
+  `id_Uzytkownik` INT NOT NULL ,
+  
+  `id_Ladunek` INT NOT NULL, 
   
   PRIMARY KEY (`id_Przeladunek`), 
   FOREIGN KEY (`id_Ladunek`) REFERENCES Ladunek(`id_Ladunek`),
@@ -176,8 +193,6 @@ CREATE  TABLE `databaseheaven`.`Dok` (
 
   `maks_wysokosc_statku` INT NOT NULL ,
 
-  `typ` ENUM('Kontenerowy', 'Rudowy', 'Weglowy', 'Mas rolnych', 'Ropy naftowej', 'Przetworow naftowych', 'Innych cieklych masowcow', 'Inne') NOT NULL ,
-
   `cena_za_pobyt` INT NOT NULL ,
 
   `id_Terminal` INT NOT NULL ,
@@ -193,7 +208,7 @@ CREATE  TABLE `databaseheaven`.`Dok` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
-  `funkcja` VARCHAR(45) NOT NULL ,
+  `funkcja` ENUM('sys_admin','port_admin','cargo_admin','customs_officer') NOT NULL ,
 
   PRIMARY KEY (`id_Uzytkownik`) );
   
@@ -257,11 +272,11 @@ CREATE  TABLE `databaseheaven`.`Oplata` (
 
   `czy_oplacona` TINYINT NOT NULL ,
 
-  `data_naliczenia` DATETIME NULL ,
+  `data_naliczenia` DATETIME NOT NULL ,
 
-  `id_kontrahent` INT NULL ,
+  `id_kontrahent` INT NOT NULL ,
   
-  `id_Uzytkownik` INT NULL, 
+  `id_Uzytkownik` INT NOT NULL, 
 
   PRIMARY KEY (`id_oplata`) ,
   
@@ -279,9 +294,9 @@ CREATE  TABLE `databaseheaven`.`KontrolaCelna` (
 
   `uwagi` LONGTEXT NULL ,
 
-  `czy_pozytywna` TINYINT NOT NULL ,
+  `czy_pozytywna` BOOLEAN NOT NULL ,
 
-  `data` DATETIME NULL ,
+  `data` DATETIME NOT NULL ,
 
   `id_Uzytkownik` INT NOT NULL ,
 
