@@ -19,7 +19,7 @@
 			</div>
 			<div id="adding" class="add_edit">
 				<?php 
-					if( !isset( $GET['menu'] ) ) {
+					if( isset( $_GET['menu'] ) ) {
 						if( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_adding.php" );
 						} elseif( $_GET['menu'] == "terminals" ) {
@@ -38,7 +38,7 @@
 			</div>
 			<div id="editing" class="add_edit">
 				<?php 
-					if( !isset( $GET['menu'] ) ) {
+					if( isset( $_GET['menu'] ) ) {
 						if( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_editing.php" );
 						} elseif( $_GET['menu'] == "terminals" ) {
@@ -57,7 +57,7 @@
 			</div>
 			<div class="left_group grad grayBorders">
 				<?php 
-					if( !isset( $GET['menu'] ) ) {
+					if( isset( $_GET['menu'] ) ) {
 						if( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_left_group.php" );
 						} elseif( $_GET['menu'] == "terminals" ) {
@@ -76,7 +76,7 @@
 			</div>
 			<div class="desc grad grayBorders">
 				<?php 
-					if( !isset( $GET['menu'] ) ) {
+					if( isset( $_GET['menu'] ) ) {
 						if( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_desc_field.php" );
 						} elseif( $_GET['menu'] == "terminals" ) {
