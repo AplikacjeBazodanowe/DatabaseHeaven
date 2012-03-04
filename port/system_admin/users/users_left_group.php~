@@ -20,7 +20,7 @@
 					foreach($levels as $level)											
 						echo "<option value=\"$level\">$level</option>";
 					echo "<option value=\"%\">all</option>";					
-			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php								if( isset($_GET['user_name']) && $_GET['user_name']!='Surname') 						$name = $_GET['user_name'];
+			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php								if( isset($_GET['user_name'])) 						$name = $_GET['user_name'];
 		else 
 			$name='';							
 		if( isset($_GET['level'])) 						$level = $_GET['level'];

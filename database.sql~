@@ -209,8 +209,6 @@ CREATE TABLE `databaseheaven`.`Dok` (
   `nazwa` VARCHAR(255) NOT NULL ,
   
   `haslo` CHAR(40) NOT NULL ,
-  
-  `url_obrazka` VARCHAR(255) NULL ,
 
   `funkcja` ENUM('sys_admin','port_admin','cargo_admin','customs_officer') NOT NULL ,
 
