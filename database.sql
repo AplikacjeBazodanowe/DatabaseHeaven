@@ -207,6 +207,8 @@ CREATE  TABLE `databaseheaven`.`Dok` (
   `id_Uzytkownik` INT NOT NULL AUTO_INCREMENT ,
 
   `nazwa` VARCHAR(255) NOT NULL ,
+  
+  `haslo` CHAR(40) NOT NULL ,
 
   `funkcja` ENUM('sys_admin','port_admin','cargo_admin','customs_officer') NOT NULL ,
 
