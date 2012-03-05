@@ -1,1 +1,35 @@
-<?php	if( isset( $_GET['action'] ) ) {		if( $_GET['action'] == 'delete' ) {			$user_id = $_GET['id'];			// zapytanie na wywalenie usera		} else if( $_GET['action'] == 'edit' ) { // edycja usera			$user_id = $_GET['id'];		}	}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=search" method="post">		<input name="user_name" class="edit baseFont" type="text" value="Surname" onClick="clr( this )" onBlur="back( this )">		<input class="button baseFont" type="submit" value="Search">	</form>	<br>	<div style="float: left; line-height: 21px;">		Level:&nbsp;	</div>	<form action="admin_system.php?menu=users&action=show" method="post">		<select name="level" class="baseFont select">			<option>Debile		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'search' ) {				$surname = $_POST['user_name'];				// wyswietl userow na podstawie surname			} else if( $_GET['action'] == 'show' ) {				$level = $_POST['level'];				// wyswietl na podstawie levelu			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="admin_system.php?menu=users&id=ID"><div class="name float_left left_col align_cols link">			//		Jan Kowalski			//	</div></a>			//	<a href="admin_system.php?menu=users&action=delete&id=ID"><div class=" delete float_left right_col align_cols link">			//		Delete			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Ninja			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "users/users.txt" ); ?></div>
+<?php	
+	include_once("users_db_funs.php");	
+		if( isset( $_GET['action'] ) ) 
+	{				if( $_GET['action'] == 'delete' ) 
+		{			$user_id = $_GET['id'];			delete_user($user_id);		} 
+		elseif( $_GET['action'] == 'edit' ) 
+		{ 			$user_id = $_GET['id'];
+			$pass=sha1($_POST['password']);
+			$level=$_POST['level'];
+			$name=$_POST['name'];
+			update_user($user_id,$name,$pass,$level);		}
+		elseif($_GET['action'] == 'add') 
+		{
+			$pass=sha1($_POST['password']);
+			$level=$_POST['level'];
+			$name=$_POST['name'];
+			insert_user($name,$pass,$level);
+		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="get">		<input name="user_name" class="edit baseFont" type="text" value="Surname" onClick="clr( this )" onBlur="back( this )">					<br>		<div style="float: left; line-height: 21px;">			Level:&nbsp;		</div>		<select name="level" class="baseFont select">			<?php					
+					$levels=get_levels();
+					foreach($levels as $level)											
+						echo "<option value=\"$level\">$level</option>";
+					echo "<option value=\"%\">all</option>";					
+			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php								if( isset($_GET['user_name']) && $_GET['user_name']!='Surname') 						$name = $_GET['user_name'];
+		else 
+			$name='';							
+		if( isset($_GET['level'])) 						$level = $_GET['level'];
+		else
+			$level="%";									 
+		$users=select_users($name,$level);
+		if($users)
+			foreach($users as $user)
+			{				 			 			  	echo "<a href=\"admin_system.php?menu=users&id=$user->id\">";
+			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$user->nazwa";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=users&action=delete&id=$user->id\">";
+				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$user->funkcja</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $user->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			}			?>	</div>
