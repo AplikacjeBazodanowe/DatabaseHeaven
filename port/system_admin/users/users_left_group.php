@@ -5,13 +5,13 @@
 		{			$user_id = $_GET['id'];			delete_user($user_id);		} 
 		elseif( $_GET['action'] == 'edit' ) 
 		{ 			$user_id = $_GET['id'];
-			$pass=sha1($_POST['password']);
+			$pass=$_POST['password'];
 			$level=$_POST['level'];
 			$name=$_POST['name'];
 			update_user($user_id,$name,$pass,$level);		}
 		elseif($_GET['action'] == 'add') 
 		{
-			$pass=sha1($_POST['password']);
+			$pass=$_POST['password'];
 			$level=$_POST['level'];
 			$name=$_POST['name'];
 			insert_user($name,$pass,$level);

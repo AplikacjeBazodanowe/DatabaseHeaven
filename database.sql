@@ -4,7 +4,11 @@ CREATE TABLE `databaseheaven`.`TypLadunku` (
 
   `id_TypLadunku` INT NOT NULL AUTO_INCREMENT ,
 
-  `nazwa` VARCHAR(100) NOT NULL ,
+  `nazwaPrzechowania` VARCHAR(100) NOT NULL , /* to będzie w opisie towaru np. Kontener / Towar sypki */
+  
+  `nazwaTerminala` VARCHAR(100) NOT NULL ,  /*np. Kontenerowy / Mas rolnych */
+  
+  `nazwaStatku` VARCHAR(100) NOT NULL , /* np. Kontenerowiec / Masowiec */
 
   PRIMARY KEY (`id_TypLadunku`) );
 
@@ -137,7 +141,7 @@ CREATE TABLE `databaseheaven`.`Kontrahent` (
  
  CREATE TABLE `databaseheaven`.`Magazyn` (
 
-  `id_Magazyn` INT NOT NULL ,
+  `id_Magazyn` INT NOT NULL AUTO_INCREMENT,
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
@@ -278,7 +282,7 @@ CREATE TABLE `databaseheaven`.`Oplata` (
 
   `data_naliczenia` DATETIME NOT NULL ,
 
-  `id_kontrahent` INT NOT NULL ,
+  `id_Kontrahent` INT NOT NULL ,
   
   `id_Uzytkownik` INT NOT NULL,
 
@@ -288,7 +292,7 @@ CREATE TABLE `databaseheaven`.`Oplata` (
   
   FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`),
   
-  INDEX `id_Kontrahent` (`id_kontrahent` ASC) );
+  INDEX `id_Kontrahent` (`id_Kontrahent` ASC) );
   
   
 
