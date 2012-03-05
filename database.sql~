@@ -4,11 +4,11 @@ CREATE TABLE `databaseheaven`.`TypLadunku` (
 
   `id_TypLadunku` INT NOT NULL AUTO_INCREMENT ,
 
-  `nazwaPrzechowania` VARCHAR(100) NOT NULL , /* to będzie w opisie towaru np. Kontener / Towar sypki */
+  `nazwaPrzechowania` VARCHAR(100) NOT NULL , # to będzie w opisie towaru np. Kontener / Towar sypki
   
-  `nazwaTerminala` VARCHAR(100) NOT NULL ,  /*np. Kontenerowy / Mas rolnych */
+  `nazwaTerminala` VARCHAR(100) NOT NULL ,  # np. Kontenerowy / Mas rolnych
   
-  `nazwaStatku` VARCHAR(100) NOT NULL , /* np. Kontenerowiec / Masowiec */
+  `nazwaStatku` VARCHAR(100) NOT NULL , # np. Kontenerowiec / Masowiec
 
   PRIMARY KEY (`id_TypLadunku`) );
 
@@ -319,4 +319,5 @@ CREATE TABLE `databaseheaven`.`KontrolaCelna` (
   INDEX `id_Uzytkownik` (`id_Uzytkownik` ASC) ,
 
   INDEX `id_Ladunek` (`id_Ladunek` ASC) );
+
 
