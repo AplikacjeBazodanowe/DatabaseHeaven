@@ -15,7 +15,9 @@
 			$level=$_POST['level'];
 			$name=$_POST['name'];
 			insert_user($name,$pass,$level);
-		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="get">		<input name="user_name" class="edit baseFont" type="text" value="Surname" onClick="clr( this )" onBlur="back( this )">					<br>		<div style="float: left; line-height: 21px;">			Level:&nbsp;		</div>		<select name="level" class="baseFont select">			<?php					
+		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="get">						<br>		<div style="float: left; line-height: 21px;">
+			Surname:&nbsp;<br>			Level:		</div>
+		<input name="user_name" class="edit baseFont" type="text" placeholder="Type surname here">			<select name="level" class="baseFont select">			<?php					
 					$levels=get_levels();
 					foreach($levels as $level)											
 						echo "<option value=\"$level\">$level</option>";
