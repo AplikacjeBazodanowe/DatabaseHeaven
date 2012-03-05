@@ -11,7 +11,7 @@
 			update_user($user_id,$name,$pass,$level);		}
 		elseif($_GET['action'] == 'add') 
 		{
-			$pass=$_POST['password'];
+			$pass=sha1($_POST['password']);
 			$level=$_POST['level'];
 			$name=$_POST['name'];
 			insert_user($name,$pass,$level);

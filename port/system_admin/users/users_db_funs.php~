@@ -13,7 +13,7 @@
 		//jakaś walidacja
 		if(empty($id) || empty($name) || empty($pass) || !in_array($level,get_levels()))
 			return;
-		if(get_user_by_name($name) && get_user_by_name($name)->id_Uzytkownik != $id)
+		if(get_user_by_name($name)->id_Uzytkownik != $id)
 			return;
 		$pass=sha1($pass);		
 		$sql="UPDATE Uzytkownik 
