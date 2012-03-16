@@ -16,7 +16,6 @@
 		<div id="main">
 			<div class="menu grad grayBorders">
 				<a href="?menu=users"><input class="button baseFont menu_button" type="button" value="Users"></a>
-				<a href="?menu=ships"><input class="button baseFont menu_button" type="button" value="Ships"></a>
 				<a href="?menu=terminals"><input class="button baseFont menu_button" type="button" value="Terminals"></a>
 				<a href="?menu=docks"><input class="button baseFont menu_button" type="button" value="Docks"></a>
 				<a href="?menu=warehouses"><input class="button baseFont menu_button" type="button" value="Warehouses"></a>
