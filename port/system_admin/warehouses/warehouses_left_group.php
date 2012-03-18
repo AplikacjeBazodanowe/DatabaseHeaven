@@ -1,1 +1,32 @@
-<?php	if( isset( $_GET['action'] ) ) {		if( $_GET['action'] == 'delete' ) {			$dock_id = $_GET['id'];			// zapytanie na wywalenie magazynu		} else if( $_GET['action'] == 'edit' ) { // edycja magazynu			$dock_id = $_GET['id'];			// $terminal = $_POST['terminal']; tu w zaleznosci jakiego checkboxa zaznaczylismy to to edytujemy			// najlepiej po prostu odpowiednio doklejac do zapytania warunki		}	}?><div>	<input class="button baseFont add" type="button" value="Add warehouse" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:<br>		Terminal:<br>		Capacity:<br>		Fee:	</div>	<form action="admin_system.php?menu=warehouses&action=show" method="post">		<div style="margin-left: 69px;">			<input name="warehouse_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="terminal" class="baseFont select">				<option>Terminal			</select>			<br>			<input name="from_capacity" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_capacity" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="capcity_check" type="checkbox" onClick="on_off_edit('capacity')">			<input name="from_fee" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_fee" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="fee_check" type="checkbox" onClick="on_off_edit('fee')">		</div>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="warehouses_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'show' ) {				// $terminal = $_POST['terminal']; tu w zaleznosci jakiego checkboxa zaznaczylismy to wzgledem tego wyswietlamy				// najlepiej po prostu odpowiednio doklejac do zapytania warunki			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="admin_system.php?menu=warehouses&id=ID"><div class="name float_left left_col align_cols link">			//		Jan Kowalski			//	</div></a>			//	<a href="admin_system.php?menu=warehouses&action=delete&id=ID"><div class=" delete float_left right_col align_cols link">			//		Delete			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Ninja			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "warehouses/users.txt" ); ?></div>
+<?php
+	include_once("warehouses_db_funs.php");	
+		if( isset( $_GET['action'] ) ) 
+	{		if( $_GET['action'] == 'delete' ) 
+		{			$warehouse_id = $_GET['id'];			delete_warehouse($warehouse_id);		} 
+		else if( $_GET['action'] == 'edit' ) 
+		{ // edycja magazynu			$warehouse_id = $_GET['id'];			$name = $_POST['name'];
+			$capacity = $_POST['capacity']; 			 
+			$fee = $_POST['fee'];					update_warehouse($warehouse_id,$name,$capacity, $fee);		}
+		elseif($_GET['action'] == 'add') 
+		{
+			$name = $_POST['name'];
+			$capacity = $_POST['capacity']; 			 
+			$fee = $_POST['fee'];
+			$term_id = $_POST['terminal'];			insert_warehouse($term_id,$name,$capacity, $fee);
+		}	}?><div>	<input class="button baseFont add" type="button" value="Add warehouse" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:<br>		Terminal:			</div>	<form action="admin_system.php?menu=warehouses&action=show" method="post">		<div style="margin-left: 69px;">			<input name="warehouse_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="terminal_filter" class="baseFont select">				<option value="">All</option>				<?php					
+					$terminals=select_terminals();
+					foreach($terminals as $terminal)											
+						echo "<option value=\"$terminal->id\">$terminal->name</option>";					
+				?>			</select>			<br>		</div>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="warehouses_list overf">	<?php
+		if( isset($_POST['warehouse_name']) && $_POST['warehouse_name']!='Type name here') 						$name = $_POST['warehouse_name'];
+		else 
+			$name='';		if( isset($_POST['terminal_filter']) ) 						$terminal = $_POST['terminal_filter'];
+		else 
+			$terminal='';																		 
+		$warehouses=select_warehouses($terminal, $name);
+		if($warehouses)
+			foreach($warehouses as $warehouse)
+			{				 			 			  	echo "<a href=\"admin_system.php?menu=warehouses&id=$warehouse->id\">";
+			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$warehouse->name";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=warehouses&action=delete&id=$warehouse->id\">";
+				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Terminal: $warehouse->term_name</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $warehouse->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			}	?>	</div>

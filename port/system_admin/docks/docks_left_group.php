@@ -1,6 +1,8 @@
-<?php	if( isset( $_GET['action'] ) ) 
+<?php
+	include_once("docks_db_funs.php");
+	if( isset( $_GET['action'] ) ) 
 	{		if( $_GET['action'] == 'delete' ) 
-		{			$dock_id = $_GET['id'];			delete_terminal($dock_id);		} 
+		{			$dock_id = $_GET['id'];			delete_dock($dock_id);		} 
 		else if( $_GET['action'] == 'edit' ) 
 		{ // edycja doku			$dock_id = $_GET['id'];			$max_width = $_POST['width']; 
 			$max_length = $_POST['length'];
