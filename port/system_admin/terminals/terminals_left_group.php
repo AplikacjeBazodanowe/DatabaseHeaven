@@ -1,1 +1,32 @@
-<?php	if( isset( $_GET['action'] ) ) {		if( $_GET['action'] == 'delete' ) {			$terminal_id = $_GET['id'];			// zapytanie na wywalenie terminalu		} else if( $_GET['action'] == 'edit' ) { // edycja terminalu			$terminal_id = $_GET['id'];		}	}?><div>	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:&nbsp;<br>		Type:	</div>	<form action="admin_system.php?menu=terminals&action=show" method="post">		<input name="terminal_name" class="edit baseFont" type="edit" placeholder="Type name here">		<select name="type" class="baseFont select">			<option>type 1		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="terminals_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'show' ) {				// atrybuty ida przez posta			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="admin_system.php?menu=terminals&id=ID"><div class="name float_left left_col align_cols link">			//		Jan Kowalski			//	</div></a>			//	<a href="admin_system.php?menu=terminals&action=delete&id=ID"><div class=" delete float_left right_col align_cols link">			//		Delete			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Ninja			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "terminals/users.txt" ); ?></div>
+<?php
+	include_once("terminals_db_funs.php");
+		if( isset( $_GET['action'] ) ) 
+	{		if( $_GET['action'] == 'delete' ) 
+		{			$terminal_id = $_GET['id'];			delete_terminal($terminal_id);		} 
+		else if( $_GET['action'] == 'edit' ) 
+		{ 			$terminal_id = $_GET['id'];
+			$name=$_POST['name'];
+			$typeId=$_POST['type'];
+			update_terminal($terminal_id,$name,$typeId);		}
+		elseif($_GET['action'] == 'add') 
+		{
+			$name=$_POST['name'];
+			$typeId=$_POST['type'];
+			insert_terminal($name,$typeId);
+		}	}?><div>	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:&nbsp;<br>		Type:	</div>	<form action="admin_system.php?menu=terminals&action=show" method="post">		<input name="terminal_name" class="edit baseFont" type="edit" placeholder="Type name here">		<select name="type" class="baseFont select">			<?php					
+					$types=get_types();
+					foreach($types as $type)											
+						echo "<option value=\"$type->id\">$type->name</option>";					
+			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="terminals_list overf">	<?php		if( isset($_POST['terminal_name']) && $_POST['terminal_name']!='Type name here') 						$name = $_POST['terminal_name'];
+		else 
+			$name='';							
+		if( isset($_POST['type'])) 						$type = $_POST['type'];
+		else
+			$type='';									 
+		$terminals=select_terminals($name,$type);
+		if($terminals)
+			foreach($terminals as $terminal)
+			{				 			 			  	echo "<a href=\"admin_system.php?menu=terminals&id=$terminal->id\">";
+			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$terminal->name";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=terminals&action=delete&id=$terminal->id\">";
+				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$terminal->type</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $terminal->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			}	?>	</div>

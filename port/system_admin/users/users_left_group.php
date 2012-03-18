@@ -15,17 +15,17 @@
 			$level=$_POST['level'];
 			$name=$_POST['name'];
 			insert_user($name,$pass,$level);
-		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="get">						<br>		<div style="float: left; line-height: 21px;">
+		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="post">						<br>		<div style="float: left; line-height: 21px;">
 			Surname:&nbsp;<br>			Level:		</div>
 		<input name="user_name" class="edit baseFont" type="text" placeholder="Type surname here">			<select name="level" class="baseFont select">			<?php					
 					$levels=get_levels();
 					foreach($levels as $level)											
 						echo "<option value=\"$level\">$level</option>";
 					echo "<option value=\"%\">all</option>";					
-			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php								if( isset($_GET['user_name']) && $_GET['user_name']!='Surname') 						$name = $_GET['user_name'];
+			?>		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="users_list overf">	<?php								if( isset($_POST['user_name']) && $_POST['user_name']!='Surname') 						$name = $_POST['user_name'];
 		else 
 			$name='';							
-		if( isset($_GET['level'])) 						$level = $_GET['level'];
+		if( isset($_POST['level'])) 						$level = $_POST['level'];
 		else
 			$level="%";									 
 		$users=select_users($name,$level);

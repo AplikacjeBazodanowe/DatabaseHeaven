@@ -13,7 +13,7 @@
 	}
 	else 
 	{
-		echo "<h1>Debil</h1>";
-		echo "<p>Coś zjebałeś pierdolcu, hahaha.</p>";
-		echo "<p>Ale tak serio to coś tu mozna wrzucić</p>";
+		echo "<h1>Users</h1>";
+		echo "<p>This is the Users menu.</p>";
+		echo "<p>Select an user from the list to view their details</p>";
 	}	?>
