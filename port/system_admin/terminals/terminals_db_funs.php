@@ -22,6 +22,8 @@
 		if(empty($name) || !$goodType)
 			return;
 		if(get_terminal_by_name($name) && get_terminal_by_name($name)->id_Terminal != $id)
+			return;
+		if(!get_terminal_by_id($id))
 			return;		
 		$sql="UPDATE Terminal 
 				SET nazwa='$name', id_TypLadunku=$typeId 
@@ -47,7 +49,7 @@
 		DB::query($sql);	
 	}
 	
-	function select_terminals($name, $typeId)
+	function select_terminals($name='', $typeId='')
 	{
 		if(!empty($typeId))
 			$sql="SELECT id_Terminal AS id, nazwa AS name, nazwaTerminala AS type 

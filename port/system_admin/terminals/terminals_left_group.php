@@ -13,7 +13,8 @@
 			$name=$_POST['name'];
 			$typeId=$_POST['type'];
 			insert_terminal($name,$typeId);
-		}	}?><div>	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:&nbsp;<br>		Type:	</div>	<form action="admin_system.php?menu=terminals&action=show" method="post">		<input name="terminal_name" class="edit baseFont" type="edit" placeholder="Type name here">		<select name="type" class="baseFont select">			<?php					
+		}	}?><div>	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:&nbsp;<br>		Type:	</div>	<form action="admin_system.php?menu=terminals&action=show" method="post">		<input name="terminal_name" class="edit baseFont" type="edit" placeholder="Type name here">		<select name="type" class="baseFont select">
+			<option value="">All</option>			<?php					
 					$types=get_types();
 					foreach($types as $type)											
 						echo "<option value=\"$type->id\">$type->name</option>";					
