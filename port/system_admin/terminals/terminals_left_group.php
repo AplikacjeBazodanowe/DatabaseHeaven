@@ -29,5 +29,5 @@
 			foreach($terminals as $terminal)
 			{				 			 			  	echo "<a href=\"admin_system.php?menu=terminals&id=$terminal->id\">";
 			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$terminal->name";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=terminals&action=delete&id=$terminal->id\">";
-				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$terminal->type</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $terminal->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$terminal->type</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $terminal->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
 			}	?>	</div>

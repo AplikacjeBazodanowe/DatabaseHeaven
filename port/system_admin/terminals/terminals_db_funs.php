@@ -26,7 +26,7 @@
 		if(!get_terminal_by_id($id))
 			return;		
 		$sql="UPDATE Terminal 
-				SET nazwa='$name', id_TypLadunku=$typeId 
+				SET nazwa='$name', id_Typ_Ladunku=$typeId 
 				WHERE id_Terminal=$id";
 		DB::query($sql);
 	}
@@ -52,12 +52,12 @@
 	function select_terminals($name='', $typeId='')
 	{
 		if(!empty($typeId))
-			$sql="SELECT id_Terminal AS id, nazwa AS name, nazwaTerminala AS type 
-					FROM Terminal NATURAL JOIN TypLadunku 
-					WHERE nazwa LIKE '%$name%' AND id_TypLadunku = $typeId";
+			$sql="SELECT id_Terminal AS id, nazwa AS name, typ_Terminala AS type 
+					FROM Terminal NATURAL JOIN Typ_Ladunku 
+					WHERE nazwa LIKE '%$name%' AND id_Typ_Ladunku = $typeId";
 		else
-			$sql="SELECT id_Terminal AS id, nazwa AS name, nazwaTerminala AS type
-					FROM Terminal NATURAL JOIN TypLadunku 
+			$sql="SELECT id_Terminal AS id, nazwa AS name, typ_Terminala AS type
+					FROM Terminal NATURAL JOIN Typ_Ladunku 
 					WHERE nazwa LIKE '%$name%'";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
@@ -70,8 +70,8 @@
 	
 	function get_terminal_by_id($id)
 	{
-		$sql="SELECT id_Terminal AS id, nazwa AS name, nazwaTerminala AS type 
-				FROM Terminal NATURAL JOIN TypLadunku 
+		$sql="SELECT id_Terminal AS id, nazwa AS name, typ_Terminala AS type 
+				FROM Terminal NATURAL JOIN Typ_Ladunku 
 				WHERE id_Terminal = $id";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
@@ -95,8 +95,8 @@
 	//pobieramy wartości, które może przyjmować typ terminala
 	function get_types()
 	{
-		$sql="SELECT id_TypLadunku AS id, nazwaTerminala AS name 
-				FROM  TypLadunku ";
+		$sql="SELECT id_Typ_Ladunku AS id, typ_Terminala AS name 
+				FROM  Typ_Ladunku ";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)

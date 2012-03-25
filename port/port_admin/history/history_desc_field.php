@@ -1,1 +1,36 @@
-<?php	if( isset( $_GET['id'] ) ) {		echo '<table class="stuff_info">		<tr>			<td class="stuff_no" colspan="2">				Ship details			</td></tr><tr><td width="50%">				Name			</td><td>				aaa			</td></tr><tr><td>				Type			</td><td>				bbb			</td></tr><tr><td>				Displacement			</td><td>				ccc			</td></tr><tr><td>				Capacity			</td><td>				ddd			</td></tr><tr><td>				Length			</td><td>				eee			</td></tr><tr><td>				Width			</td><td>				fff			</td></tr><tr><td>				Height			</td><td>				ggg			</td></tr><tr><td>				Dock date			</td><td>				hhh			</td></tr><tr><td>				Undock date</td><td>				iii			</td></tr><tr><td>				Docket at			</td><td>				jjj (in terminal: kkk);			</td>		</tr>		</table>		<br>		<h3>History of cargo:</h3>		<br>		<table class="stuff_info">		<tr>			<td class="stuff_no" colspan="2">				nr ladunku albo cos			</td>		</tr>		<tr>			<td>				data zaladowania			</td>			<td >				data wyladowania			</td>		</tr>		<tr>			<td>				nazwa towaru			</td>			<td>				szczegoly towaru			</td>		</tr>		<tr>			<td colspan="2">				uwagi			</td>		</tr>		</table>';	}?>
+<?php
+	$root=$_SERVER['DOCUMENT_ROOT'];		
+	include_once($root."/port_admin/ships/ships_db_funs.php");	
+				if( isset( $_GET['id'] ) ) 
+	{
+		$docked_id = $_GET['id'];		
+		$ship = get_history_ship_by_id($docked_id);		
+		if($ship==NULL)
+			return;
+		$ship_id=$ship->id;
+		$owner = get_ship_owner($ship_id);
+		$cargo = get_ship_cargo($ship_id, true);		if( !isset( $_GET['action'] ) ) 
+		{						 echo "<table class=\"stuff_info\">					<tr>						<td class=\"stuff_no\" colspan=\"2\">							Ship details						</td></tr><tr><td width=\"50%\">							Name						</td><td >							$ship->name						</td></tr><tr><td>							Type						</td><td>							$ship->type						</td></tr><tr><td>							Displacement						</td><td>							$ship->displacement						</td></tr><tr><td>							Capacity (Mass)						</td><td>							$ship->capMass						</td></tr><tr><td>							Capacity (Volume)						</td><td>							$ship->capVol						</td></tr><tr><td>							Length						</td><td>							$ship->length
+						</td></tr><tr><td>							Width						</td><td>							$ship->width						</td></tr><tr><td>							Height						</td><td>							$ship->height
+						</td></tr><tr><td>							Captain						</td><td>							$ship->captain
+						</td></tr><tr><td>							Date of production						</td><td>							$ship->production_date						</td></tr><tr><td>							Dock date						</td><td>							$ship->dock_date						
+						</td></tr><tr><td>							Docked by						</td><td>
+							$ship->docked_by						</td></tr><tr><td>							Undock date						</td><td>							$ship->undock_date						
+						</td></tr><tr><td>							Undocked by						</td><td>
+							$ship->undocked_by						</td>											</tr>					</table><br>";						echo '<a href="?menu=ships&action=undocking&id=' . $ship_id . '"><input class="button baseFont add" type="button" value="Undock the ship"></a>';
+			echo '<a href="ships/ships_dock.php?action=search&step=2&ship_name=' . $ship->name . '"><input class="button baseFont add" type="button" value="Move the ship"></a>';								echo '<br><h2>Cargo on board:</h2>';				  									if($cargo==NULL)
+				return;
+			foreach($cargo as $cargo_item)			
+			{								echo "<br><div style=\"text-align: center\">					  <table class=\"stuff_info\">					  <tr>						  <td class=\"stuff_no\" colspan=\"2\">							  Cargo ID: $cargo_item->id						  </td>					  </tr>
+					  <tr>						  <td colspan=\"2\">							  $cargo_item->name						  </td>					  </tr>					  <tr>						  <td>							  Load date: $cargo_item->date						  </td>						  <td >							  Loaded by: $cargo_item->loaded_by						  </td>					  </tr>					  <tr>						  <td>							  Type: $cargo_item->type						  </td>						  <td>							  Amount: $cargo_item->amount						  </td>					  </tr>
+					  <tr>						  <td>							  Mass: $cargo_item->mass						  </td>						  <td>							  Volume: $cargo_item->volume						  </td>					  </tr>
+					  <tr>						  <td>							  Owner: $cargo_item->owner						  </td>						  <td>							  Value: $cargo_item->value						  </td>					  </tr>					  <tr>						  <td colspan=\"2\">							  Remarks: $cargo_item->remarks						  </td>					  </tr>					  </table></div>";
+		  		}				  				} 			}
+	else 
+	{
+		echo "<h1>History</h1>";
+		echo "<p>This is the History menu.</p>";
+		echo "<p>You can browse the history of docked ships using the list on the left. Select
+				a ship to view its details and history of its cargo. To view currently docked ships
+				use the \"Docked ships\" menu</p>";
+	}?>
