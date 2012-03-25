@@ -1,36 +1,18 @@
 
 /* Usuwanie bazy danych */
-DROP TABLE IF EXISTS `databaseheaven`.`Kontrola_Celna`;
-DROP TABLE IF EXISTS `databaseheaven`.`Oddokowany`;
-DROP TABLE IF EXISTS `databaseheaven`.`Przeladunek`;
-DROP TABLE IF EXISTS `databaseheaven`.`Oplata`;
-DROP TABLE IF EXISTS `databaseheaven`.`zadokowany`;
-DROP TABLE IF EXISTS `databaseheaven`.`Dok`;
-DROP TABLE IF EXISTS `databaseheaven`.`Magazyn`;
-DROP TABLE IF EXISTS `databaseheaven`.`Odbior_Ladunku`;
-DROP TABLE IF EXISTS `databaseheaven`.`Nadanie_Ladunku`;
-DROP TABLE IF EXISTS `databaseheaven`.`Ladunek`;
-DROP TABLE IF EXISTS `databaseheaven`.`Towar`;
-DROP TABLE IF EXISTS `databaseheaven`.`Statek`;
-DROP TABLE IF EXISTS `databaseheaven`.`Terminal`;
-DROP TABLE IF EXISTS `databaseheaven`.`Typ_Ladunku`;
-DROP TABLE IF EXISTS `databaseheaven`.`Kontrahent`;
-DROP TABLE IF EXISTS `databaseheaven`.`Uzytkownik`;
-DROP TABLE IF EXISTS `databaseheaven`.`Bledy_Operacji`;
-DROP TABLE IF EXISTS `databaseheaven`.`Kody_Bledow`;
+DROP DATABASE IF EXISTS `databaseheaven`;
+CREATE DATABASE `databaseheaven`;
 
 
 CREATE  TABLE `databaseheaven`.`Uzytkownik` (
 
-  `id_uzytkownik` INT  NULL AUTO_INCREMENT ,
+  `id_Uzytkownik` INT  NULL AUTO_INCREMENT ,
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
   `funkcja` ENUM('Admin portu', 'Admin ladunkow', 'Admin systemu', 'Inspektor celny', 'Inny') NOT NULL,
   
   `haslo` VARCHAR(255) NOT NULL,
-  
-  `sha1_Haslo` VARCHAR(255) NOT NULL,
   
   `url_Obrazka` VARCHAR(255) NOT NULL,
   
@@ -80,11 +62,11 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
   
-  `id_typ_ladunku` INT NOT NULL,
+  `id_Typ_Ladunku` INT NOT NULL,
 
   PRIMARY KEY (`id_Terminal`) ,
   
-  FOREIGN KEY (`id_typ_ladunku`) REFERENCES Typ_Ladunku(`id_Typ_Ladunku`) ON DELETE CASCADE,
+  FOREIGN KEY (`id_Typ_Ladunku`) REFERENCES Typ_Ladunku(`id_Typ_Ladunku`) ON DELETE CASCADE,
 
   UNIQUE INDEX `nazwa_terminala_UNIQUE` (`nazwa` ASC) )  ENGINE=InnoDB;
   
@@ -250,7 +232,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `uwagi` LONGTEXT NULL ,
   
-  `id_uzytkownik` INT  NULL, 
+  `id_Uzytkownik` INT  NULL, 
     
   `id_Dok` INT NOT NULL,
   
@@ -268,7 +250,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   
   CREATE  TABLE `databaseheaven`.`Oplata` (
 
-  `id_oplata` INT NOT NULL AUTO_INCREMENT ,
+  `id_Oplata` INT NOT NULL AUTO_INCREMENT ,
 
   `typ` ENUM('Celna',  'Portowa') NOT NULL ,
 
@@ -278,17 +260,17 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `data_naliczenia` DATETIME NULL ,
 
-  `id_kontrahent` INT NULL ,
+  `id_Kontrahent` INT NULL ,
   
   `id_Uzytkownik` INT NULL, 
 
-  PRIMARY KEY (`id_oplata`) ,
+  PRIMARY KEY (`id_Oplata`) ,
   
   FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
   
   FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`),
   
-  INDEX `id_Kontrahent` (`id_kontrahent` ASC) )  ENGINE=InnoDB;
+  INDEX `id_Kontrahent` (`id_Kontrahent` ASC) )  ENGINE=InnoDB;
   
     
   
@@ -302,13 +284,13 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `czy_aktualne_polozenie` TINYINT NOT NULL ,
   
-  `id_statek1` INT NULL  DEFAULT NULL,
+  `id_Statek1` INT NULL  DEFAULT NULL,
 
-  `id_statek2` INT NULL DEFAULT NULL,
+  `id_Statek2` INT NULL DEFAULT NULL,
 
-  `id_magazyn1` INT NULL DEFAULT NULL,
+  `id_Magazyn1` INT NULL DEFAULT NULL,
 
-  `id_magazyn2` INT NULL DEFAULT NULL,
+  `id_Magazyn2` INT NULL DEFAULT NULL,
 
   `id_Uzytkownik` INT NULL ,
   
@@ -340,16 +322,12 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `id_Zadokowany` INT NOT NULL ,
 
-  `id_uzytkownik` INT  NULL,
+  `id_Uzytkownik` INT  NULL,
   
-  `id_Statek` INT NOT NULL, 
-
   PRIMARY KEY (`id_Oddokowany`), 
   
   FOREIGN KEY (`id_Zadokowany`) REFERENCES Zadokowany(`id_Zadokowany`),
   
-  FOREIGN KEY (`id_Statek`) REFERENCES Statek(`id_Statek`),
-    
   FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`) )  ENGINE=InnoDB;
   
 
@@ -363,7 +341,7 @@ CREATE  TABLE `databaseheaven`.`Kontrola_Celna` (
 
   `data` DATETIME NULL ,
 
-  `id_uzytkownik` INT  NULL ,
+  `id_Uzytkownik` INT  NULL ,
 
   `id_Ladunek` INT NOT NULL ,
 
@@ -395,11 +373,11 @@ CREATE  TABLE `databaseheaven`.`Bledy_Operacji` (
 
   `id_Bledy_Operacji` INT NOT NULL AUTO_INCREMENT,
 
-  `id_kod_bledu` INT NULL ,
+  `id_Kod_Bledu` INT NULL ,
 
   PRIMARY KEY (`id_Bledy_Operacji`),
   
-  FOREIGN KEY (`id_Kod_Bledu`) REFERENCES Kody_Bledow(`id_kod_bledu`)
+  FOREIGN KEY (`id_Kod_Bledu`) REFERENCES Kody_Bledow(`id_Kod_Bledu`)
   )  ENGINE=InnoDB;
 
 

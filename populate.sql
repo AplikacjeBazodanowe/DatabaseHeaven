@@ -1,3 +1,4 @@
+USE databaseheaven;
 /* Populacja bazy danych */
 
 INSERT INTO Kody_Bledow(kod_bledu, opis) 
@@ -32,16 +33,16 @@ INSERT INTO Kody_Bledow(kod_bledu, opis)
 
 
 
-INSERT INTO Uzytkownik(nazwa, funkcja, haslo, sha1_Haslo, url_Obrazka)
-    VALUES('Zygfryd Cietoglowy', 'Admin portu', 'dupa.8', '123123213213',
+INSERT INTO Uzytkownik(nazwa, funkcja, haslo, url_Obrazka)
+    VALUES('Zygfryd Cietoglowy', 'Admin portu', '123123213213',
     'http://c.wrzuta.pl/wi19796/b6060a09002c38ea4cfd424e/mega_face_palm');
     
-INSERT INTO Uzytkownik(nazwa, funkcja, haslo, sha1_Haslo, url_Obrazka)
-    VALUES('Jurand Spychowicz', 'Admin ladunkow', 'dupa.9', '112666623213213',
+INSERT INTO Uzytkownik(nazwa, funkcja, haslo, url_Obrazka)
+    VALUES('Jurand Spychowicz', 'Admin ladunkow',  '112666623213213',
     'http://www.nowaautorska.com/files/Jurand_1123.jpg');
     
-INSERT INTO Uzytkownik(nazwa, funkcja, haslo, sha1_Haslo, url_Obrazka)
-    VALUES('Johny Cash', 'Inspektor Celny', 'dupa.10', '112666623219999',
+INSERT INTO Uzytkownik(nazwa, funkcja, haslo, url_Obrazka)
+    VALUES('Johny Cash', 'Inspektor Celny', '112666623219999',
     'http://www.ted.com');
 
 /* CREATE USER 'admin2'@'localhost' IDENTIFIED BY PASSWORD 'hash z hasla'; */
