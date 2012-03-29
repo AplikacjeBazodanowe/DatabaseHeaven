@@ -14,6 +14,7 @@
 				<a href="?menu=ships"><input class="button baseFont menu_button" type="button" value="Docked ships"></a>
 				<a href="?menu=warehouses"><input class="button baseFont menu_button" type="button" value="Warehouses"></a>
 				<a href="?menu=contractors"><input class="button baseFont menu_button" type="button" value="Contractors"></a>
+				<a href="?menu=cargo"><input class="button baseFont menu_button" type="button" value="Cargo"></a>
 			</div>
 			<div id="adding" class="add_edit">
 				<?php 
@@ -40,8 +41,10 @@
 							include( "warehouses/warehouses_left_group.php" );
 						} elseif( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_left_group.php" );
-						} else {
+						} elseif( $_GET['menu'] == "contractors" ) {
 							include( "contractors/contractors_left_group.php" );
+						} else {
+							include( "cargo/cargo_left_group.php" );
 						}
 					} else {
 						include( "ships/ships_left_group.php" );
@@ -55,8 +58,10 @@
 							include( "warehouses/warehouses_desc_field.php" );
 						} elseif( $_GET['menu'] == "ships" ) {
 							include( "ships/ships_desc_field.php" );
-						} else {
+						} elseif( $_GET['menu'] == "contractors" ) {
 							include( "contractors/contractors_desc_field.php" );
+						} else {
+							include( "cargo/cargo_desc_field.php" );
 						}
 					} else {
 						include( "ships/ships_desc_field.php" );
