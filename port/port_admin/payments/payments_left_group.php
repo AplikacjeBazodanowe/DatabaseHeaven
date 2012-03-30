@@ -1,11 +1,18 @@
 <?php
 	include_once("payments_db_funs.php");
-	if( isset( $_GET['action'] ) && isset($_GET['id'])) 
-	{		if( $_GET['action'] == 'delete' ) 
-		{			$payment_id = $_GET['id'];			delete_payment($payment_id);		} 
-		else if( $_GET['action'] == 'edit' ) 
-		{ // edycja oplaty			$payment_id = $_GET['id'];
-			$value= $_POST['value'];			modify_payment($payment_id, $value);					}	}
+	if( isset( $_GET['action'] )) 
+	{
+		if(isset($_GET['id']))
+		{					if( $_GET['action'] == 'delete' ) 
+			{				$payment_id = $_GET['id'];				delete_payment($payment_id);			} 		
+			else if( $_GET['action'] == 'edit' ) 
+			{ // edycja oplaty				$payment_id = $_GET['id'];
+				$value= $_POST['value'];				modify_payment($payment_id, $value);						}
+		}				
+		else 
+			if( $_GET['action'] == 'add' ) 
+			{				$contractor_id = $_POST['contractor'];
+				$value = $_POST['value'];												add_payment($contractor_id, $value);			}		}
 	if( isset( $_GET['status'] ) )
 	{
 		$payment_id = $_GET['id'];
@@ -40,7 +47,7 @@
 		$payments=select_payments($contractor, $valueMin, $valueMax, $dateMin, $dateMax, $paid, $type);
 		if($payments)
 			foreach($payments as $payment)
-			{				 			 			  	echo "<a href=\"port.php?menu=payments&id=$payment->id\">";
+			{										  	echo "<a href=\"port.php?menu=payments&id=$payment->id\">";
 			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$payment->contractor";				echo "</div></a>";				echo	"<a href=\"port.php?menu=payments&action=delete&id=$payment->id\">";
 				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$payment->value $</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $payment->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
 			}		?>	</div>

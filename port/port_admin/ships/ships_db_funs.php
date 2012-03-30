@@ -3,7 +3,16 @@
 	include_once($root."/DB.php");
 	//potrzebne bo używamy select_terminals w GUI
 	include_once($root."/system_admin/terminals/terminals_db_funs.php");
-	include_once($root."/system_admin/docks/docks_db_funs.php");
+	include_once($root."/system_admin/docks/docks_db_funs.php");	
+	
+	function register_ship($name,$displacement,$capMass,$capVol,
+								$length,$width,$height,$captain,$prodDate,$ownerId,$typeId)
+	{
+			$sql = "INSERT INTO Statek VALUES
+						(NULL,'$name',$displacement,$capMass,$capVol,
+						$length,$width,$height,'$captain','$prodDate',$ownerId,$typeId)";
+			DB::query($sql); 
+	}	
 	
 	function undock_ship($ship_id)
 	{				
@@ -48,6 +57,22 @@
 		DB::query($sql);	
 	}
 	
+	
+	function select_all_ships($name='')
+	{		
+		$sql="SELECT id_Statek AS id, 
+						nazwa AS name						 
+				FROM Statek 								
+				WHERE nazwa LIKE '%$name%' ";		
+		$result=DB::query($sql);		
+      $count=$result->num_rows;
+      if($count==0)
+          return NULL;
+      for($i=0; $i<$count;$i++)      
+          $ships[$i]=$result->fetch_object();                          
+      return $ships;
+	}	
+	
 	function select_history_ships($name='',$typeId='',$termId='', 
 										$dockdateMin='', $dockdateMax='',
 										$undockdateMin='',$undockdateMax='')
@@ -63,14 +88,14 @@
 			$sql.="AND id_Typ_Ladunku = $typeId ";
 		if(!empty($termId)) 
 			$sql.="AND id_Terminal = $termId ";
-		if(!empty($capacityVolMin)) 
-			$sql.="AND Zadokowany.data >= $dockdateMin ";
-		if(!empty($capacityVolMax)) 
-			$sql.="AND Zadokowany.data <= $dockdateMax ";
-		if(!empty($capacityMassMin)) 
-			$sql.="AND Oddokowany.data >= $undockdateMin ";
-		if(!empty($capacityMassMax)) 
-			$sql.="AND Oddokowany.data <= $undockdateMax ";
+		if(!empty($dockdateMin)) 
+			$sql.="AND Zadokowany.data >= '$dockdateMin' ";
+		if(!empty($dockdateMax)) 
+			$sql.="AND Zadokowany.data <= '$dockdateMax' ";
+		if(!empty($undockdateMin)) 
+			$sql.="AND Oddokowany.data >= '$undockdateMin' ";
+		if(!empty($undockdateMax)) 
+			$sql.="AND Oddokowany.data <= '$undockdateMax' ";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)
@@ -122,7 +147,25 @@
       for($i=0; $i<$count;$i++)      
           $ships[$i]=$result->fetch_object();                          
       return $ships;
-	}
+	}						
+	
+	function get_ship_by_id($id)
+	{		
+		$sql="SELECT id_Statek AS id,
+						id_Typ_Ladunku AS type, 
+						nazwa AS name,
+						dlugosc AS length,
+						szerokosc AS width,
+						wysokosc AS height																		 
+				FROM Statek 								
+				WHERE id_Statek=$id ";		
+		$result=DB::query($sql);		
+      $count=$result->num_rows;
+      if($count==0)
+          return NULL;
+      else 
+      	return $result->fetch_object();
+	}	
 	
 	function get_docked_ship_by_id($id)
 	{
@@ -241,5 +284,42 @@
       for($i=0; $i<$count;$i++)      
           $types[$i]=$result->fetch_object();                          
       return $types;
+	}
+	
+	//pobiera doki, które są wolne i pomieszczą dany statek
+	function get_valid_docks($ship_id, $terminal_id) 
+	{
+		$ship = get_ship_by_id($ship_id);
+		$sql="SELECT id_Dok AS id 
+				FROM  Dok d1
+					INNER JOIN Terminal USING(id_Terminal)					
+				WHERE id_Terminal=$terminal_id 
+				AND maks_szerokosc_statku>= $ship->width 
+				AND maks_dlugosc_statku>= $ship->length 
+				AND maks_wysokosc_statku>= $ship->height 
+				AND NOT EXISTS
+				(SELECT id_Zadokowany 
+				FROM Zadokowany LEFT OUTER JOIN Oddokowany USING (id_Zadokowany)
+									 RIGHT OUTER JOIN Dok d2 USING (id_Dok)
+				WHERE id_Zadokowany IS NOT NULL AND id_Oddokowany IS NULL AND d1.id_Dok=d2.id_Dok)";
+		$result=DB::query($sql);
+		$count=$result->num_rows;
+		if($count==0)
+          return NULL;
+      for($i=0; $i<$count;$i++)      
+          $docks[$i]=$result->fetch_object();                          
+      return $docks;
+	}
+	
+	function get_ship_owners()
+	{
+		$sql="SELECT id_Kontrahent AS id, nazwa AS name FROM Kontrahent WHERE typ='Armator'";
+		$result=DB::query($sql);		
+      $count=$result->num_rows;
+      if($count==0)
+          return NULL;
+      for($i=0; $i<$count;$i++)      
+          $contractors[$i]=$result->fetch_object();                          
+      return $contractors;
 	}
 ?>

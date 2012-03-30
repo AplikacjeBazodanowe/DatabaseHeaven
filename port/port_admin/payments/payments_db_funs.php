@@ -4,6 +4,15 @@
 		
 	function delete_payment($id)
 	{						
+		$sql="SELECT id_Uzytkownik as added_by, czy_oplacona as paid FROM Oplata WHERE id_Oplata=$id";
+		$result=DB::query($sql);		
+      $count=$result->num_rows;
+      if($count==0)
+          return; 
+      $payment=$result->fetch_object();
+      /*$current_user=1;
+      if($payment->paid || $payment->added_by!=$current_user)
+      	return;*/     
 		$sql="DELETE FROM Oplata WHERE id_Oplata=$id";
 		DB::query($sql);
 	}
@@ -42,7 +51,7 @@
 			$sql.="AND data_naliczenia >= $from ";
 		if(!empty($to)) 
 			$sql.="AND data_naliczenia <= $to ";		
-		if(!empty($paid)) 
+		if($paid!=='') 
 			$sql.="AND czy_oplacona = $paid ";
 		if(!empty($type)) 
 			$sql.="AND Oplata.typ = '$type' ";
@@ -105,7 +114,7 @@
 	//pobiera typy opłat (portowych)
 	function get_payment_types()
 	{	
-		$sql = " SHOW COLUMNS FROM `Oplata` LIKE 'typ' ";
+		$sql = " SHOW COLUMNS FROM `Oplata` LIKE 'Typ' ";
 		$result = DB::query($sql);
 		$row = mysqli_fetch_array( $result , MYSQL_NUM );
 		#extract the values

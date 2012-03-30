@@ -17,8 +17,7 @@
 						</td></tr><tr><td>							Docked by						</td><td>
 							$ship->docked_by						</td></tr><tr><td>							Undock date						</td><td>							$ship->undock_date						
 						</td></tr><tr><td>							Undocked by						</td><td>
-							$ship->undocked_by						</td>											</tr>					</table><br>";						echo '<a href="?menu=ships&action=undocking&id=' . $ship_id . '"><input class="button baseFont add" type="button" value="Undock the ship"></a>';
-			echo '<a href="ships/ships_dock.php?action=search&step=2&ship_name=' . $ship->name . '"><input class="button baseFont add" type="button" value="Move the ship"></a>';								echo '<br><h2>Cargo on board:</h2>';				  									if($cargo==NULL)
+							$ship->undocked_by						</td>											</tr>					</table><br>";														echo '<br><h2>History of cargo:</h2>';				  									if($cargo==NULL)
 				return;
 			foreach($cargo as $cargo_item)			
 			{								echo "<br><div style=\"text-align: center\">					  <table class=\"stuff_info\">					  <tr>						  <td class=\"stuff_no\" colspan=\"2\">							  Cargo ID: $cargo_item->id						  </td>					  </tr>

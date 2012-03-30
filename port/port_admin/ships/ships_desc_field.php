@@ -1,5 +1,5 @@
 <?php
-	include_once('ships_db_funs.php');	// $ship_id = $_GET['id'];	// wyswietlenie danych na podstawie id	// warunek na najnowsze towary $_GET['stuff'] == 'latest'	// warunek na wszstkie towary $_GET['stuff'] == 'all'	if( isset( $_GET['id'] ) ) 
+	include_once('ships_db_funs.php');		if( isset( $_GET['id'] ) ) 
 	{
 		$ship_id = $_GET['id'];
 		$ship = get_docked_ship_by_id($ship_id);

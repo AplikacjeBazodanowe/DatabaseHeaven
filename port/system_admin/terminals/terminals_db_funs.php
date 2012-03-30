@@ -1,6 +1,8 @@
 <?php
 	$root=$_SERVER['DOCUMENT_ROOT'];		
 	include_once($root."/DB.php");
+	include_once($root."/system_admin/docks/docks_db_funs.php");
+	include_once($root."/system_admin/warehouses/warehouses_db_funs.php");	
 
 	function delete_terminal($id) 
 	{
