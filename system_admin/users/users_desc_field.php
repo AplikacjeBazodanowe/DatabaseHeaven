@@ -1,1 +1,0 @@
-<!-- do wywalenia, tylko do testow --><img class="photo" src="ugly.jpg">blabla<!-----------------------------------><?php	// justowanie tekstu juz jest zaaplikowane do warstwy, w ktorej znajduje sie ten plik	// $user_id = $_GET['id'];	// wyswietlenie danych na podstawie id	// kod na fotke: <img class="photo" src="plik.jpg">?>
