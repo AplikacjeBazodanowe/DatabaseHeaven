@@ -15,10 +15,17 @@ CREATE  TABLE `databaseheaven`.`Uzytkownik` (
   `haslo` VARCHAR(255) NOT NULL,
   
   `url_Obrazka` VARCHAR(255) NOT NULL,
+<<<<<<< HEAD
+=======
+  
+  PRIMARY KEY (`id_Uzytkownik`),
+  UNIQUE INDEX `nazwa_uzytkownika_UNIQUE` (`nazwa` ASC) ) ENGINE=InnoDB;
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   
   PRIMARY KEY (`id_Uzytkownik`),
   UNIQUE INDEX `nazwa_uzytkownika_UNIQUE` (`nazwa` ASC) ) ENGINE=InnoDB;
   
+<<<<<<< HEAD
   
 CREATE  TABLE `databaseheaven`.`Kraj` (
 
@@ -34,9 +41,14 @@ CREATE  TABLE `databaseheaven`.`Kraj` (
 CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `id_Kontrahent` INT NOT NULL AUTO_INCREMENT ,
+=======
 
-  `nazwa` VARCHAR(255) NOT NULL ,
+CREATE  TABLE `databaseheaven`.`Kontrahent` (
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
 
+  `id_Kontrahent` INT NOT NULL AUTO_INCREMENT ,
+
+<<<<<<< HEAD
   `adres` VARCHAR(255) NOT NULL ,
 
   `id_Kraj` INT NOT NULL ,
@@ -47,6 +59,17 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   FOREIGN KEY (`id_Kraj`) REFERENCES Kraj(`id_Kraj`),
 
+=======
+  `nazwa` VARCHAR(255) NOT NULL ,
+
+  `adres` VARCHAR(255) NOT NULL ,
+
+  `kraj` VARCHAR(255) NOT NULL ,
+
+  `typ` ENUM('Armator', 'Nadawca', 'Odbiorca') NOT NULL  ,
+
+  PRIMARY KEY (`id_Kontrahent`),
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   UNIQUE INDEX `nazwa_kontrahenta_UNIQUE` (`nazwa` ASC))  ENGINE=InnoDB;
   
   
@@ -109,9 +132,15 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `data_produkcji` DATE NOT NULL ,
 
   `id_Kontrahent` INT NOT NULL ,
+<<<<<<< HEAD
   
   `id_Typ_Ladunku` INT NOT NULL,
   
+=======
+  
+  `id_Typ_Ladunku` INT NOT NULL,
+  
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   PRIMARY KEY (`id_Statek`) ,
   
   FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
@@ -174,6 +203,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Ladunek` INT NOT NULL,
 
   PRIMARY KEY (`id_Nadanie_Ladunku`) ,
+<<<<<<< HEAD
 
   FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
   
@@ -194,15 +224,43 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   PRIMARY KEY (`id_Odbior_Ladunku`) ,
 
+=======
+
+  FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
+  
+  FOREIGN KEY (`id_Ladunek`) REFERENCES Ladunek(`id_Ladunek`) )  ENGINE=InnoDB;
+  
+  
+  CREATE  TABLE `databaseheaven`.`Odbior_Ladunku` (
+
+  `id_Odbior_Ladunku` INT NOT NULL AUTO_INCREMENT ,
+
+  `data` DATETIME NOT NULL ,
+
+  `uwagi` LONGTEXT NULL ,
+
+  `id_Kontrahent` INT NOT NULL ,
+
+  `id_Ladunek` INT NOT NULL,
+
+  PRIMARY KEY (`id_Odbior_Ladunku`) ,
+
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   FOREIGN KEY (`id_Kontrahent`) REFERENCES Kontrahent(`id_Kontrahent`),
   
   FOREIGN KEY (`id_Ladunek`) REFERENCES Ladunek(`id_Ladunek`) )  ENGINE=InnoDB;
   
    
  CREATE  TABLE `databaseheaven`.`Magazyn` (
+<<<<<<< HEAD
 
   `id_Magazyn` INT NOT NULL AUTO_INCREMENT,
 
+=======
+
+  `id_Magazyn` INT NOT NULL AUTO_INCREMENT,
+
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   `nazwa` VARCHAR(255) NOT NULL ,
 
   `pojemnosc` INT NOT NULL ,
@@ -312,6 +370,14 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   PRIMARY KEY (`id_Przeladunek`), 
   
   FOREIGN KEY (`id_Ladunek`) REFERENCES Ladunek(`id_Ladunek`),
+<<<<<<< HEAD
+  
+  FOREIGN KEY (`id_Statek1`) REFERENCES Statek(`id_Statek`),
+  
+  FOREIGN KEY (`id_Statek2`) REFERENCES Statek(`id_Statek`),
+  
+  FOREIGN KEY (`id_Magazyn1`) REFERENCES Magazyn(`id_Magazyn`), 
+=======
   
   FOREIGN KEY (`id_Statek1`) REFERENCES Statek(`id_Statek`),
   
@@ -342,10 +408,40 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   FOREIGN KEY (`id_Zadokowany`) REFERENCES Zadokowany(`id_Zadokowany`),
   
   FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`) )  ENGINE=InnoDB;
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
+  
+  FOREIGN KEY (`id_Magazyn2`) REFERENCES Magazyn(`id_Magazyn`),
+  
+  FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`)
+  )  ENGINE=InnoDB;
+  
+  
+  CREATE  TABLE `databaseheaven`.`Oddokowany` (
+
+<<<<<<< HEAD
+  `id_Oddokowany` INT NOT NULL AUTO_INCREMENT ,
+
+  `data` DATETIME NOT NULL ,
+
+  `uwagi` LONGTEXT NULL ,
+
+  `id_Zadokowany` INT NOT NULL ,
+
+  `id_Uzytkownik` INT  NULL,
+  
+  PRIMARY KEY (`id_Oddokowany`), 
+  
+  FOREIGN KEY (`id_Zadokowany`) REFERENCES Zadokowany(`id_Zadokowany`),
+  
+  FOREIGN KEY (`id_Uzytkownik`) REFERENCES Uzytkownik(`id_Uzytkownik`) )  ENGINE=InnoDB;
   
 
 CREATE  TABLE `databaseheaven`.`Kontrola_Celna` (
 
+=======
+CREATE  TABLE `databaseheaven`.`Kontrola_Celna` (
+
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
   `id_Kontrola_Celna` INT NOT NULL AUTO_INCREMENT ,
 
   `uwagi` LONGTEXT NULL ,
@@ -392,8 +488,12 @@ CREATE  TABLE `databaseheaven`.`Bledy_Operacji` (
   
   FOREIGN KEY (`id_Kod_Bledu`) REFERENCES Kody_Bledow(`id_Kod_Bledu`)
   )  ENGINE=InnoDB;
+<<<<<<< HEAD
 
 
+=======
+
+>>>>>>> 93a659093042c536d1bbdc9ee5f72c608aacb1e8
 
 
 

@@ -154,7 +154,7 @@ DROP PROCEDURE IF EXISTS odbior;
 DELIMITER //
 CREATE PROCEDURE odbior(cargo INT, recipient INT, data DATETIME, user INT)
 root:BEGIN
-    DECLARE loadID, storeID INT;
+    DECLARE loadID, storeID, cost, volume INT;
     
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
@@ -163,8 +163,18 @@ root:BEGIN
     SELECT p.id_Magazyn2 FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
     INTO storeID;
-    
+
+    SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
+    INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+    WHERE l.id_Ladunek = cargo INTO volume;
+
+    SELECT DATEDIFF(data, p.data)*volume FROM Przeladunek p
+    WHERE p.id_Przeladunek = loadID
+    INTO cost;
+
     START TRANSACTION;
+    INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
+                VALUES('portowa', cost, 0, date, recipient, user);
     UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
     INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn1, id_Uzytkownik, id_Ladunek)
             VALUES (data, '', 1, storeID, user, cargo);
@@ -176,14 +186,20 @@ END
 //
 DELIMITER ;
 
-/* Przeladunek, na statek - store = null, do mag - ship = nul, brakuje sprawdzania czy sie zmiesci ladunek */
+/* Przeladunek, na statek - store = null, do mag - ship = nul */
 DROP PROCEDURE IF EXISTS przeladuj;
 DELIMITER //
 CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, data DATETIME, user INT)
 root:BEGIN
-    DECLARE loadID, taxChecked, typesMatch INT;
+    DECLARE loadID, taxChecked, typesMatch,
+            sumVol, sumWeight, destVol, destWeight,
+             sourceStore, customer, cost INT;
     SET taxChecked = 0;
     SET typesMatch = 0;
+    SET sumVol = 1;
+    SET sumWeight = 1;
+    SET destVol = 0;
+    SET destWeight = 0;
     
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
@@ -193,7 +209,11 @@ root:BEGIN
     INNER JOIN Kontrola_Celna kc ON (kc.id_Ladunek = l.id_Ladunek)
     WHERE kc.czy_Pozytywna = 1 AND l.id_Ladunek = cargo
     INTO taxChecked;
-    
+        
+    SELECT n.id_Kontrahent FROM Nadanie_Ladunku n
+    INNER JOIN Ladunek l on n.id_Ladunek = l.id_Ladunek
+    WHERE l.id_Ladunek = cargo INTO customer;
+
     IF taxChecked = 0 THEN
         TRUNCATE TABLE Bledy_Operacji;
         INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(8);
@@ -201,7 +221,12 @@ root:BEGIN
         LEAVE root;
     END IF;
     
+    SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
+    INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+    WHERE l.id_Ladunek = cargo INTO sumVol;
     
+    SELECT id_Magazyn2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceStore;
+   
     IF ship IS NOT NULL THEN
         SELECT COUNT(*) FROM typ_Ladunku tl
         INNER JOIN Statek s ON (s.id_Typ_Ladunku = tl.id_Typ_Ladunku)
@@ -210,15 +235,41 @@ root:BEGIN
         WHERE s.id_Statek = ship AND l.id_Ladunek = cargo
         INTO typesMatch;
         
-        IF typesMatch = 1 THEN
-            UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Statek2, id_Uzytkownik, id_Ladunek)
-            VALUES (data, '', 1, ship, user, cargo);
-            
-        ELSE
+        IF typesMatch = 0 THEN
             TRUNCATE TABLE Bledy_Operacji;
             INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(9);
             SELECT "BLAD!: niezgodnosc typow statek - ladunek";
+            LEAVE root;
+        END IF;
+
+        SELECT (t.masa_jednostkowa *l.ilosc) FROM Ladunek l
+        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+        WHERE l.id_Ladunek = cargo INTO sumWeight;
+
+        SELECT ladownosc_masowa FROM Statek
+        WHERE id_Statek = ship INTO destWeight;
+
+        SELECT ladownosc_objetosciowa FROM Statek
+        WHERE id_Statek = ship INTO destVol;
+        
+        /* Jesli ladunek sie zmiesci na statku */
+        IF sumVol < destVol AND sumWeight < destWeight THEN
+            /* Jesli przeladowujemy z magazynu to trzeba zaplacic za przechowanie */
+            IF sourceStore IS NOT NULL THEN
+                 SELECT DATEDIFF(data, p.data)*sumVol FROM Przeladunek p
+                 WHERE p.id_Przeladunek = loadID INTO cost;
+                 INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
+                            VALUES('portowa', cost, 0, date, customer, user);
+            END IF;
+            START TRANSACTION;
+            UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
+            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Statek2, id_Uzytkownik, id_Ladunek)
+            VALUES (data, '', 1, ship, user, cargo);
+            COMMIT;
+        ELSE 
+            TRUNCATE TABLE Bledy_Operacji;
+            INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(11);
+            SELECT "BLAD!: ladunek nie zmiesci sie na statku";
             LEAVE root;
         END IF;
         
@@ -230,19 +281,34 @@ root:BEGIN
         WHERE m.id_Magazyn = cargo AND l.id_Ladunek = cargo
         INTO typesMatch;
         
-        IF typesMatch = 1 THEN
-            START TRANSACTION;
-            UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn2, id_Uzytkownik, id_Ladunek)
-                VALUES (data, '', 1, store, user, cargo);
-            COMMIT;
-        ELSE
+        IF typesMatch = 0 THEN
             TRUNCATE TABLE Bledy_Operacji;
             INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(10);
             SELECT "BLAD!: niezgodnosc typow magazyn - ladunek";
             LEAVE root;
         END IF;
+
+        SELECT pojemnosc FROM Magazyn
+        WHERE id_Magazyn = store INTO destVol;
         
+        IF sumVol < destVol THEN
+             IF sourceStore IS NOT NULL THEN
+                 SELECT DATEDIFF(data, p.data)*sumVol FROM Przeladunek p
+                 WHERE p.id_Przeladunek = loadID INTO cost;
+                 INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
+                            VALUES('portowa', cost, 0, date, customer, user);
+            END IF;
+            START TRANSACTION;
+            UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
+            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn2, id_Uzytkownik, id_Ladunek)
+                VALUES (data, '', 1, store, user, cargo);
+            COMMIT;
+        ELSE 
+            TRUNCATE TABLE Bledy_Operacji;
+            INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(12);
+            SELECT "BLAD!: ladunek nie zmiesci sie w magazynie";
+            LEAVE root;
+        END IF;
     END IF;
 END
 //
@@ -283,7 +349,6 @@ root:BEGIN
                 VALUES('celna', cost, 0, CURRENT_DATE(), cust, user);
 END;
 |
-
 delimiter ;
 
 
