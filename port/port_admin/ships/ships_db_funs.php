@@ -14,47 +14,47 @@
 			DB::query($sql); 
 	}	
 	
-	function undock_ship($ship_id)
+	function undock_ship($docked_id)
 	{				
-		$user=1;
-		$sql="SELECT id_Zadokowany 
-				FROM LEFT OUTER JOIN Oddokowany USING(id_Zadokowany) 
-				WHERE id_Oddokowany IS NULL";
-		$result=DB::query($sql);							
-      if($result->num_rows==0)
-          return;
+		$user_id=1;	//będzie pobierane z sesji
+		$sql="CALL oddokuj($docked_id, NOW(), $user_id)";
+		DB::query( $sql )->close();
+		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+		$result=DB::query($sql);
+		$count=$result->num_rows;
+      if($count==0)
+          return NULL;
       else 
-      	$docked_id = $result->fetch_object()->id_Zadokowany;			
-		if(!get_ship_by_id($ship_id) || !get_dock_by_id($newDock))
-			return;		
-		$sql="INSERT INTO Oddokowany VALUES(NULL,NOW(),NULL,$dockedId,$user)";
-		DB::query($sql);
+      	return $result->fetch_object()->opis;
 	}	
 		
-	function move_ship($ship_id,$newDock='')
+	function move_ship($ship_id,$docked_id,$newDock)
 	{				
-		$user=1;
-		$sql="SELECT id_Zadokowany 
-				FROM LEFT OUTER JOIN Oddokowany USING(id_Zadokowany) 
-				WHERE id_Oddokowany IS NULL";
-		$result=DB::query($sql);							
-      if($result->num_rows==0)
-          return;
+		$user_id=1;	//będzie pobierane z sesji
+		$sql="CALL przesunStatek($docked_id,$newDock,$ship_id, $user_id, NOW())";
+		DB::call($sql);	
+		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+		$result=DB::query($sql);
+		$count=$result->num_rows;
+      if($count==0)
+          return NULL;
       else 
-      	$docked_id = $result->fetch_object()->id_Zadokowany;			
-		if(!get_ship_by_id($ship_id) || !get_dock_by_id($newDock))
-			return;		
-		$sql="INSERT INTO Oddokowany VALUES(NULL,NOW(),NULL,$dockedId,$user)";
-		DB::query($sql);
+      	return $result->fetch_object()->opis;	
 	}
 	
+	//wartość zwracana=NULL jeśli wszystko ok lub komunikat błędu jeśli nie ok
 	function dock_ship($ship_id,$dock)
-	{		
-		$user=1;
-		if(!get_ship_by_id($id) || !get_dock_by_id($newDock))
-			return;		
-		$sql="INSERT INTO Zadokowany VALUES (NULL,NOW(),NULL,$user,$dock,$ship_id)";
-		DB::query($sql);	
+	{						
+		$user_id=1;	//będzie pobierane z sesji
+		$sql="CALL zadokuj($dock,$ship_id, NOW(), $user_id)";
+		DB::query($sql)->close();	
+		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+		$result=DB::query($sql);
+		$count=$result->num_rows;
+      if($count==0)
+          return NULL;
+      else 
+      	return $result->fetch_object()->opis;
 	}
 	
 	
@@ -109,7 +109,10 @@
 									$capacityMassMin='', $capacityMassMax='', $lengthMin='', $lengthMax='', 
 									$widthMin='', $widthMax='', $heightMin='', $heightMax='')
 	{			
-		$sql="SELECT Statek.id_Statek as id, nazwa AS name, id_Dok as dock_id
+		$sql="SELECT Statek.id_Statek AS id, 
+						 nazwa AS name, 
+						 id_Dok AS dock_id, 
+						 Zadokowany.id_Zadokowany AS docked_id
 				FROM Statek 
 				NATURAL JOIN Zadokowany 
 				LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)				
@@ -179,13 +182,17 @@
 						typ_Statku AS type,
 						dlugosc AS length,
 						szerokosc AS width,
-						wysokosc AS height,
+						wysokosc AS height,						
 						Uzytkownik.nazwa AS docked_by,
-						Zadokowany.data AS dock_date
+						Zadokowany.id_Dok AS dock_id,
+						Zadokowany.id_Zadokowany AS docked_id,
+						Zadokowany.data AS dock_date,
+						Kontrahent.nazwa AS owner
 				FROM Statek NATURAL JOIN Typ_Ladunku
 					NATURAL JOIN Zadokowany 
 					INNER JOIN Uzytkownik USING(id_Uzytkownik)
-					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)						 
+					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
+					INNER JOIN Kontrahent USING(id_Kontrahent)						 
 				WHERE id_Statek = $id AND id_Oddokowany IS NULL";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
@@ -209,14 +216,16 @@
 						szerokosc AS width,
 						wysokosc AS height,
 						U1.nazwa AS docked_by,
-						Zadokowany.data AS dock_date,
+						Zadokowany.data AS dock_date,						
 						U2.nazwa AS undocked_by,
+						Kontrahent.nazwa AS owner,
 						Oddokowany.data AS undock_date
 				FROM Statek NATURAL JOIN Typ_Ladunku
 					NATURAL JOIN Zadokowany 
 					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
-					INNER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik
-					LEFT OUTER JOIN Uzytkownik U2 ON Oddokowany.id_Uzytkownik=U2.id_Uzytkownik											 
+					INNER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik					
+					LEFT OUTER JOIN Uzytkownik U2 ON Oddokowany.id_Uzytkownik=U2.id_Uzytkownik	
+					INNER JOIN Kontrahent USING(id_Kontrahent)															 
 				WHERE id_Zadokowany = $docked_id";
 		$result=DB::query($sql);		
       $count=$result->num_rows;

@@ -48,11 +48,12 @@ root:BEGIN
    
     
     SELECT COUNT(kc.czy_Pozytywna) FROM Ladunek l
-    INNER JOIN Przeladunek p ON (p.id_Ladunek = l.id_Ladunek)
-    INNER JOIN Statek s ON (p.id_Statek2 = statk) 
-    INNER JOIN Kontrola_Celna kc ON (kc.id_Ladunek = l.id_Ladunek)
-    WHERE kc.czy_Pozytywna = 1 AND p.czy_aktualne_polozenie = 1 
-    AND l.czy_kontrola_celna = 1
+    	INNER JOIN Przeladunek p ON (p.id_Ladunek = l.id_Ladunek)
+	    INNER JOIN Statek s ON (p.id_Statek2 = statk) 
+    	INNER JOIN Kontrola_Celna kc ON (kc.id_Ladunek = l.id_Ladunek)
+    WHERE kc.czy_Pozytywna = 1 
+    	AND p.czy_aktualne_polozenie = 1 
+    	AND l.czy_kontrola_celna = 1
     INTO iloscPozytywnychKontroliCelnych;
     
     SELECT COUNT(l.id_Ladunek) FROM Ladunek l
@@ -63,12 +64,15 @@ root:BEGIN
     /* OK jesli wszystkie ladunki na statku przeszly pozytywna kontrole celna*/
     IF iloscLadunkow = iloscPozytywnychKontroliCelnych THEN
        START TRANSACTION;
-       INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
-            VALUES ("Portowa", oplataZaDokowanie, 0, data, kontrh, user);
+       IF oplataZaDokowanie > 0 THEN
+		   INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
+				VALUES ("Portowa(za dok)", oplataZaDokowanie, 0, data, kontrh, user);
+		END IF;
        INSERT INTO Oddokowany(data, uwagi, id_zadokowany, id_Uzytkownik)
             VALUES(data, "Brak uwag", zadok, user); 
         select "Wszystko ok";
-        COMMIT;
+	   TRUNCATE TABLE Bledy_Operacji;        
+       COMMIT;
     ELSE
        TRUNCATE TABLE Bledy_Operacji;
        INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(1);
@@ -89,12 +93,14 @@ root:BEGIN
     SET typeMatches = 0;
     SET alreadyExists = 1;
     
-    SELECT COUNT(*) FROM Zadokowany z 
-    WHERE z.data = data AND z.id_Statek = ship 
-    AND z.id_Uzytkownik = user AND z.id_Dok = docNr
-    INTO alreadyExists;
+    SELECT COUNT(*) 
+		FROM Zadokowany z
+		LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)				
+	WHERE id_Oddokowany IS NULL
+    	AND z.id_Statek = ship     
+    INTO alreadyExists;    
     
-    IF alreadyExists = 1 THEN
+    IF alreadyExists >= 1 THEN
         TRUNCATE TABLE Bledy_Operacji;
         INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(7);
         SELECT "BLAD!: juz zadokowano";
@@ -144,6 +150,7 @@ root:BEGIN
     
     INSERT INTO Zadokowany(data, uwagi, id_Uzytkownik, id_Dok, id_Statek)
             VALUES(data, "Brak uwag", user, docNr, ship); 
+    TRUNCATE TABLE Bledy_Operacji;
     SELECT "Wszystko ok!";
 END
  //

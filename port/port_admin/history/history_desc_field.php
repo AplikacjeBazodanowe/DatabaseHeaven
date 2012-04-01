@@ -7,13 +7,13 @@
 		$ship = get_history_ship_by_id($docked_id);		
 		if($ship==NULL)
 			return;
-		$ship_id=$ship->id;
-		$owner = get_ship_owner($ship_id);
+		$ship_id=$ship->id;		
 		$cargo = get_ship_cargo($ship_id, true);		if( !isset( $_GET['action'] ) ) 
 		{						 echo "<table class=\"stuff_info\">					<tr>						<td class=\"stuff_no\" colspan=\"2\">							Ship details						</td></tr><tr><td width=\"50%\">							Name						</td><td >							$ship->name						</td></tr><tr><td>							Type						</td><td>							$ship->type						</td></tr><tr><td>							Displacement						</td><td>							$ship->displacement						</td></tr><tr><td>							Capacity (Mass)						</td><td>							$ship->capMass						</td></tr><tr><td>							Capacity (Volume)						</td><td>							$ship->capVol						</td></tr><tr><td>							Length						</td><td>							$ship->length
 						</td></tr><tr><td>							Width						</td><td>							$ship->width						</td></tr><tr><td>							Height						</td><td>							$ship->height
 						</td></tr><tr><td>							Captain						</td><td>							$ship->captain
-						</td></tr><tr><td>							Date of production						</td><td>							$ship->production_date						</td></tr><tr><td>							Dock date						</td><td>							$ship->dock_date						
+						</td></tr><tr><td>							Ship Owner						</td><td>							$ship->owner						</td></tr>
+						<tr><td>							Date of production						</td><td>							$ship->production_date						</td></tr><tr><td>							Dock date						</td><td>							$ship->dock_date						
 						</td></tr><tr><td>							Docked by						</td><td>
 							$ship->docked_by						</td></tr><tr><td>							Undock date						</td><td>							$ship->undock_date						
 						</td></tr><tr><td>							Undocked by						</td><td>

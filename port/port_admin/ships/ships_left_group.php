@@ -2,7 +2,13 @@
 	include_once("ships_db_funs.php");
 		if( isset( $_GET['action'] ) ) 
 	{		if( $_GET['action'] == 'undocked' ) 
-		{			$ship_id = $_GET['id'];			undock_ship($ship_id);		} 			}?><div>	<a href="ships/ships_dock.php"><input class="button baseFont add" type="button" value="Dock ship"></a>	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:<br>		Type:<br>		Terminal:<br>				Mass Cap.:<br>
+		{			$ship_id = $_GET['docked_id'];			$error=undock_ship($ship_id);		}
+		if( $_GET['action']=='dock_new' && isset( $_POST['dock_id'] )  && isset( $_POST['ship_id'] )) 
+		{			$ship_id = $_POST['ship_id'];						$dock_id = $_POST['dock_id'];							$error=dock_ship($ship_id,$dock_id);					}
+		elseif( $_GET['action']=='move' && isset( $_POST['ship_id'] )
+				&& isset( $_POST['dock_id'] ) && isset( $_POST['docked_id'] )) 
+		{			$ship_id = $_POST['ship_id'];						$dock_id = $_POST['dock_id'];
+			$docked_id = $_POST['docked_id'];							$error=move_ship($ship_id,$docked_id,$dock_id);					} 			}?><div>	<a href="ships/ships_dock.php?action=dock_new"><input class="button baseFont add" type="button" value="Dock ship"></a>	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Name:<br>		Type:<br>		Terminal:<br>				Mass Cap.:<br>
 		Volume Cap.:<br>		Length:<br>		Width:<br>		Height:	</div>	<form action="?menu=ships&action=show" method="post">		<div style="margin-left: 69px;">			<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="type" class="baseFont select">				<option value="">All</option>				<?php					
 					$types=get_ship_types();
 					foreach($types as $type)											
@@ -58,6 +64,7 @@
 		if($ships)
 			foreach($ships as $ship)
 			{				 			 			  	echo "<a href=\"port.php?menu=ships&id=$ship->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$ship->name";				echo "</div></a>";				echo	"<a href=\"?menu=ships&action=undocking&id=$ship->id\">";
-				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Undock";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Dok $ship->dock_id</div>";								echo "<a href=\"ships/ships_dock.php?action=search&step=2&ship_name=$ship->name\"><div class=\"change float_left right_col align_cols link\">";				echo "Move</div></a><br><br><br>";
+			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$ship->name";				echo "</div></a>";				echo	"<a href=\"?menu=ships&action=undocking&id=$ship->id&docked_id=$ship->docked_id\">";
+				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Undock";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Dok $ship->dock_id</div>";								echo "<a href=\"ships/ships_dock.php?action=move&step=2&ship_id=$ship->id
+						&docked_id=$ship->docked_id\"><div class=\"change float_left right_col align_cols link\">";				echo "Move</div></a><br><br><br>";
 			}	?>	</div>

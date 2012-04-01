@@ -18,8 +18,16 @@
 			<span class="baseFont">Capacity (mass): </span></td><td><input name="cap_mass" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>			<span class="baseFont">Capacity (volume): </span></td><td><input name="cap_vol" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>			<span class="baseFont">Displacement: </span></td><td><input name="displacement" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>			<span class="baseFont">Length: </span></td><td><input name="length" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>			<span class="baseFont">Width: </span></td><td><input name="width" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>			<span class="baseFont">Height: </span></td><td><input name="height" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>
 			<span class="baseFont">Captain: </span></td><td><input name="captain" type="text" class="edit baseFont" pattern="^[a-zA-Z0-9 ]+$" required></td></tr><tr><td>
 			<span class="baseFont">Production date: </span></td><td><input name="prod_date" type="text" class="edit baseFont" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" required></td></tr>
-			</table>			</fieldset>			<input class="button baseFont" type="submit" value="Register new ship">		</form>		</div>	<br><br>	<form action="?step=1" method="get">		<input name="action" type="hidden" value="search">		<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">		<input class="button baseFont" type="submit" value="Search">	</form>		<?php			// jesli ukonczylo sie 3 etapy		if( isset( $_GET['done'] ) && isset( $_GET['dock_id'] ) ) 
-		{			$ship_id = $_GET['ship_id'];			$terminal_id = $GET['terminal_id'];			$dock_id = $GET['dock_id'];			//tu będzie call Pawła procedury		}				$conditions = isset( $_POST['ship_name'] ) && $_POST['ship_name'] != '' &&					  isset( $_POST['type'] ) && $_POST['type'] != '' &&
+			</table>			</fieldset>			<input class="button baseFont" type="submit" value="Register new ship">		</form>		</div>	<br><br>	<form action="?step=1" method="get">				<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">		<input class="button baseFont" type="submit" value="Search">	</form>		<?php			// jesli ukonczylo sie 3 etapy
+		/*if(isset($_GET['action']))
+		{
+			$action=$_GET['action'];			if( $action=='dock_new' && isset($_GET['done'] ) && isset( $_GET['dock_id'] )  && isset( $_GET['ship_id'] )) 
+			{				$ship_id = $_GET['ship_id'];							$dock_id = $_GET['dock_id'];								$error=dock_ship($ship_id,$dock_id);						}
+			elseif( $action=='move' && isset($_GET['done'] ) && isset( $_GET['ship_id'] )
+								 && isset( $_GET['dock_id'] ) && isset( $_GET['docked_id'] )) 
+			{				$ship_id = $_GET['ship_id'];							$dock_id = $_GET['dock_id'];
+				$docked_id = $_GET['docked_id'];								$error=move_ship($ship_id,$docked_id,$dock_id);						}		}*/
+				$conditions = isset( $_POST['ship_name'] ) && $_POST['ship_name'] != '' &&					  isset( $_POST['type'] ) && $_POST['type'] != '' &&
 					  isset( $_POST['owner'] ) && $_POST['owner'] != '' &&
 					  isset( $_POST['captain'] ) && $_POST['captain'] != '' &&
 					  isset( $_POST['prod_date'] ) && $_POST['prod_date'] != '' &&					  isset( $_POST['cap_mass'] ) && $_POST['cap_mass'] != '' &&
@@ -36,23 +44,38 @@
 			$prodDate=$_POST['prod_date'];
 			$ownerId=$_POST['owner'];
 			$typeId=$_POST['type'];			register_ship($name,$displacement,$capMass,$capVol,
-								$length,$width,$height,$captain,$prodDate,$ownerId,$typeId);		}						echo '<div style="float: left">';		// 1 etap				
-		if(isset($_GET['ship_name']))			$ship_name = $_GET['ship_name'];
+								$length,$width,$height,$captain,$prodDate,$ownerId,$typeId);		}						echo '<div style="float: left">';		// 1 etap									echo '<form method="get">';		echo '<input name="step" type="hidden" value="2">';
+		if(isset($_GET['action']))
+			echo '<input name="action" type="hidden" value="' . $_GET['action'] . '">';				echo '<table border="0"><tr><td>';				echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';		echo '<legend><span class="baseFont">Choose a ship to dock:</span></legend>';					echo '<select name="ship_id" size="20" multiple>';
+		if($_GET['action']!='move')
+		{		
+			if(isset($_GET['ship_name']))				$ship_name = $_GET['ship_name'];
+			else
+				$ship_name = '';			
+			$ships = select_all_ships($ship_name);
+			foreach($ships as $ship)				echo "<option value=\"$ship->id\">$ship->name</option>";
+		}
 		else
-			$ship_name = '';		
-		$ships = select_all_ships($ship_name);			
-				echo '<form method="get">';		echo '<input name="step" type="hidden" value="2">';		echo '<table border="0"><tr><td>';				echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';		echo '<legend><span class="baseFont">Choose a ship to dock:</span></legend>';					echo '<select name="ship_id" size="20" multiple>';
-		foreach($ships as $ship)			echo "<option value=\"$ship->id\">$ship->name</option>";		echo '</select></fieldset>';						echo '</td><td style="text-align: center">';		if( isset( $_GET['step'] ) && isset( $_GET['ship_id'] ) ) 
+		{
+			$ship=get_ship_by_id($_GET['ship_id']);
+			echo "<option>$ship->name</option>";
+		}		echo '</select></fieldset>';						echo '</td><td style="text-align: center">';		if( isset( $_GET['step'] ) && isset( $_GET['ship_id'] ) ) 
 		{
 			$ship_name=get_ship_by_id($_GET['ship_id'])->name;			// wyswietl co sie wybralo (nad przyciskiem next step)			echo '<span class="baseFont">' . $ship_name . '</span><br>';		}		echo '<input class="button baseFont" type="submit" value="Next step >>">';		echo '</td></tr></table>';		echo '</form>';				echo '</div><div style="float: left">';				// 2 etap, wyswietl liste terminali ktore pasuja do statku		if( isset( $_GET['step'] ) && isset( $_GET['ship_id'] ) && !isset( $_GET['dock_id'] ) ) 
 		{									$ship_id = $_GET['ship_id'];
 			$typeId=get_ship_by_id($ship_id)->type;
-			$terminals=select_terminals('',$typeId);					echo '<form method="get">';			echo '<table border="0"><tr><td>';			echo '<input name="step" type="hidden" value="3">';			echo '<input name="ship_id" type="hidden" value="' . $ship_id . '">';						echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';			echo '<legend><span class="baseFont">Terminals (of matching type):</span></legend>';																								echo '<select name="terminal_id" size="20" multiple>';			
+			$terminals=select_terminals('',$typeId);					echo '<form method="get">';			echo '<table border="0"><tr><td>';			echo '<input name="step" type="hidden" value="3">';			echo '<input name="ship_id" type="hidden" value="' . $ship_id . '">';
+			if(isset($_GET['docked_id']))
+				echo '<input name="docked_id" type="hidden" value="' . $_GET['docked_id'] . '">';
+			if(isset($_GET['action']))
+				echo '<input name="action" type="hidden" value="' . $_GET['action'] . '">';						echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';			echo '<legend><span class="baseFont">Terminals (of matching type):</span></legend>';																								echo '<select name="terminal_id" size="20" multiple>';			
 			foreach($terminals as $terminal)											
 				echo "<option value=\"$terminal->id\">$terminal->name</option>";			echo '</select></fieldset>';						echo '</td><td style="text-align: center">';			if( isset( $_GET['step'] ) && isset( $_GET['terminal_id'] ) ) 
 			{
 				$term_name=get_terminal_by_id($_GET['terminal_id'])->name;				// wyswietl co sie wybralo (nad przyciskiem next step)				echo '<span class="baseFont">' . $term_name . '</span><br>';			}			echo '<input class="button baseFont" type="submit" value="Next step >>">';			echo '</td></tr></table>';			echo '</form>';		}		echo '</div><div style="float: left">';		// 3 etap, lista wolnych dokow		if( isset( $_GET['step'] ) && !isset( $_GET['dock_id'] ) && isset( $_GET['ship_id'] ) && isset( $_GET['terminal_id'] ) ) 
 		{					$terminal_id = $_GET['terminal_id'];			$ship_id = $_GET['ship_id'];			$docks=get_valid_docks($ship_id, $terminal_id);			
-						echo '<form method="get">';			echo '<table border="0"><tr><td>';			echo '<input name="ship_id" type="hidden" value="' . $ship_id . '">';			echo '<input name="terminal_id" type="hidden" value="' . $terminal_id . '">';			echo '<input name="step" type="hidden" value="3">';			echo '<input name="done" type="hidden" value="1">';						echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';			echo '<legend><span class="baseFont">Valid docks:</span></legend>';							echo '<select name="dock_id" size="20" multiple>';			foreach($docks as $dock)											
+						echo '<form method="post" action="../port.php?menu=ships&action='.$_GET['action'].'">';			echo '<table border="0"><tr><td>';			echo '<input name="ship_id" type="hidden" value="' . $ship_id . '">';			echo '<input name="terminal_id" type="hidden" value="' . $terminal_id . '">';
+			if(isset($_GET['docked_id']))
+				echo '<input name="docked_id" type="hidden" value="' . $_GET['docked_id'] . '">';						echo '<input name="step" type="hidden" value="3">';			echo '<input name="done" type="hidden" value="1">';						echo '<fieldset style="background-color: RGB( 240, 240, 240 ); border-radius: 10px">';			echo '<legend><span class="baseFont">Valid docks:</span></legend>';							echo '<select name="dock_id" size="20" multiple>';			foreach($docks as $dock)											
 				echo "<option value=\"$dock->id\">Dok $dock->id</option>";			echo '</select></fieldset>';						echo '</td><td style="text-align: center">';			echo '<input class="button baseFont" type="submit" value="Finish">';			echo '</td></tr></table>';			echo '</form>';		}		echo '</div>';
 		DB::close();	?></body></html>

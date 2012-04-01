@@ -18,7 +18,8 @@
 		$payment_id = $_GET['id'];
 		$status = $_GET['status'];
 		change_status($payment_id, $status);
-	}?><div>	<input class="button baseFont add" type="button" value="Add new payment" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Contractor:<br>		Type:<br>		Amount:<br>		Date:<br>	</div>	<form action="?menu=payments&action=show" method="post">		<div style="margin-left: 69px;">			<input name="contractor" class="edit baseFont" type="edit" placeholder="Name of contractor">			<select name="type" class="baseFont select">				<?php					
+	}?><div>	<input class="button baseFont add" type="button" value="Add new payment" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">		Contractor:<br>		Type:<br>		Amount:<br>		Date:<br>	</div>	<form action="?menu=payments&action=show" method="post">		<div style="margin-left: 69px;">			<input name="contractor" class="edit baseFont" type="edit" placeholder="Name of contractor">			<select name="type" class="baseFont select">
+				<option value="">Wszystkie portowe</option>				<?php					
 					$types=get_payment_types();
 					foreach($types as $type)											
 						echo "<option value=\"$type\">$type</option>";					

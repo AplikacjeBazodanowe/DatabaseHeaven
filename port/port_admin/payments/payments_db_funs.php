@@ -32,7 +32,7 @@
 	function add_payment($contractor,$value)
 	{				
 		$user=1; //to będzie pobierane z sesji na podstawie zalogowania!
-		$sql="INSERT INTO Oplata VALUES (NULL,'Portowa',$value,FALSE,NOW(),$contractor,$user)";
+		$sql="INSERT INTO Oplata VALUES (NULL,'Portowa(inna)',$value,FALSE,NOW(),$contractor,$user)";
 		DB::query($sql);	
 	}
 	
@@ -55,6 +55,8 @@
 			$sql.="AND czy_oplacona = $paid ";
 		if(!empty($type)) 
 			$sql.="AND Oplata.typ = '$type' ";
+		else
+			$sql.="AND Oplata.typ IN ('Portowa(za dok)','Portowa(za magazyn)','Portowa(inna)') ";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)
@@ -84,11 +86,12 @@
 	
 	function get_payment_contractor($payment_id)
 	{
-		$sql="SELECT nazwa AS name,
+		$sql="SELECT Kontrahent.nazwa AS name,
 						adres AS address,
-						kraj AS country,
+						Kraj.nazwa AS country,
 						Kontrahent.typ AS type				 						 
-				FROM Kontrahent INNER JOIN Oplata USING(id_Kontrahent)						 
+				FROM Kontrahent INNER JOIN Oplata USING(id_Kontrahent)
+					INNER JOIN Kraj USING(id_Kraj)										 
 				WHERE id_Oplata = $payment_id";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
@@ -120,7 +123,7 @@
 		#extract the values
 		#the values are enclosed in single quotes
 		#and separated by commas
-		$regex = "/'(Portowa*?)'/";
+		$regex = "/'(Portowa.*?)'/";
 		preg_match_all( $regex , $row[1], $enum_array );
 		$types = $enum_array[1];
 		return $types;		
