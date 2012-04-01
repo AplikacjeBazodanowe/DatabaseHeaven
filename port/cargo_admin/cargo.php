@@ -1,3 +1,9 @@
+<?php
+	$root=$_SERVER['DOCUMENT_ROOT'];		
+	include_once($root."/DB.php");
+	
+	DB::connect();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 	<head>
@@ -66,6 +72,8 @@
 					} else {
 						include( "ships/ships_desc_field.php" );
 					}
+					
+					DB::close();
 				?>
 			</div>
 		</div>
