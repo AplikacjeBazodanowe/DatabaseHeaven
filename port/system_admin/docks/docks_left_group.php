@@ -29,5 +29,5 @@
 			foreach($docks as $dock)
 			{				 			 			  	echo "<a href=\"admin_system.php?menu=docks&id=$dock->id\">";
 			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "Dok $dock->id";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=docks&action=delete&id=$dock->id\">";
-				echo  "<div class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Terminal: $dock->term_name</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $dock->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Terminal: $dock->term_name</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $dock->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
 			}			?>	</div>

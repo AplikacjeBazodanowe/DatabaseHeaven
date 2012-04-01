@@ -35,7 +35,7 @@
 	
 	function select_users($name, $level)
 	{
-		$sql="SELECT id_Uzytkownik AS id, nazwa, funkcja, url_obrazka 
+		$sql="SELECT id_Uzytkownik AS id, nazwa, funkcja 
 				FROM Uzytkownik 
 				WHERE nazwa LIKE '%$name%' AND funkcja LIKE '$level'";
 		$result=DB::query($sql);		

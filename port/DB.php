@@ -9,7 +9,7 @@ class DB
     {
         if(!self::$db)
         {
-            @self::$db=new mysqli('localhost','DBUser','jakieshaslo','databaseheaven');
+            @self::$db=new mysqli('localhost','PortUser','jakieshaslo','databaseheaven');
             if(mysqli_connect_errno())
             {
                 self::$db=NULL;                
@@ -28,12 +28,43 @@ class DB
         {            
             throw new Exception ("Nie można wykonać zapytania. Nie ma połączenia z bazą danych");
         }
+        do 
+        {
+		     /* store first result set */
+		     if ($result = self::$db->store_result()) 
+		     {		         
+		         $result->free();
+		     }		     
+ 		  } 
+		  while (self::$db->next_result());
         $result=self::$db->query($sql);
         if(self::$db->error)
             throw new Exception (self::$db->error);
         else
             return $result;            
-    }
+    }            
+    
+	public static function call($sql)
+    {                        
+        if(!self::$db)
+        {            
+            throw new Exception ("Nie można wykonać zapytania. Nie ma połączenia z bazą danych");
+        }
+        do 
+        {
+		     /* store first result set */
+		     if ($result = self::$db->store_result()) 
+		     {		         
+		         $result->free();
+		     }		     
+ 		  } 
+		  while (self::$db->next_result());                
+        $result=self::$db->multi_query($sql);        
+        if(self::$db->error)
+            throw new Exception (self::$db->error);
+        else
+            return $result;            
+    }    
     
     /**Metoda, która zamyka bazę danych, jeżeli można*/
     public static function close()

@@ -1,1 +1,53 @@
-<div>	<div style="float: left; line-height: 22px;">		Name:<br>		Type:<br>		Displace:<br>		Capacity:<br>		Length:<br>		Width:<br>		Height:<br>		Dock date:<br>		<span style="font-size: 9px">Undock date:</span>	</div>	<form action="?menu=history&action=show" method="post">		<div style="margin-left: 69px;">			<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="type" class="baseFont select">				<option>All			</select>			<br>			<input name="from_displace" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_displace" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="displace_check" type="checkbox" onClick="on_off_edit('displace')">			<input name="from_capacity" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_capacity" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="capacity_check" type="checkbox" onClick="on_off_edit('capacity')">			<input name="from_length" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_length" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="length_check" type="checkbox" onClick="on_off_edit('length')">			<input name="from_width" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_width" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="width_check" type="checkbox" onClick="on_off_edit('width')">			<input name="from_height" class="ship_edit baseFont" type="text" disabled="true" placeholder="From" pattern="^[0-9]+$">			<input name="to_height" class="ship_edit baseFont" type="text" disabled="true" placeholder="To" pattern="^[0-9]+$">			<input name="height_check" type="checkbox" onClick="on_off_edit('height')">			<input name="from_dockdate" class="ship_edit baseFont" type="text" disabled="true" placeholder="From">			<input name="to_dockdate" class="ship_edit baseFont" type="text" disabled="true" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" class="ship_edit baseFont" type="text" disabled="true" placeholder="From">			<input name="to_undockdate" class="ship_edit baseFont" type="text" disabled="true" placeholder="To">			<input name="undockdate_check" type="checkbox" onClick="on_off_edit('undockdate')">		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="ships_history_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'search' ) {				$ship_name = $_POST['ship_name'];				// wyswietl statki na podstawie nazwy statku			} else if( $_GET['action'] == 'show' ) {				// $type = $_POST['type']; tu w zaleznosci jakiego checkboxa zaznaczylismy to wzgledem tego wyswietlamy				// najlepiej po prostu odpowiednio doklejac do zapytania warunki			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="?menu=history&id=ID"><div class="name float_left left_col align_cols link">			//		Tytanik			//	</div></a>			//	<a href="?menu=ships&action=delete&id=ID"><div class="delete float_left right_col align_cols link">			//		Undock			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Docked: 1.01.2012			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "history/users.txt" ); ?></div>
+<?php
+		$root=$_SERVER['DOCUMENT_ROOT'];		
+		include_once($root."/port_admin/ships/ships_db_funs.php");
+?>
+
+<div>	<div style="float: left; line-height: 20px;">		Name:<br>		Type:<br>		Terminal:<br>						Dock date:<br>
+		UdockDate			</div>	<form action="?menu=history&action=show" method="post">		<div style="margin-left: 69px;">			<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="type" class="baseFont select">	
+				<option value="">All</option>				<?php					
+					$types=get_ship_types();
+					foreach($types as $type)											
+						echo "<option value=\"$type->id\">$type->name</option>";					
+				?>			</select>			<br>		
+			<select name="terminal" class="baseFont select">
+				<option value="">All</option>				<?php					
+					$types=select_terminals();
+					foreach($types as $type)											
+						echo "<option value=\"$type->id\">$type->name</option>";					
+				?>			</select>
+			<br>				<input name="from_dockdate" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_dockdate" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_undockdate" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="undockdate_check" type="checkbox" onClick="on_off_edit('undockdate')">		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="ships_history_list overf">	<?php		if( isset($_POST['ship_name']) && $_POST['ship_name']!='Type name here') 						$name = $_POST['ship_name'];
+		else 
+			$name='';							
+		if( isset($_POST['type'])) 						$type = $_POST['type'];
+		else
+			$type='';
+		if( isset($_POST['terminal'])) 						$terminal = $_POST['terminal'];
+		else
+			$terminal='';
+		if( isset($_POST['from_dockdate'])) 						$dockdateMin = $_POST['from_dockdate'];
+		else
+			$dockdateMin='';
+		if( isset($_POST['to_dockdate'])) 						$dockdateMax = $_POST['to_dockdate'];
+		else
+			$dockdateMax='';
+		if( isset($_POST['from_undockdate'])) 						$undockdateMin = $_POST['from_undockdate'];
+		else
+			$undockdateMin='';
+		if( isset($_POST['to_undockdate'])) 						$undockdateMax = $_POST['to_undockdate'];
+		else
+			$undockdateMax='';									 
+		$ships=select_history_ships($name, $type,$terminal, $dockdateMin, $dockdateMax, 
+									$undockdateMin, $undockdateMax);
+		if($ships)
+			foreach($ships as $ship)
+			{				 			 			  	echo "<a href=\"?menu=history&id=$ship->docked_id\">
+			  		<div style=\"width: 175px; border-bottom: 1px solid RGB( 84, 122, 150 )\" 
+			  		class=\"name float_left align_cols link\">";
+			  	echo "$ship->name</div></a>";												echo	"<div style=\"width: 175px; border-bottom: none\" class=\"level float_left align_cols\">";
+				echo  "Docked: $ship->dock_date</div>";				echo	"<div style=\"width: 175px\" class=\"level float_left align_cols\">";				echo "Undocked: $ship->undock_date</div>";				echo "<br><br><br><br><br>";																																														
+			}	?>	</div>

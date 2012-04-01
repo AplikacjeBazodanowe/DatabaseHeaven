@@ -21,7 +21,7 @@
 		$sql="UPDATE Magazyn 
 				SET nazwa=$name
 					 pojemnosc=$capacity,
-					 cenaZaPrzechowanie=$fee,					  
+					 cena_Za_Przechowanie=$fee,					  
 				WHERE id_Magazyn=$id";
 		DB::query($sql);
 	}
@@ -68,7 +68,7 @@
 		$sql="SELECT id_Magazyn AS id, 
 						 Magazyn.nazwa AS name,
 						 pojemnosc AS capacity,
-				 	 	 cenaZaPrzechowanie AS fee,
+				 	 	 cena_Za_Przechowanie AS fee,
 				 	 	 Terminal.nazwa AS term_name 
 				FROM Magazyn INNER JOIN Terminal USING (id_Terminal) 
 				WHERE id_Magazyn = $id";

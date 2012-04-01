@@ -1,1 +1,10 @@
-<form action="admin_system.php?menu=ships&action=add" method="post">	Contractor: <br><input name="contractor" class="edit_adding baseFont" type="edit" placeholder="Name Surname" required>	Type: <br><select name="level">				<option>type			  </select><br>	Amount: <br><input name="amount" class="edit_adding baseFont" type="edit" placeholder="100" pattern="^[0-9]+$" required><br><br>	<input class="button baseFont menu_button" type="submit" value="Add">	<input class="button baseFont menu_button" type="button" value="Cancel" onClick="add_toggle()"></form>
+<?php
+	include_once("payments_db_funs.php");
+?>
+
+<form action="port.php?menu=payments&action=add" method="post">	Contractor: <br>
+	<select name="contractor" class="baseFont select">			<?php					
+					$contractors=get_contractors();
+					foreach($contractors as $contractor)											
+						echo "<option value=\"$contractor->id\">$contractor->name</option>";					
+			?>	</select>		Amount: <br><input name="value" class="edit_adding baseFont" type="edit" pattern="^[0-9]+$" required><br><br>	<input class="button baseFont menu_button" type="submit" value="Add">	<input class="button baseFont menu_button" type="button" value="Cancel" onClick="add_toggle()"></form>
