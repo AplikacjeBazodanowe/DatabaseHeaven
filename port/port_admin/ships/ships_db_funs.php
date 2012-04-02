@@ -260,14 +260,14 @@
 						Towar.objetosc_jednostkowa*Ladunek.ilosc AS volume,
 						Towar.wartosc_jednostkowa*Ladunek.ilosc AS value,
 						Kontrahent.nazwa AS owner,
+						czy_kontrola_celna AS control_required,
 						Ladunek.uwagi AS remarks  						 
 				FROM Ladunek
 					INNER JOIN Towar USING ( id_Towar )
 					INNER JOIN Typ_Ladunku	USING (id_Typ_Ladunku)									
 					INNER JOIN Przeladunek USING ( id_Ladunek )
 					INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
-					INNER JOIN Kontrahent USING ( id_Kontrahent )				 
-					INNER JOIN Statek ON Przeladunek.id_statek2 = Statek.id_Statek
+					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
 					INNER JOIN Uzytkownik USING(id_Uzytkownik)						 
 				WHERE Przeladunek.id_statek2 = $ship_id ";
 		if(!$all)

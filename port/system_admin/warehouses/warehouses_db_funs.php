@@ -44,16 +44,20 @@
 		DB::query($sql);	
 	}
 	
-	function select_warehouses($terminal_id, $name)
+	function select_warehouses($terminal_id, $name, $minCap='', $maxCap='')
 	{
 		if(!empty($terminal_id))
 			$sql="SELECT id_Magazyn AS id, Magazyn.nazwa AS name, Terminal.nazwa AS term_name 
 					FROM Magazyn INNER JOIN Terminal USING (id_Terminal) 
-					WHERE id_Terminal=$terminal_id AND Magazyn.nazwa LIKE '%$name%'";
+					WHERE id_Terminal=$terminal_id AND Magazyn.nazwa LIKE '%$name%' ";
 		else
 			$sql="SELECT id_Magazyn AS id, Magazyn.nazwa AS name, Terminal.nazwa AS term_name 
 					FROM Magazyn INNER JOIN Terminal USING (id_Terminal)
-					WHERE Magazyn.nazwa LIKE '%$name%'";
+					WHERE Magazyn.nazwa LIKE '%$name%' ";
+		if($minCap!=='')
+			$sql.="AND pojemnosc>=$minCap ";
+		if($minCap!=='')
+			$sql.="AND pojemnosc<=$maxCap ";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)

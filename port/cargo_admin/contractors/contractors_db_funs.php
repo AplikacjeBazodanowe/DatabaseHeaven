@@ -43,8 +43,9 @@
 	function select_contractors($name='', $country='')
 	{
 		$sql="SELECT id_Kontrahent AS id, 
-						 Kontrahent.nazwa AS name						  
-				FROM Kontrahent  
+						 Kontrahent.nazwa AS name,
+						 Kraj.nazwa AS country						  
+				FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
 				WHERE Kontrahent.nazwa LIKE '%$name%' ";
 		if($country!=='')
 			$sql.="AND Kraj.id_Kraj=$country";
