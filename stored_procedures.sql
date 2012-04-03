@@ -154,33 +154,49 @@ DROP PROCEDURE IF EXISTS odbior;
 DELIMITER //
 CREATE PROCEDURE odbior(cargo INT, recipient INT, data DATETIME, user INT)
 root:BEGIN
-    DECLARE loadID, storeID, cost, volume INT;
+    DECLARE loadID, storeID, cost, tempCost, volume, storePrice INT;
+    DECLARE data1, data2 DATETIME;
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
+                                    WHERE p.id_Ladunek = cargo AND p.id_Magazyn2 IS NOT NULL;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
     INTO loadID;
     
-    SELECT p.id_Magazyn2 FROM Przeladunek p
-    WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
-    INTO storeID;
-
     SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
     INNER JOIN Towar t ON t.id_Towar = l.id_Towar
-    WHERE l.id_Ladunek = cargo INTO volume;
-
-    SELECT DATEDIFF(data, p.data)*volume FROM Przeladunek p
-    WHERE p.id_Przeladunek = loadID
-    INTO cost;
+    WHERE l.id_Ladunek = cargo INTO volume;    
 
     START TRANSACTION;
-    INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                VALUES('portowa', cost, 0, date, recipient, user);
     UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
     INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn1, id_Uzytkownik, id_Ladunek)
             VALUES (data, '', 1, storeID, user, cargo);
     
     INSERT INTO Odbior_Ladunku(data, uwagi, id_Kontrahent, id_Ladunek)
             VALUES(data, '', recipient, cargo);
+    OPEN cur1;
+    read_loop: LOOP
+        FETCH cur1 INTO storeID, data2;
+        
+        IF data1 IS NOT NULL THEN
+            SELECT DATEDIFF(data1, data2)*volume*storePrice INTO tempCost;
+            SET cost = cost + tempCost;
+        END IF;
+
+        SELECT cena_za_Przechowanie FROM Magazyn WHERE id_Magazyn = storeID INTO storePrice;
+        SET data1 = data2;
+        IF done THEN
+          LEAVE read_loop;
+        END IF;
+     
+    END LOOP;
+    CLOSE cur1;
+
+    INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
+                VALUES('portowa', cost, 0, date, recipient, user);
+    
     COMMIT;
 END
 //
@@ -192,8 +208,8 @@ DELIMITER //
 CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, data DATETIME, user INT)
 root:BEGIN
     DECLARE loadID, taxChecked, typesMatch,
-            sumVol, sumWeight, destVol, destWeight,
-             sourceStore, customer, cost INT;
+            sumVol, sumWeight, destMaxVol, destMaxWeight, destVol, destWeight,
+            customer, cost INT;
     SET taxChecked = 0;
     SET typesMatch = 0;
     SET sumVol = 1;
@@ -225,8 +241,6 @@ root:BEGIN
     INNER JOIN Towar t ON t.id_Towar = l.id_Towar
     WHERE l.id_Ladunek = cargo INTO sumVol;
     
-    SELECT id_Magazyn2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceStore;
-   
     IF ship IS NOT NULL THEN
         SELECT COUNT(*) FROM typ_Ladunku tl
         INNER JOIN Statek s ON (s.id_Typ_Ladunku = tl.id_Typ_Ladunku)
@@ -247,24 +261,27 @@ root:BEGIN
         WHERE l.id_Ladunek = cargo INTO sumWeight;
 
         SELECT ladownosc_masowa FROM Statek
+        WHERE id_Statek = ship INTO destMaxWeight;
+
+        SELECT aktualna_masa_ladunkow FROM Statek
         WHERE id_Statek = ship INTO destWeight;
 
         SELECT ladownosc_objetosciowa FROM Statek
+        WHERE id_Statek = ship INTO destMaxVol;
+
+        SELECT aktualna_objetosc_ladunkow FROM Statek
         WHERE id_Statek = ship INTO destVol;
+
         
         /* Jesli ladunek sie zmiesci na statku */
-        IF sumVol < destVol AND sumWeight < destWeight THEN
+        IF sumVol < destMaxVol - destVol AND sumWeight < destMaxWeight - destWeight THEN
             /* Jesli przeladowujemy z magazynu to trzeba zaplacic za przechowanie */
-            IF sourceStore IS NOT NULL THEN
-                 SELECT DATEDIFF(data, p.data)*sumVol FROM Przeladunek p
-                 WHERE p.id_Przeladunek = loadID INTO cost;
-                 INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                            VALUES('portowa', cost, 0, date, customer, user);
-            END IF;
             START TRANSACTION;
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
             INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Statek2, id_Uzytkownik, id_Ladunek)
             VALUES (data, '', 1, ship, user, cargo);
+            UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow + sumWeight WHERE id_Statek = ship;
+            UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Statek = ship;
             COMMIT;
         ELSE 
             TRUNCATE TABLE Bledy_Operacji;
@@ -289,19 +306,17 @@ root:BEGIN
         END IF;
 
         SELECT pojemnosc FROM Magazyn
+        WHERE id_Magazyn = store INTO destMaxVol;
+
+        SELECT aktualna_objetosc_ladunkow FROM Magazyn
         WHERE id_Magazyn = store INTO destVol;
         
-        IF sumVol < destVol THEN
-             IF sourceStore IS NOT NULL THEN
-                 SELECT DATEDIFF(data, p.data)*sumVol FROM Przeladunek p
-                 WHERE p.id_Przeladunek = loadID INTO cost;
-                 INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                            VALUES('portowa', cost, 0, date, customer, user);
-            END IF;
+        IF sumVol < destMaxVol - destVol THEN
             START TRANSACTION;
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
             INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn2, id_Uzytkownik, id_Ladunek)
                 VALUES (data, '', 1, store, user, cargo);
+            UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Magazyn = store;
             COMMIT;
         ELSE 
             TRUNCATE TABLE Bledy_Operacji;
