@@ -10,8 +10,8 @@
 		<meta charset="iso-8859-2">
 		<link rel="stylesheet" type="text/css" href="../style.css">
 		<script src="../js/fade.js"></script>
-		<script src="../js/edits.js"></script>        
-		<title>Cargo admin</title>
+		<script src="../js/edits.js"></script>
+		<title>Port admin</title>
 	</head>
 	<body class="baseFont">
 		<div id="dark"></div>

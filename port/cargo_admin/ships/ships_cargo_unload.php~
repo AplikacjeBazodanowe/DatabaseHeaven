@@ -26,7 +26,7 @@
 			}
 			else
 			{				echo "
-					<input type=\"hidden\" name=\"ignore$i\" />
+					<input type=\"hidden\" name=\"ignore\" />
 					<tr>					<td class=\"cargo_name\">						nazwa towaru					</td>					<td>						szczegoly towaru					</td>					<td class=\"unload_to\">						Duty control required					</td>					<td>						<textarea name=\"remarks$i\" cols=\"35\" rows=\"3\" placeholder=\"Remarks will be ignored if 'Don't unload' is selected\"></textarea>					</td>				</tr>";
 			}
 			$i++;

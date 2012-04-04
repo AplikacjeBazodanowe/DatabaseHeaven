@@ -13,7 +13,10 @@
 					</td></tr><tr><td>						Captain					</td><td>						$ship->captain
 					</td></tr><tr><td>						Date of production					</td><td>						$ship->production_date					</td></tr><tr><td>						Ship Owner					</td><td>						$ship->owner					</td></tr>
 					<tr><td>						Dock date					</td><td>						$ship->dock_date
-					</td></tr><tr><td>						Docked by					</td><td>						$ship->docked_by					</td>				</tr>				</table><br>";											echo '<br><h2>Cargo on board:</h2>';				  													  			
+					</td></tr><tr><td>						Docked by					</td><td>						$ship->docked_by					</td>				</tr>				</table><br>";				echo '<a href="?menu=ships&action=undocking&id=' . $ship_id . '&docked_id='.$ship->docked_id.'"><input class="button baseFont add" type="button" value="Undock the ship"></a>';
+		echo '<a href="ships/ships_dock.php?action=move&step=2&docked_id='.$ship->docked_id.
+				'&ship_id='.$ship_id.'&ship_name=' . $ship->name . '">
+				<input class="button baseFont add" type="button" value="Move the ship"></a>';							echo '<br><h2>Cargo on board:</h2>';				  													  			
 				echo '<div style="text-align: center">';		echo '<a href="?menu=ships&id=' . $_GET['id'] . '&stuff=now"><input class="button baseFont add" type="submit" value="Show cargo on the ship"></a><br>';		echo '<br>';		echo '<form action="?menu=ships&id=' . $_GET['id'] . '&stuff=history" method="post">';		echo '&nbsp;<input type="submit" class="button baseFont add" value="Show cargo history"><br>';		echo 'Date:';		echo '<input name="from" style="width: 75px" class="baseFont" type="edit" placeholder="From">';		echo '&nbsp;<input name="to" style="width: 75px" class="baseFont" type="edit" placeholder="To">';		echo '</form>';		echo '</div>';			if($cargo==NULL)
 			return;		foreach($cargo as $cargo_item)			
 		{							echo "<br><div style=\"text-align: center\">				  <table class=\"stuff_info\">				  <tr>					  <td class=\"stuff_no\" colspan=\"2\">						  Cargo ID: $cargo_item->id					  </td>				  </tr>

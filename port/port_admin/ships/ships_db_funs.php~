@@ -181,7 +181,7 @@
 						kapitan AS captain,
 						data_produkcji AS production_date,
 						typ_Statku AS type,
-						id_Typ_Ladunku AS type_id,
+						id_Typ_Statku AS type_id,
 						dlugosc AS length,
 						szerokosc AS width,
 						wysokosc AS height,						

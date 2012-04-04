@@ -10,7 +10,6 @@
 		{					 			echo	"<tr>					<td class=\"cargo_name\">						ID: $cargo_item->id <br>$cargo_item->name					</td>					<td>						$cargo_item->amount					</td>					<td>						$cargo_item->control_required					</td>					<td>						$cargo_item->remarks					</td>				</tr>";				
 		}	echo "</table>";	if( isset( $_GET['contractor_id'] ) ) 
 	{		echo '<span class="baseFont"><h1>Register cargo on the [ship_name] ship:</h1></span>';		echo '<form id="cargo_form" action="?action=register&done=register&id=' . $_GET['id'] . '&contractor_id=' . $_GET['contractor_id'] . '" method="post">';		echo '<br>No. 0: <select name="cargo0" onChange="addCargoCombo( 0 )">';
-		echo '<option>empty slot</option>';
 		$commodities=get_commodities($ship->type_id);
 		foreach($commodities as $commodity)			echo "<option value=\"$commodity->id\">$commodity->name</option>";											  echo '</select>			  <input name="amount0" type="text" placeholder="Amount" pattern="^[0-9]+$">			  <label><input type="checkbox" name="duty0">Duty control required</label><br>			  <textarea style="margin-left: 40px" name="remarks0" cols="37" rows="3" placeholder="Remarks"></textarea><br>';		echo '<br><br><input type="submit" class="button baseFont add" value="Register">';		echo '</form>';	} 
 	else 

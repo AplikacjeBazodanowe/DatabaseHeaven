@@ -44,20 +44,16 @@
 		DB::query($sql);	
 	}
 	
-	function select_warehouses($terminal_id, $name, $minCap='', $maxCap='')
+	function select_warehouses($terminal_id, $name)
 	{
 		if(!empty($terminal_id))
 			$sql="SELECT id_Magazyn AS id, Magazyn.nazwa AS name, Terminal.nazwa AS term_name 
 					FROM Magazyn INNER JOIN Terminal USING (id_Terminal) 
-					WHERE id_Terminal=$terminal_id AND Magazyn.nazwa LIKE '%$name%' ";
+					WHERE id_Terminal=$terminal_id AND Magazyn.nazwa LIKE '%$name%'";
 		else
 			$sql="SELECT id_Magazyn AS id, Magazyn.nazwa AS name, Terminal.nazwa AS term_name 
 					FROM Magazyn INNER JOIN Terminal USING (id_Terminal)
-					WHERE Magazyn.nazwa LIKE '%$name%' ";
-		if($minCap!=='')
-			$sql.="AND pojemnosc>=$minCap ";
-		if($minCap!=='')
-			$sql.="AND pojemnosc<=$maxCap ";
+					WHERE Magazyn.nazwa LIKE '%$name%'";
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)
@@ -73,9 +69,7 @@
 						 Magazyn.nazwa AS name,
 						 pojemnosc AS capacity,
 				 	 	 cena_Za_Przechowanie AS fee,
-				 	 	 Terminal.nazwa AS term_name, 
-                         Terminal.id_Terminal AS term_id,
-                         Terminal.id_Typ_Ladunku AS type_id
+				 	 	 Terminal.nazwa AS term_name 
 				FROM Magazyn INNER JOIN Terminal USING (id_Terminal) 
 				WHERE id_Magazyn = $id";
 		$result=DB::query($sql);		
