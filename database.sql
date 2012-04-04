@@ -100,8 +100,12 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `wypornosc` INT NOT NULL ,
 
   `ladownosc_masowa` FLOAT NOT NULL ,
+
+   `aktualna_masa_ladunkow` FLOAT NULL,
   
   `ladownosc_objetosciowa` FLOAT NOT NULL,
+
+   `aktualna_objetosc_ladunkow` FLOAT NULL,
 
   `dlugosc` INT NOT NULL ,
 
@@ -212,8 +216,8 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `pojemnosc` INT NOT NULL ,
 
+  `aktualna_objetosc_ladunkow` INT NULL,
   `cena_Za_Przechowanie` INT NOT NULL ,
-
   `id_Terminal` INT NOT NULL ,
 
   PRIMARY KEY (`id_Magazyn`) ,
