@@ -5,7 +5,7 @@ CREATE DATABASE `databaseheaven`;
 DROP USER 'PortUser'@'localhost';
 CREATE USER 'PortUser'@'localhost' IDENTIFIED BY 'jakieshaslo';
 GRANT SELECT, UPDATE, INSERT, DELETE ON databaseheaven.* TO 'PortUser'@'localhost';
-GRANT EXECUTE ON PROCEDURE databaseheaven.* TO 'PortUser'@'localhost';
+GRANT EXECUTE ON databaseheaven.* TO 'PortUser'@'localhost';
 FLUSH PRIVILEGES;
 
 
@@ -99,13 +99,13 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `wypornosc` INT NOT NULL ,
 
-  `ladownosc_masowa` FLOAT NOT NULL ,
+  `ladownosc_masowa` INT NOT NULL ,
 
-   `aktualna_masa_ladunkow` FLOAT NULL,
+   `aktualna_masa_ladunkow` INT NOT NULL DEFAULT 0,
   
-  `ladownosc_objetosciowa` FLOAT NOT NULL,
+  `ladownosc_objetosciowa` INT NOT NULL,
 
-   `aktualna_objetosc_ladunkow` FLOAT NULL,
+   `aktualna_objetosc_ladunkow` INT NOT NULL DEFAULT 0,
 
   `dlugosc` INT NOT NULL ,
 
@@ -140,9 +140,9 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   
   `wartosc_jednostkowa` INT NOT NULL ,
   
-  `masa_jednostkowa` FLOAT NOT NULL ,
+  `masa_jednostkowa` INT NOT NULL ,
   
-  `objetosc_jednostkowa` FLOAT NOT NULL ,
+  `objetosc_jednostkowa` INT NOT NULL ,
   
   `id_Typ_Ladunku` INT NOT NULL,
 
@@ -159,8 +159,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `ilosc` INT NOT NULL ,
 
-  `uwagi` LONGTEXT NULL ,
-
   `id_Towar` INT NOT NULL ,
   
   `czy_kontrola_celna` BOOLEAN NOT NULL ,
@@ -170,15 +168,13 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   FOREIGN KEY (`id_Towar`) REFERENCES Towar(`id_Towar`) ON DELETE CASCADE
   )  ENGINE=InnoDB;
   
-    CREATE  TABLE `databaseheaven`.`Nadanie_Ladunku` (
+   CREATE  TABLE `databaseheaven`.`Nadanie_Ladunku` (
 
   `id_Nadanie_Ladunku` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
 
-  `uwagi` LONGTEXT NULL ,
-
-  `id_Kontrahent` INT NULL ,
+  `id_Kontrahent` INT NOT NULL ,
   
   `id_Ladunek` INT NOT NULL,
 
@@ -194,8 +190,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Odbior_Ladunku` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
-
-  `uwagi` LONGTEXT NULL ,
 
   `id_Kontrahent` INT NOT NULL ,
 

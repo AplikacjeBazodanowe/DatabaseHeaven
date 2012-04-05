@@ -1,4 +1,5 @@
 USE databaseheaven;
+
 /* Oddokowanie */
 DROP PROCEDURE IF EXISTS oddokuj;
 
@@ -43,9 +44,7 @@ root:BEGIN
     
     SELECT DATEDIFF(z.data, data)*d.cena_Za_Pobyt FROM Zadokowany z
     INNER JOIN Dok d ON (z.id_Dok = d.id_Dok)
-    WHERE z.id_Zadokowany = zadok INTO oplataZaDokowanie;
-    
-   
+    WHERE z.id_Zadokowany = zadok INTO oplataZaDokowanie;    
     
     SELECT COUNT(kc.czy_Pozytywna) FROM Ladunek l
     	INNER JOIN Przeladunek p ON (p.id_Ladunek = l.id_Ladunek)
@@ -153,15 +152,15 @@ root:BEGIN
     TRUNCATE TABLE Bledy_Operacji;
     SELECT "Wszystko ok!";
 END
- //
+//
 DELIMITER ;
 
-/* Odbior towaru */
+/* Odbior ładunku */
 DROP PROCEDURE IF EXISTS odbior;
 DELIMITER //
-CREATE PROCEDURE odbior(cargo INT, recipient INT, data DATETIME, user INT)
+CREATE PROCEDURE odbior(cargo INT, recipient INT, user INT, remarks TEXT)
 root:BEGIN
-    DECLARE loadID, storeID, cost, tempCost, volume, storePrice INT;
+    DECLARE loadID, storeID, shipID, cost, tempCost, volume, storePrice INT;
     DECLARE data1, data2 DATETIME;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
@@ -175,6 +174,10 @@ root:BEGIN
     SELECT p.id_Magazyn2 FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
     INTO storeID;
+    
+    SELECT p.id_Statek2 FROM Przeladunek p
+    WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
+    INTO shipID;    
 
     SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
     INNER JOIN Towar t ON t.id_Towar = l.id_Towar
@@ -182,11 +185,10 @@ root:BEGIN
 
     START TRANSACTION;
     UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-    INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn1, id_Uzytkownik, id_Ladunek)
-            VALUES (data, '', 1, storeID, user, cargo);
+    INSERT INTO Przeladunek VALUES (NULL, NOW(), NULL, 1, shipID, NULL, storeID, NULL, user, cargo);
     
-    INSERT INTO Odbior_Ladunku(data, uwagi, id_Kontrahent, id_Ladunek)
-            VALUES(data, '', recipient, cargo);
+    INSERT INTO Odbior_Ladunku VALUES(NULL, NOW(), recipient, cargo);
+            
     OPEN cur1;
     read_loop: LOOP
         FETCH cur1 INTO storeID, data2;
@@ -206,9 +208,31 @@ root:BEGIN
     CLOSE cur1;
 
     INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                VALUES('portowa', cost, 0, date, recipient, user);
+                VALUES('Portowa (za magazyn)', cost, 0, NOW(), recipient, user);
     
     COMMIT;
+END
+//
+DELIMITER ;
+
+/* Nadanie ładunku */
+/*ship, store jak w przeładunek*/
+DROP PROCEDURE IF EXISTS nadanie;
+DELIMITER //
+CREATE PROCEDURE nadanie(commodity INT, amount INT, sender INT, dutyControl BOOLEAN , ship INT, store INT, user INT, remarks TEXT)
+root:BEGIN
+	DECLARE newID, error INT;
+	START TRANSACTION;
+	SELECT max(id_Ladunek)+1 FROM Ladunek INTO newID;
+	INSERT INTO Ladunek VALUES(newID,amount,commodity,dutyControl);	
+	INSERT INTO Nadanie_Ladunku VALUES(NULL,NOW(),sender,newID);	
+	CALL przeladuj(newID, ship, store, user, remarks);
+	SELECT count(*) FROM Bledy_Operacji INTO error;
+	IF error=0 THEN
+	    COMMIT;
+	ELSE
+		ROLLBACK;
+	END IF;
 END
 //
 DELIMITER ;
@@ -216,31 +240,26 @@ DELIMITER ;
 /* Przeladunek, na statek - store = null, do mag - ship = nul */
 DROP PROCEDURE IF EXISTS przeladuj;
 DELIMITER //
-CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, data DATETIME, user INT)
+CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, user INT, remarks TEXT)
 root:BEGIN
-    DECLARE loadID, taxChecked, typesMatch,
+    DECLARE loadID, taxChecked, typesMatch, sourceStore, sourceShip,
             sumVol, sumWeight, destMaxVol, destMaxWeight, destVol, destWeight,
-            customer, cost INT;
+			cost INT;
     SET taxChecked = 0;
     SET typesMatch = 0;
     SET sumVol = 1;
     SET sumWeight = 1;
     SET destVol = 0;
     SET destWeight = 0;
-    
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
     INTO loadID;
-    
-    SELECT COUNT(kc.czy_Pozytywna) FROM Ladunek l
-    INNER JOIN Kontrola_Celna kc ON (kc.id_Ladunek = l.id_Ladunek)
-    WHERE kc.czy_Pozytywna = 1 AND l.id_Ladunek = cargo
-    INTO taxChecked;
-        
-    SELECT n.id_Kontrahent FROM Nadanie_Ladunku n
-    INNER JOIN Ladunek l on n.id_Ladunek = l.id_Ladunek
-    WHERE l.id_Ladunek = cargo INTO customer;
 
+	SELECT COUNT(*) FROM Ladunek l
+		LEFT OUTER JOIN Kontrola_Celna kc USING(id_Ladunek)
+		WHERE (kc.czy_Pozytywna = TRUE OR l.czy_kontrola_celna=FALSE) AND l.id_Ladunek = cargo
+    INTO taxChecked;
+    
     IF taxChecked = 0 THEN
         TRUNCATE TABLE Bledy_Operacji;
         INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(8);
@@ -253,9 +272,11 @@ root:BEGIN
     WHERE l.id_Ladunek = cargo INTO sumVol;
     
     SELECT id_Magazyn2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceStore;
+    SELECT id_Statek2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceShip;
+    
    
     IF ship IS NOT NULL THEN
-        SELECT COUNT(*) FROM typ_Ladunku tl
+        SELECT COUNT(*) FROM Typ_Ladunku tl
         INNER JOIN Statek s ON (s.id_Typ_Ladunku = tl.id_Typ_Ladunku)
         INNER JOIN Towar t ON (t.id_Typ_Ladunku = tl.id_Typ_Ladunku)
         INNER JOIN Ladunek l ON (l.id_Towar = t.id_Towar)
@@ -290,10 +311,10 @@ root:BEGIN
         IF sumVol < destMaxVol - destVol AND sumWeight < destMaxWeight - destWeight THEN
             START TRANSACTION;
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Statek2, id_Uzytkownik, id_Ladunek)
-            VALUES (data, '', 1, ship, user, cargo);
+	        INSERT INTO Przeladunek	VALUES (NULL, NOW(), remarks, 1, sourceShip, ship, sourceStore, NULL, user, cargo);
             UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow + sumWeight WHERE id_Statek = ship;
             UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Statek = ship;
+            TRUNCATE TABLE Bledy_Operacji;            
             COMMIT;
         ELSE 
             TRUNCATE TABLE Bledy_Operacji;
@@ -326,9 +347,9 @@ root:BEGIN
         IF sumVol < destMaxVol - destVol THEN
             START TRANSACTION;
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-            INSERT INTO Przeladunek(data, uwagi, czy_aktualne_polozenie, id_Magazyn2, id_Uzytkownik, id_Ladunek)
-                VALUES (data, '', 1, store, user, cargo);
+	        INSERT INTO Przeladunek	VALUES (NULL, NOW(), remarks, 1, sourceShip, NULL, sourceStore, store, user, cargo);
             UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Magazyn = store;
+            TRUNCATE TABLE Bledy_Operacji;            
             COMMIT;
         ELSE 
             TRUNCATE TABLE Bledy_Operacji;
@@ -340,6 +361,24 @@ root:BEGIN
 END
 //
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS przesunStatek;
+
+delimiter |
+CREATE PROCEDURE przesunStatek(dok1 INT, dok2 INT, ship INT, user INT, data DATETIME)
+BEGIN
+	DECLARE error INT;
+    START TRANSACTION;    	
+    CALL oddokuj(dok1, data , user);
+    SELECT count(*) FROM Bledy_Operacji INTO error;
+    IF error=0 THEN
+        CALL zadokuj(dok2, ship, data, user);        
+		COMMIT;
+	END IF;	           
+END
+|
+delimiter ;
+
 /* Pozytywna kontrola celna */
 DROP TRIGGER IF EXISTS pozytywnaKontrolaCelna;
 delimiter |
@@ -374,21 +413,7 @@ root:BEGIN
     
     INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
                 VALUES('celna', cost, 0, CURRENT_DATE(), cust, user);
-END;
-|
-delimiter ;
-
-
-DROP PROCEDURE IF EXISTS przesunStatek;
-
-delimiter |
-CREATE PROCEDURE przesunStatek(dok1 INT, dok2 INT, ship INT, user INT, data DATETIME)
-BEGIN
-    START TRANSACTION;
-        CALL oddokuj(dok1, data , user);
-        CALL zadokuj(dok2, ship, data, user);
-    COMMIT;    
+    TRUNCATE TABLE Bledy_Operacji;
 END
 |
 delimiter ;
-
