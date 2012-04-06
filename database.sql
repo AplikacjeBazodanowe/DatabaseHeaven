@@ -210,7 +210,7 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `pojemnosc` INT NOT NULL ,
 
-  `aktualna_objetosc_ladunkow` INT NULL,
+  `aktualna_objetosc_ladunkow` INT NOT NULL DEFAULT 0,
   `cena_Za_Przechowanie` INT NOT NULL ,
   `id_Terminal` INT NOT NULL ,
 

@@ -160,12 +160,24 @@ DROP PROCEDURE IF EXISTS odbior;
 DELIMITER //
 CREATE PROCEDURE odbior(cargo INT, recipient INT, user INT, remarks TEXT)
 root:BEGIN
-    DECLARE loadID, storeID, shipID, cost, tempCost, volume, storePrice INT;
+    DECLARE loadID, storeID, shipID, cost, tempCost, volume, mass, storePrice, taxChecked INT;
     DECLARE data1, data2 DATETIME;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
                                     WHERE p.id_Ladunek = cargo AND p.id_Magazyn2 IS NOT NULL;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    SELECT COUNT(*) FROM Ladunek l
+			LEFT OUTER JOIN Kontrola_Celna kc USING(id_Ladunek)
+			WHERE (kc.czy_Pozytywna = TRUE OR l.czy_kontrola_celna=FALSE) AND l.id_Ladunek = cargo
+	INTO taxChecked;
+    
+    IF taxChecked = 0 THEN
+        TRUNCATE TABLE Bledy_Operacji;
+        INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(8);
+        SELECT "BLAD!: ladunek nie przeszedl pozytywnej kontroli celnej";
+        LEAVE root;
+    END IF;
     
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
@@ -183,12 +195,23 @@ root:BEGIN
     INNER JOIN Towar t ON t.id_Towar = l.id_Towar
     WHERE l.id_Ladunek = cargo INTO volume;    
 
+    SELECT (t.masa_jednostkowa *l.ilosc) FROM Ladunek l
+    INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+    WHERE l.id_Ladunek = cargo INTO mass;    
+
     START TRANSACTION;
     UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
-    INSERT INTO Przeladunek VALUES (NULL, NOW(), NULL, 1, shipID, NULL, storeID, NULL, user, cargo);
+    INSERT INTO Przeladunek VALUES (NULL, NOW(), NULL, 1, shipID, NULL, storeID, NULL, user, cargo);   
+    
+    IF shipID IS NOT NULL THEN
+        UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow - mass WHERE id_Statek = shipID;
+        UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - volume WHERE id_Statek = shipID;
+    ELSEIF storeID IS NOT NULL THEN
+        UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - volume WHERE id_Magazyn = storeID;	        
+    END IF;
     
     INSERT INTO Odbior_Ladunku VALUES(NULL, NOW(), recipient, cargo);
-            
+	SET cost=0;            
     OPEN cur1;
     read_loop: LOOP
         FETCH cur1 INTO storeID, data2;
@@ -216,22 +239,26 @@ END
 DELIMITER ;
 
 /* Nadanie ładunku */
-/*ship, store jak w przeładunek*/
+/*ship, store jak w przeładunek. MySQL nie obsługuje zagnieżdżonych transakcji, więc trzeba było to
+zrobić ręcznie (sprawdzamy czy wstawił się rekord do przeładunku, jak nie to usuwamy to co wstawilismy)*/
 DROP PROCEDURE IF EXISTS nadanie;
 DELIMITER //
 CREATE PROCEDURE nadanie(commodity INT, amount INT, sender INT, dutyControl BOOLEAN , ship INT, store INT, user INT, remarks TEXT)
 root:BEGIN
-	DECLARE newID, error INT;
-	START TRANSACTION;
-	SELECT max(id_Ladunek)+1 FROM Ladunek INTO newID;
+	DECLARE newID, cargoCount INT;
+	SELECT count(*) FROM Ladunek INTO cargoCount;
+	IF cargoCount=0 THEN
+		SET newID=1;
+	ELSE
+		SELECT max(id_Ladunek)+1 FROM Ladunek INTO newID;
+	END IF;
 	INSERT INTO Ladunek VALUES(newID,amount,commodity,dutyControl);	
 	INSERT INTO Nadanie_Ladunku VALUES(NULL,NOW(),sender,newID);	
-	CALL przeladuj(newID, ship, store, user, remarks);
-	SELECT count(*) FROM Bledy_Operacji INTO error;
-	IF error=0 THEN
-	    COMMIT;
-	ELSE
-		ROLLBACK;
+	CALL przeladuj(newID, ship, store, user, remarks,TRUE);
+	SELECT count(*) FROM Przeladunek WHERE id_Ladunek=newID INTO cargoCount;
+	IF cargoCount=0 THEN
+	    DELETE FROM Ladunek WHERE id_Ladunek=newID;
+	    DELETE FROM Nadanie_Ladunku WHERE id_Ladunek=newID;	    
 	END IF;
 END
 //
@@ -240,7 +267,7 @@ DELIMITER ;
 /* Przeladunek, na statek - store = null, do mag - ship = nul */
 DROP PROCEDURE IF EXISTS przeladuj;
 DELIMITER //
-CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, user INT, remarks TEXT)
+CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, user INT, remarks TEXT, ignoreDuty BOOLEAN)
 root:BEGIN
     DECLARE loadID, taxChecked, typesMatch, sourceStore, sourceShip,
             sumVol, sumWeight, destMaxVol, destMaxWeight, destVol, destWeight,
@@ -251,29 +278,42 @@ root:BEGIN
     SET sumWeight = 1;
     SET destVol = 0;
     SET destWeight = 0;
+    START TRANSACTION;    
     SELECT p.id_Przeladunek FROM Przeladunek p
     WHERE p.id_Ladunek = cargo AND p.czy_aktualne_polozenie = 1
     INTO loadID;
 
-	SELECT COUNT(*) FROM Ladunek l
-		LEFT OUTER JOIN Kontrola_Celna kc USING(id_Ladunek)
-		WHERE (kc.czy_Pozytywna = TRUE OR l.czy_kontrola_celna=FALSE) AND l.id_Ladunek = cargo
-    INTO taxChecked;
+	IF ignoreDuty=FALSE THEN
+		SELECT COUNT(*) FROM Ladunek l
+			LEFT OUTER JOIN Kontrola_Celna kc USING(id_Ladunek)
+			WHERE (kc.czy_Pozytywna = TRUE OR l.czy_kontrola_celna=FALSE) AND l.id_Ladunek = cargo
+		INTO taxChecked;
+	ELSE
+		SET taxChecked = 1;
+    END IF;    
     
     IF taxChecked = 0 THEN
         TRUNCATE TABLE Bledy_Operacji;
         INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(8);
         SELECT "BLAD!: ladunek nie przeszedl pozytywnej kontroli celnej";
         LEAVE root;
-    END IF;
-    
-    SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
-    INNER JOIN Towar t ON t.id_Towar = l.id_Towar
-    WHERE l.id_Ladunek = cargo INTO sumVol;
+    END IF;    
     
     SELECT id_Magazyn2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceStore;
     SELECT id_Statek2 FROM Przeladunek WHERE id_Przeladunek = loadId INTO sourceShip;
     
+    IF ship=sourceShip OR store=sourceStore THEN
+		TRUNCATE TABLE Bledy_Operacji;
+        INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(13);
+        LEAVE root;
+    END IF; 
+    
+    SELECT (t.masa_jednostkowa *l.ilosc) FROM Ladunek l
+        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+        WHERE l.id_Ladunek = cargo INTO sumWeight;
+    SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
+        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+        WHERE l.id_Ladunek = cargo INTO sumVol;   
    
     IF ship IS NOT NULL THEN
         SELECT COUNT(*) FROM Typ_Ladunku tl
@@ -290,10 +330,6 @@ root:BEGIN
             LEAVE root;
         END IF;
 
-        SELECT (t.masa_jednostkowa *l.ilosc) FROM Ladunek l
-        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
-        WHERE l.id_Ladunek = cargo INTO sumWeight;
-
         SELECT ladownosc_masowa FROM Statek
         WHERE id_Statek = ship INTO destMaxWeight;
 
@@ -305,13 +341,21 @@ root:BEGIN
 
         SELECT aktualna_objetosc_ladunkow FROM Statek
         WHERE id_Statek = ship INTO destVol;
-
+        
+        SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
+    	INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+	    WHERE l.id_Ladunek = cargo INTO sumVol;
         
         /* Jesli ladunek sie zmiesci na statku */
-        IF sumVol < destMaxVol - destVol AND sumWeight < destMaxWeight - destWeight THEN
-            START TRANSACTION;
+        IF sumVol <= destMaxVol - destVol AND sumWeight <= destMaxWeight - destWeight THEN
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
 	        INSERT INTO Przeladunek	VALUES (NULL, NOW(), remarks, 1, sourceShip, ship, sourceStore, NULL, user, cargo);
+	        IF sourceShip IS NOT NULL THEN
+                UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow - sumWeight WHERE id_Statek = sourceShip;
+	            UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - sumVol WHERE id_Statek = sourceShip;
+	        ELSEIF sourceStore IS NOT NULL THEN
+	            UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - sumVol WHERE id_Magazyn = sourceStore;	        
+	        END IF;
             UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow + sumWeight WHERE id_Statek = ship;
             UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Statek = ship;
             TRUNCATE TABLE Bledy_Operacji;            
@@ -328,7 +372,7 @@ root:BEGIN
         INNER JOIN Terminal ter ON (m.id_Terminal = ter.id_Terminal)
         INNER JOIN Towar t ON (t.id_Typ_Ladunku = ter.id_Typ_Ladunku)
         INNER JOIN Ladunek l ON (l.id_Towar = t.id_Towar)
-        WHERE m.id_Magazyn = cargo AND l.id_Ladunek = cargo
+        WHERE m.id_Magazyn = store AND l.id_Ladunek = cargo
         INTO typesMatch;
         
         IF typesMatch = 0 THEN
@@ -344,11 +388,17 @@ root:BEGIN
         SELECT aktualna_objetosc_ladunkow FROM Magazyn
         WHERE id_Magazyn = store INTO destVol;
         
-        IF sumVol < destMaxVol - destVol THEN
+        IF sumVol <= destMaxVol - destVol THEN
             START TRANSACTION;
             UPDATE Przeladunek SET czy_aktualne_polozenie = 0 WHERE id_Przeladunek = loadID;
 	        INSERT INTO Przeladunek	VALUES (NULL, NOW(), remarks, 1, sourceShip, NULL, sourceStore, store, user, cargo);
             UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow + sumVol WHERE id_Magazyn = store;
+	        IF sourceShip IS NOT NULL THEN
+                UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow - sumWeight WHERE id_Statek = sourceShip;
+	            UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - sumVol WHERE id_Statek = sourceShip;
+	        ELSEIF sourceStore IS NOT NULL THEN
+	            UPDATE Magazyn SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - sumVol WHERE id_Magazyn = sourceStore;	        
+	        END IF;
             TRUNCATE TABLE Bledy_Operacji;            
             COMMIT;
         ELSE 
@@ -413,7 +463,6 @@ root:BEGIN
     
     INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
                 VALUES('celna', cost, 0, CURRENT_DATE(), cust, user);
-    TRUNCATE TABLE Bledy_Operacji;
 END
 |
 delimiter ;
