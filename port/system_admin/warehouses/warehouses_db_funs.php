@@ -40,7 +40,7 @@
 			return;			
 		if(empty($name) || empty($capacity) || empty($fee) )
 			return;				
-		$sql="INSERT INTO Magazyn VALUES (NULL, '$name', $capacity, $fee, $terminal_id)";
+		$sql="INSERT INTO Magazyn VALUES (NULL, '$name', $capacity,0, $fee, $terminal_id)";
 		DB::query($sql);	
 	}
 	
@@ -70,13 +70,15 @@
 	function get_warehouse_by_id($id)
 	{
 		$sql="SELECT id_Magazyn AS id, 
-						 Magazyn.nazwa AS name,
-						 pojemnosc AS capacity,
-				 	 	 cena_Za_Przechowanie AS fee,
+						 Magazyn.nazwa AS name,						
+                         CONCAT(Magazyn.pojemnosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS capacity,						 						 
+                         CONCAT(Magazyn.aktualna_objetosc_ladunkow, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS curVol,						 						 
+                         CONCAT(cena_Za_Przechowanie, ' $') AS fee,				 	 	  
 				 	 	 Terminal.nazwa AS term_name, 
                          Terminal.id_Terminal AS term_id,
                          Terminal.id_Typ_Ladunku AS type_id
 				FROM Magazyn INNER JOIN Terminal USING (id_Terminal) 
+                    INNER JOIN Typ_Ladunku USING(id_Typ_Ladunku)
 				WHERE id_Magazyn = $id";
 		$result=DB::query($sql);		
       $count=$result->num_rows;

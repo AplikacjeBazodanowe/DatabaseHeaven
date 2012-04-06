@@ -66,7 +66,7 @@
 						 maks_dlugosc_statku AS max_length,
 					 	 maks_szerokosc_statku AS max_width,
 					 	 maks_wysokosc_statku AS max_height,
-				 	 	 cena_za_pobyt AS fee,
+				 	 	 CONCAT(cena_za_pobyt, ' $') AS fee,				 	 	  
 				 	 	 nazwa AS term_name 
 				FROM Dok NATURAL JOIN Terminal 
 				WHERE id_Dok = $id";

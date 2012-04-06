@@ -33,7 +33,8 @@
 						CONCAT(Towar.objetosc_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
 						CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,
 						k1.nazwa AS sender,
-						k2.nazwa AS receiver						  						 
+						k2.nazwa AS receiver,
+						Ladunek.uwagi AS remarks  						 
 				FROM Ladunek
 					INNER JOIN Towar USING ( id_Towar )
 					INNER JOIN Typ_Ladunku	USING (id_Typ_Ladunku)														
@@ -90,15 +91,11 @@
       return $types;
 	}
 	
-	function get_commodities($type='',$name='')
+	function get_commodities()
 	{
 		$sql="SELECT id_Towar AS id, 
 						 nazwa AS name						  
-				FROM Towar WHERE 1 ";
-		if($type!=='')
-			$sql.="AND id_Typ_Ladunku=$type";
-        if($name!=='')
-			$sql.="AND nazwa LIKE '%$name%'";
+				FROM Towar";		
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)

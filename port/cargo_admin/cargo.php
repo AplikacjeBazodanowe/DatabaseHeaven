@@ -21,12 +21,17 @@
 				<a href="?menu=warehouses"><input class="button baseFont menu_button" type="button" value="Warehouses"></a>
 				<a href="?menu=contractors"><input class="button baseFont menu_button" type="button" value="Contractors"></a>
 				<a href="?menu=cargo"><input class="button baseFont menu_button" type="button" value="Cargo"></a>
+                <a href="?menu=commodities"><input class="button baseFont menu_button" type="button" value="Commodities"></a>
+                <a href="#"><input class="button baseFont menu_button" type="button" value="Log out"></a>
 			</div>
 			<div id="adding" class="add_edit">
 				<?php 
 					if( isset( $_GET['menu'] ) ) {
 						if( $_GET['menu'] == "contractors" ) {
 							include( "contractors/contractors_adding.php" );
+						}
+                        if( $_GET['menu'] == "commodities" ) {
+							include( "commodities/commodities_adding.php" );
 						}
 					}
 				?>
@@ -49,7 +54,10 @@
 							include( "ships/ships_left_group.php" );
 						} elseif( $_GET['menu'] == "contractors" ) {
 							include( "contractors/contractors_left_group.php" );
-						} else {
+						} elseif( $_GET['menu'] == "commodities" ) {
+							include( "commodities/commodities_left_group.php" );
+						}
+                        else {
 							include( "cargo/cargo_left_group.php" );
 						}
 					} else {
@@ -66,6 +74,8 @@
 							include( "ships/ships_desc_field.php" );
 						} elseif( $_GET['menu'] == "contractors" ) {
 							include( "contractors/contractors_desc_field.php" );
+						} elseif( $_GET['menu'] == "commodities" ) {
+							include( "commodities/commodities_desc_field.php" );
 						} else {
 							include( "cargo/cargo_desc_field.php" );
 						}

@@ -2,9 +2,16 @@
 	include_once('contractors_db_funs.php');
 ?>
 
-<form action="cargo.php?menu=contractors&action=add" method="post">
+<form action="port.php?menu=contractors&action=add" method="post">
 	Name: <br><input name="name" class="edit_adding baseFont" type="edit" placeholder="Name" required>
 	Address: <br><input name="address" class="edit_adding baseFont" type="edit" placeholder="Address" required>
+    Type: <br><select name="type">
+	<?php	
+		$types=get_types();
+		foreach($types as $type)
+			echo "<option value=\"$type\">$type</option>"; 
+	?>				
+			  </select><br/>
 	Country: <br><select name="country">
 	<?php	
 		$countries=get_countries();

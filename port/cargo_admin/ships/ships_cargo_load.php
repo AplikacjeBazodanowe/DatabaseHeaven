@@ -2,15 +2,15 @@
 	echo "<span class=\"baseFont\"><h1>List of cargo on the $ship->name ship:</h1></span>
 	<table class=\"stuff_info_wider\">
 	<tr>
-		<td class=\"stuff_no\" colspan=\"2\">
+		<td class=\"stuff_no\" >
 				Cargo
-			</td>
-			<td style=\"width: 150px\" class=\"stuff_no\">
-				Duty control requirement
-			</td>
-			<td style=\"width: 250px\" class=\"stuff_no\">
-				Remarks
-			</td>
+                </td>
+                <td class=\"stuff_no\">
+                    Amount
+                </td>
+                <td style=\"width: 150px\" class=\"stuff_no\">
+                        Duty control requirement
+                </td>			
 	</tr>";
 	if($cargo!=NULL)
 		foreach($cargo as $cargo_item)
@@ -24,15 +24,12 @@
 					</td>
 					<td>
 						$cargo_item->control_required
-					</td>
-					<td>
-						$cargo_item->remarks
-					</td>
+					</td>					
 				</tr>";				
 		}
 	echo "</table>";
 
-	echo '<span class="baseFont"><h1>Load cargo on the [ship_name] ship:</h1></span>';
+	echo "<span class=\"baseFont\"><h1>Load cargo on the $ship->name ship:</h1></span>";
 	echo '<div>';
 	echo '<a href="?action=load&from=warehouse&id='   . $_GET['id'] . '"><input class="button baseFont add" type="button" value="From warehouse"></a>';
 	echo '<br><a href="?action=load&from=ship&id='    . $_GET['id'] . '"><input class="button baseFont add" type="button" value="From another ship"></a>';

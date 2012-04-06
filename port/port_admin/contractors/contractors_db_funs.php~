@@ -4,7 +4,7 @@
 	
 	function update_contractor($id,$name,$address,$country_id)
 	{		
-		$countries=get_countries();
+		$countries=select_countries();
 		$goodCountry=false;
 		foreach($countries as $country)
 			if($country->id==$country_id)
@@ -24,7 +24,7 @@
 	
 	function insert_contractor($name,$address,$country_id)
 	{		
-		$countries=get_countries();
+		$countries=select_countries();
 		$goodCountry=false;
 		foreach($countries as $country)
 			if($country->id==$country_id)
@@ -43,10 +43,9 @@
 	function select_contractors($name='', $country='')
 	{
 		$sql="SELECT id_Kontrahent AS id, 
-						 Kontrahent.nazwa AS name,
-						 Kraj.nazwa AS country						  
-				FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
-				WHERE Kontrahent.typ='Wlasciciel ladunku' AND Kontrahent.nazwa LIKE '%$name%' ";
+						 Kontrahent.nazwa AS name						  
+				FROM Kontrahent  
+				WHERE Kontrahent.nazwa LIKE '%$name%' ";
 		if($country!=='')
 			$sql.="AND Kraj.id_Kraj=$country";
 		$result=DB::query($sql);		

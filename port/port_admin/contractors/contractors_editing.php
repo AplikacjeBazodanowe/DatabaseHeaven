@@ -2,7 +2,7 @@
 	include_once('contractors_db_funs.php');
 ?>
 
-<form name="edit_form" action="cargo.php?menu=contractors&action=edit&id=ID" method="post">
+<form name="edit_form" action="port.php?menu=contractors&action=edit&id=ID" method="post">
 	Name: <br><input name="name" class="edit_adding baseFont" type="edit" placeholder="Name" required>
 	Address: <br><input name="address" class="edit_adding baseFont" type="edit" placeholder="Address" required>	
 	Country: <br><select name="country">

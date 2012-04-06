@@ -9,7 +9,7 @@
 								$length,$width,$height,$captain,$prodDate,$ownerId,$typeId)
 	{
 			$sql = "INSERT INTO Statek VALUES
-						(NULL,'$name',$displacement,$capMass,$capVol,
+						(NULL,'$name',$displacement,$capMass,0,$capVol,0,
 						$length,$width,$height,'$captain','$prodDate',$ownerId,$typeId)";
 			DB::query($sql); 
 	}	
@@ -36,10 +36,10 @@
 		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
 		$result=DB::query($sql);
 		$count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object()->opis;	
+        if($count==0)
+            return NULL;
+        else 
+            return $result->fetch_object()->opis;	
 	}
 	
 	//wartość zwracana=NULL jeśli wszystko ok lub komunikat błędu jeśli nie ok
@@ -178,6 +178,8 @@
 						wypornosc AS displacement,
 						ladownosc_masowa AS capMass,
 						ladownosc_objetosciowa AS capVol,
+                        aktualna_masa_ladunkow AS curMass,
+                        aktualna_objetosc_ladunkow AS curVol,
 						kapitan AS captain,
 						data_produkcji AS production_date,
 						typ_Statku AS type,
@@ -252,7 +254,7 @@
       	return $result->fetch_object();                               
 	}				
 	
-	function get_ship_cargo($ship_id, $all=false)
+	function get_ship_cargo($ship_id, $from='', $to='')
 	{				
 		$sql="SELECT Ladunek.id_Ladunek AS id, 
 						Towar.nazwa AS name,
@@ -260,12 +262,11 @@
 						Przeladunek.data AS date,
 						Uzytkownik.nazwa AS loaded_by,
 						Ladunek.ilosc AS amount,						
-						Towar.masa_jednostkowa*Ladunek.ilosc AS mass,
-						Towar.objetosc_jednostkowa*Ladunek.ilosc AS volume,
-						Towar.wartosc_jednostkowa*Ladunek.ilosc AS value,
+                        CONCAT(Towar.masa_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Masy) AS mass,
+						CONCAT(Towar.objetosc_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
+						CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,												
 						Kontrahent.nazwa AS owner,
-						czy_kontrola_celna AS control_required,
-						Ladunek.uwagi AS remarks  						 
+						czy_kontrola_celna AS control_required						
 				FROM Ladunek
 					INNER JOIN Towar USING ( id_Towar )
 					INNER JOIN Typ_Ladunku	USING (id_Typ_Ladunku)									
@@ -274,8 +275,15 @@
 					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
 					INNER JOIN Uzytkownik USING(id_Uzytkownik)						 
 				WHERE Przeladunek.id_statek2 = $ship_id ";
-		if(!$all)
-			$sql.="AND czy_aktualne_polozenie=TRUE";
+        if($from==='' AND $to==='')
+            $sql.="AND czy_aktualne_polozenie=TRUE ";
+		else
+        {
+            if($from!=='')
+                $sql.="AND Przeladunek.data>='$from' ";
+            if($to!=='')
+                $sql.="AND Przeladunek.data<='$to' ";
+        }
 		$result=DB::query($sql);		
       $count=$result->num_rows;
       if($count==0)
