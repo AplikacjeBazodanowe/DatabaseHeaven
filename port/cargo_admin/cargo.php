@@ -21,8 +21,8 @@
 				<a href="?menu=warehouses"><input class="button baseFont menu_button" type="button" value="Warehouses"></a>
 				<a href="?menu=contractors"><input class="button baseFont menu_button" type="button" value="Contractors"></a>
 				<a href="?menu=cargo"><input class="button baseFont menu_button" type="button" value="Cargo"></a>
-                <a href="?menu=commodities"><input class="button baseFont menu_button" type="button" value="Commodities"></a>
-                <a href="#"><input class="button baseFont menu_button" type="button" value="Log out"></a>
+                                <a href="?menu=commodities"><input class="button baseFont menu_button" type="button" value="Commodities"></a>
+                                <a href="#"><input class="button baseFont menu_button" type="button" value="Log out"></a>
 			</div>
 			<div id="adding" class="add_edit">
 				<?php 

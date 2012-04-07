@@ -56,9 +56,9 @@ root:BEGIN
     INTO iloscPozytywnychKontroliCelnych;
     
     SELECT COUNT(l.id_Ladunek) FROM Ladunek l
-    INNER JOIN Przeladunek p ON (p.id_Ladunek = l.id_Ladunek)
-    INNER JOIN Statek s ON (p.id_Statek2 = statk)
-    WHERE p.czy_aktualne_polozenie = 1 INTO iloscLadunkow;
+		INNER JOIN Przeladunek p ON (p.id_Ladunek = l.id_Ladunek)
+		INNER JOIN Statek s ON (p.id_Statek2 = statk)
+    WHERE p.czy_aktualne_polozenie = 1 AND l.czy_kontrola_celna = 1 INTO iloscLadunkow;
     
     /* OK jesli wszystkie ladunki na statku przeszly pozytywna kontrole celna*/
     IF iloscLadunkow = iloscPozytywnychKontroliCelnych THEN
@@ -67,11 +67,11 @@ root:BEGIN
 		   INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
 				VALUES ("Portowa(za dok)", oplataZaDokowanie, 0, data, kontrh, user);
 		END IF;
-       INSERT INTO Oddokowany(data, uwagi, id_zadokowany, id_Uzytkownik)
+        INSERT INTO Oddokowany(data, uwagi, id_zadokowany, id_Uzytkownik)
             VALUES(data, "Brak uwag", zadok, user); 
         select "Wszystko ok";
-	   TRUNCATE TABLE Bledy_Operacji;        
-       COMMIT;
+	    TRUNCATE TABLE Bledy_Operacji;        
+        COMMIT;
     ELSE
        TRUNCATE TABLE Bledy_Operacji;
        INSERT INTO Bledy_Operacji(id_Kod_Bledu) VALUES(1);
@@ -229,9 +229,11 @@ root:BEGIN
      
     END LOOP;
     CLOSE cur1;
-
-    INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                VALUES('Portowa (za magazyn)', cost, 0, NOW(), recipient, user);
+	
+	IF cost>0 THEN
+		INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
+		            VALUES('Portowa (za magazyn)', cost, 0, NOW(), recipient, user);
+    END IF;
     
     COMMIT;
 END
@@ -417,13 +419,11 @@ DROP PROCEDURE IF EXISTS przesunStatek;
 delimiter |
 CREATE PROCEDURE przesunStatek(dok1 INT, dok2 INT, ship INT, user INT, data DATETIME)
 BEGIN
-	DECLARE error INT;
-    START TRANSACTION;    	
+	DECLARE error INT; 	
     CALL oddokuj(dok1, data , user);
     SELECT count(*) FROM Bledy_Operacji INTO error;
     IF error=0 THEN
         CALL zadokuj(dok2, ship, data, user);        
-		COMMIT;
 	END IF;	           
 END
 |
@@ -449,9 +449,9 @@ root:BEGIN
     WHERE id_Kontrola_Celna = NEW.id_Kontrola_Celna
     INTO user;
     
-    SELECT SUM(l.ilosc * t.clo_jednostkowe) FROM Kontrola_Celna k
-    INNER JOIN Ladunek l ON (l.id_Ladunek = NEW.id_Ladunek)
-    INNER JOIN Towar t ON (l.id_Towar = t.id_Towar)
+    SELECT l.ilosc * t.clo_jednostkowe FROM Kontrola_Celna k
+		INNER JOIN Ladunek l ON (l.id_Ladunek = NEW.id_Ladunek)
+		INNER JOIN Towar t ON (l.id_Towar = t.id_Towar)
     WHERE k.id_Kontrola_Celna = NEW.id_Kontrola_Celna
     INTO cost;
     
@@ -462,7 +462,26 @@ root:BEGIN
     INTO cust;
     
     INSERT INTO Oplata(typ, kwota, czy_oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik)
-                VALUES('celna', cost, 0, CURRENT_DATE(), cust, user);
+                VALUES('Celna (cło)', cost, 0, NOW(), cust, user);
+END
+|
+delimiter ;
+
+DROP PROCEDURE IF EXISTS konfiskata;
+
+delimiter |
+CREATE PROCEDURE konfiskata(cargo INT, remarks TEXT, user INT)
+BEGIN
+	DECLARE ship_id INT;
+	START TRANSACTION;
+	SELECT id_Statek2 
+	FROM Przeladunek 
+		INNER JOIN Ladunek USING(id_Ladunek) 
+	WHERE id_Ladunek=cargo AND czy_aktualne_polozenie=TRUE
+	INTO ship_id;
+	INSERT INTO Kontrola_Celna VALUES(NULL,remarks,FALSE,NOW(),user,cargo);
+	INSERT INTO Przeladunek VALUES(NULL,NOW(),NULL,TRUE,ship_id,NULL,NULL,NULL,user,cargo);	
+	COMMIT; 
 END
 |
 delimiter ;

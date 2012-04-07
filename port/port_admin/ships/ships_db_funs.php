@@ -16,93 +16,93 @@
 	
 	function undock_ship($docked_id)
 	{				
-		$user_id=1;	//będzie pobierane z sesji
-		$sql="CALL oddokuj($docked_id, NOW(), $user_id)";
-		DB::query( $sql )->close();
-		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
-		$result=DB::query($sql);
-		$count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object()->opis;
+            $user_id=1;	//będzie pobierane z sesji
+            $sql="CALL oddokuj($docked_id, NOW(), $user_id)";
+            DB::query( $sql )->close();
+            $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+            $result=DB::query($sql);
+            $count=$result->num_rows;
+            if($count==0)
+                return NULL;
+            else 
+                return $result->fetch_object()->opis;
 	}	
 		
 	function move_ship($ship_id,$docked_id,$newDock)
 	{				
-		$user_id=1;	//będzie pobierane z sesji
-		$sql="CALL przesunStatek($docked_id,$newDock,$ship_id, $user_id, NOW())";
-		DB::call($sql);	
-		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
-		$result=DB::query($sql);
-		$count=$result->num_rows;
-        if($count==0)
-            return NULL;
-        else 
-            return $result->fetch_object()->opis;	
+            $user_id=1;	//będzie pobierane z sesji
+            $sql="CALL przesunStatek($docked_id,$newDock,$ship_id, $user_id, NOW())";
+            DB::call($sql);	
+            $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+            $result=DB::query($sql);
+            $count=$result->num_rows;
+            if($count==0)
+                return NULL;
+            else 
+                return $result->fetch_object()->opis;	
 	}
 	
 	//wartość zwracana=NULL jeśli wszystko ok lub komunikat błędu jeśli nie ok
 	function dock_ship($ship_id,$dock)
 	{						
-		$user_id=1;	//będzie pobierane z sesji
-		$sql="CALL zadokuj($dock,$ship_id, NOW(), $user_id)";
-		DB::query($sql)->close();	
-		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
-		$result=DB::query($sql);
-		$count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object()->opis;
+            $user_id=1;	//będzie pobierane z sesji
+            $sql="CALL zadokuj($dock,$ship_id, NOW(), $user_id)";
+            DB::query($sql)->close();	
+            $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
+            $result=DB::query($sql);
+            $count=$result->num_rows;
+            if($count==0)
+                return NULL;
+            else 
+              return $result->fetch_object()->opis;
 	}
 	
 	
 	function select_all_ships($name='')
 	{		
-		$sql="SELECT id_Statek AS id, 
-						nazwa AS name						 
-				FROM Statek 								
-				WHERE nazwa LIKE '%$name%' ";		
-		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      for($i=0; $i<$count;$i++)      
-          $ships[$i]=$result->fetch_object();                          
-      return $ships;
+            $sql="SELECT id_Statek AS id, 
+                                            nazwa AS name						 
+                            FROM Statek 								
+                            WHERE nazwa LIKE '%$name%' ";		
+            $result=DB::query($sql);		
+            $count=$result->num_rows;
+            if($count==0)
+                return NULL;
+            for($i=0; $i<$count;$i++)      
+                $ships[$i]=$result->fetch_object();                          
+            return $ships;
 	}	
 	
 	function select_history_ships($name='',$typeId='',$termId='', 
-										$dockdateMin='', $dockdateMax='',
-										$undockdateMin='',$undockdateMax='')
+                                    $dockdateMin='', $dockdateMax='',
+                                    $undockdateMin='',$undockdateMax='')
 	{		
-		$sql="SELECT id_Zadokowany AS docked_id, 
-						nazwa AS name,
-						Zadokowany.data AS dock_date,
-						Oddokowany.data AS undock_date 
-				FROM Statek NATURAL JOIN Zadokowany
-				LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)				
-				WHERE nazwa LIKE '%$name%' ";
-		if(!empty($typeId)) 
-			$sql.="AND id_Typ_Ladunku = $typeId ";
-		if(!empty($termId)) 
-			$sql.="AND id_Terminal = $termId ";
-		if(!empty($dockdateMin)) 
-			$sql.="AND Zadokowany.data >= '$dockdateMin' ";
-		if(!empty($dockdateMax)) 
-			$sql.="AND Zadokowany.data <= '$dockdateMax' ";
-		if(!empty($undockdateMin)) 
-			$sql.="AND Oddokowany.data >= '$undockdateMin' ";
-		if(!empty($undockdateMax)) 
-			$sql.="AND Oddokowany.data <= '$undockdateMax' ";
-		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      for($i=0; $i<$count;$i++)      
-          $ships[$i]=$result->fetch_object();                          
-      return $ships;
+            $sql="SELECT id_Zadokowany AS docked_id, 
+                        nazwa AS name,
+                        Zadokowany.data AS dock_date,
+                        Oddokowany.data AS undock_date 
+                FROM Statek NATURAL JOIN Zadokowany
+                LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)				
+                WHERE nazwa LIKE '%$name%' ";
+            if(!empty($typeId)) 
+                    $sql.="AND id_Typ_Ladunku = $typeId ";
+            if(!empty($termId)) 
+                    $sql.="AND id_Terminal = $termId ";
+            if(!empty($dockdateMin)) 
+                    $sql.="AND Zadokowany.data >= '$dockdateMin' ";
+            if(!empty($dockdateMax)) 
+                    $sql.="AND Zadokowany.data <= '$dockdateMax' ";
+            if(!empty($undockdateMin)) 
+                    $sql.="AND Oddokowany.data >= '$undockdateMin' ";
+            if(!empty($undockdateMax)) 
+                    $sql.="AND Oddokowany.data <= '$undockdateMax' ";
+            $result=DB::query($sql);		
+            $count=$result->num_rows;
+            if($count==0)
+                return NULL;
+            for($i=0; $i<$count;$i++)      
+                $ships[$i]=$result->fetch_object();                          
+            return $ships;
 	}
 	
 	function select_docked_ships($name='', $typeId='',$termId='', $capacityVolMin='', $capacityVolMax='',
