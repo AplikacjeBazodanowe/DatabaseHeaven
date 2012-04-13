@@ -8,28 +8,28 @@
 		DB::query($sql);	
 	}
 	
-	function update_user($id,$name,$pass,$level)
+	function update_user($id,$name,$pass,$level, $imgName )
 	{		
 		//jakaś walidacja
-		if(empty($id) || empty($name) || empty($pass) || !in_array($level,get_levels()))
+		if(empty($id) || empty($name) || empty($pass) || !in_array($level,get_levels()) || empty( $imgName ) )
 			return;
 		if(get_user_by_name($name) && get_user_by_name($name)->id_Uzytkownik != $id)
 			return;
 		$pass=sha1($pass);		
 		$sql="UPDATE Uzytkownik 
-				SET nazwa='$name', haslo='$pass', funkcja='$level' 
+				SET nazwa='$name', haslo='$pass', funkcja='$level', url_Obrazka='$imgName'
 				WHERE id_Uzytkownik=$id";
 		DB::query($sql);
 	}
 	
-	function insert_user($name,$pass,$level)
+	function insert_user($name,$pass,$level, $imgName )
 	{		
-		if(empty($name) || empty($pass) || !in_array($level,get_levels()))
+		if(empty($name) || empty($pass) || !in_array($level,get_levels()) || empty( $imgName ) )
 			return;
 		if(get_user_by_name($name))
 			return;
 		$pass=sha1($pass);
-		$sql="INSERT INTO Uzytkownik VALUES (NULL,'$name','$level','$pass',NULL)";
+		$sql="INSERT INTO Uzytkownik VALUES (NULL,'$name','$level','$pass', '$imgName')";
 		DB::query($sql);	
 	}
 	

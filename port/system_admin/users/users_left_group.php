@@ -8,13 +8,35 @@
 			$pass=$_POST['password'];
 			$level=$_POST['level'];
 			$name=$_POST['name'];
-			update_user($user_id,$name,$pass,$level);		}
+			$imgType = $_FILES['image']['type'];
+			$imgName = $_FILES['image']['name'];
+			
+			if( $imgType != 'image/jpeg' ) {
+				echo '<script>alert( "Wrong picture format (jpg allowed)" );</script>';
+			} elseif ( !move_uploaded_file( $_FILES['image']['tmp_name'], '../photos/' . $imgName ) )  {
+				echo '<script>alert( "The file hasn\'t been copied, some error occured..." );</script>';	
+			} else {
+				// usuwamy stary obrazek z folderu photos
+				$oldPicture = get_user_by_id( $user_id )->url_Obrazka;
+				unlink( '../photos/' . $oldPicture );
+			
+				update_user($user_id,$name,$pass,$level, $imgName );
+			}		}
 		elseif($_GET['action'] == 'add') 
 		{
 			$pass=$_POST['password'];
 			$level=$_POST['level'];
 			$name=$_POST['name'];
-			insert_user($name,$pass,$level);
+			$imgType = $_FILES['image']['type'];
+			$imgName = $_FILES['image']['name'];
+		
+			if( $imgType != 'image/jpeg' ) {
+				echo '<script>alert( "Wrong picture format (jpg allowed)" );</script>';
+			} elseif ( !move_uploaded_file( $_FILES['image']['tmp_name'], '../photos/' . $imgName ) )  {
+				echo '<script>alert( "The file hasn\'t been copied, some error occured..." );</script>';	
+			} else {
+				insert_user($name,$pass,$level, $imgName );
+			}
 		}			}?><div>	<input class="button baseFont add" type="button" value="Add user" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=users&action=show" method="post">						<br>		<div style="float: left; line-height: 21px;">
 			Surname:&nbsp;<br>			Level:		</div>
 		<input name="user_name" class="edit baseFont" type="text" placeholder="Type surname here">			<select name="level" class="baseFont select">			<?php					
