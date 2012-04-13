@@ -14,7 +14,7 @@
 			$name=$_POST['name'];
 			$address=$_POST['address'];
 			$country=$_POST['country'];			
-			insert_contractor($contractor_id,$name,$address,$country);
+			insert_contractor($name,$address,$country);
 		}			}
 ?>
 

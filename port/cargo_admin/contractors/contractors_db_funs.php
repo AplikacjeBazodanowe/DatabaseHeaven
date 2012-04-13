@@ -36,7 +36,7 @@
 			return;
 		if(get_contractor_by_name($name))
 			return;		
-		$sql="INSERT INTO Kontrahent VALUES (NULL,'$name','$address',$country_id,'Wlasciciel Ladunku')";
+		$sql="INSERT INTO Kontrahent VALUES (NULL,'$name','$address',$country_id,'Wlasciciel ladunku')";
 		DB::query($sql);	
 	}
 	
