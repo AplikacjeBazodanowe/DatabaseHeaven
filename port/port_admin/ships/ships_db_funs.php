@@ -16,7 +16,7 @@
 	
 	function undock_ship($docked_id)
 	{				
-            $user_id=1;	//będzie pobierane z sesji
+            $user_id=$_SESSION['user'];	//będzie pobierane z sesji
             $sql="CALL oddokuj($docked_id, NOW(), $user_id)";
             DB::query( $sql )->close();
             $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
@@ -30,7 +30,7 @@
 		
 	function move_ship($ship_id,$docked_id,$newDock)
 	{				
-            $user_id=1;	//będzie pobierane z sesji
+            $user_id=$_SESSION['user'];	//będzie pobierane z sesji
             $sql="CALL przesunStatek($docked_id,$newDock,$ship_id, $user_id, NOW())";
             DB::call($sql);	
             $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
@@ -45,7 +45,7 @@
 	//wartość zwracana=NULL jeśli wszystko ok lub komunikat błędu jeśli nie ok
 	function dock_ship($ship_id,$dock)
 	{						
-            $user_id=1;	//będzie pobierane z sesji
+            $user_id=$_SESSION['user'];	//będzie pobierane z sesji
             $sql="CALL zadokuj($dock,$ship_id, NOW(), $user_id)";
             DB::query($sql)->close();	
             $sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
@@ -82,6 +82,7 @@
                         Zadokowany.data AS dock_date,
                         Oddokowany.data AS undock_date 
                 FROM Statek NATURAL JOIN Zadokowany
+                INNER JOIN Dok ON Dok.id_Dok=Zadokowany.id_Dok
                 LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)				
                 WHERE nazwa LIKE '%$name%' ";
             if(!empty($typeId)) 
@@ -195,7 +196,7 @@
 						Kontrahent.nazwa AS owner
 				FROM Statek NATURAL JOIN Typ_Ladunku
 					NATURAL JOIN Zadokowany 
-					INNER JOIN Uzytkownik USING(id_Uzytkownik)
+					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)
 					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
 					INNER JOIN Kontrahent USING(id_Kontrahent)
 					INNER JOIN Dok USING(id_Dok)						 
@@ -229,7 +230,7 @@
 				FROM Statek NATURAL JOIN Typ_Ladunku
 					NATURAL JOIN Zadokowany 
 					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
-					INNER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik					
+					LEFT OUTER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik					
 					LEFT OUTER JOIN Uzytkownik U2 ON Oddokowany.id_Uzytkownik=U2.id_Uzytkownik	
 					INNER JOIN Kontrahent USING(id_Kontrahent)															 
 				WHERE id_Zadokowany = $docked_id";
@@ -273,7 +274,7 @@
 					INNER JOIN Przeladunek USING ( id_Ladunek )
 					INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
 					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
-					INNER JOIN Uzytkownik USING(id_Uzytkownik)						 
+					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
 				WHERE Przeladunek.id_statek2 = $ship_id ";
         if($from==='' AND $to==='')
             $sql.="AND czy_aktualne_polozenie=TRUE ";

@@ -3,6 +3,28 @@
 
     include_once('duty_db_funs.php');
     DB::connect();
+    if(!isset($_SESSION['user']) || !isset($_SESSION['user_type']) || $_SESSION['user_type']!='duty_admin')
+    {
+?>
+<!DOCTYPE html>
+<html lang="pl">
+	<head>
+		<meta charset="iso-8859-2">
+		<link rel="stylesheet" type="text/css" href="../style.css">		
+		<title>Not authorized</title>
+	</head>
+	<body class="baseFont">		
+		<div id="main">
+            <h1>Not authorized</h1>
+            <p>You are not authorized to view contents of this page!</p>
+		</div>
+	</body>
+</html>
+
+<?php
+    }
+    else
+    {
 ?>
 
 <!DOCTYPE html>
@@ -71,3 +93,6 @@
 		</div>
 	</body>
 </html>
+<?php
+    }
+?>

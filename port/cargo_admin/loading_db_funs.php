@@ -9,7 +9,7 @@
     
     function register_cargo_ship($commodity,$amount,$contractor,$ship,$duty_control=0, $remarks='')
     {
-        $user_id=1;	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
         $sql="CALL nadanie($commodity, $amount , $contractor, $duty_control ,
                              $ship, NULL, $user_id, '$remarks')";
 		DB::call($sql);	
@@ -24,7 +24,7 @@
     
     function register_cargo_warehouse($commodity,$amount,$contractor,$warehouse, $remarks='')
     {
-        $user_id=1;	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
         $sql="CALL nadanie($commodity, $amount , $contractor, FALSE ,
                              NULL, $warehouse, $user_id, '$remarks')";
 		DB::call($sql);	
@@ -39,7 +39,7 @@
     
     function deliver_cargo($cargo, $contractor, $remarks)
     {
-        $user_id=1;	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
         $sql="CALL odbior($cargo, $contractor, $user_id, '$remarks')";
 		DB::call($sql);	
 		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
@@ -53,7 +53,7 @@
     
     function move_cargo_to_warehouse($cargo, $warehouse, $remarks)
     {
-        $user_id=1;	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
         $sql="CALL przeladuj($cargo, NULL, $warehouse, $user_id, '$remarks',FALSE)";
 		DB::call($sql);	
 		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";
@@ -67,7 +67,7 @@
     
     function move_cargo_to_ship($cargo, $ship, $remarks)
     {
-        $user_id=1;	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
         $sql="CALL przeladuj($cargo, $ship, NULL, $user_id, '$remarks',FALSE)";
 		DB::call($sql);	
 		$sql="SELECT opis FROM Bledy_Operacji NATURAL JOIN Kody_Bledow";

@@ -31,8 +31,8 @@
 			
 	function add_payment($contractor,$value)
 	{				
-            $user=1; //to będzie pobierane z sesji na podstawie zalogowania!
-            $sql="INSERT INTO Oplata VALUES (NULL,'Portowa (inna)',$value,FALSE,NOW(),$contractor,$user)";
+            $user_id=$_SESSION['user']; //to będzie pobierane z sesji na podstawie zalogowania!
+            $sql="INSERT INTO Oplata VALUES (NULL,'Portowa (inna)',$value,FALSE,NOW(),$contractor,$user_id)";
             DB::query($sql);	
 	}
 	

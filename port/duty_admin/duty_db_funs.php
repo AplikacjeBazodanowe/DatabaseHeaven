@@ -145,14 +145,14 @@
     
     function duty_control_accept($cargo,$remarks)
     {
-        $user_id=1;        
+        $user_id=$_SESSION['user'];        
         $sql="INSERT INTO Kontrola_Celna VALUES(NULL,'$remarks',TRUE,NOW(),$user_id,$cargo)";
         DB::query($sql);
     }
     
     function duty_control_suspend($cargo,$remarks)
     {
-        $user_id=1;
+        $user_id=$_SESSION['user'];
         $sql="INSERT INTO Kontrola_Celna 
             VALUES(NULL,'$remarks',FALSE,NOW(),$user_id,$cargo)";
         DB::query($sql);
@@ -160,7 +160,7 @@
     
     function duty_control_confiscate($cargo,$remarks)
     {
-        $user_id=1;
+        $user_id=$_SESSION['user'];
         $sql="CALL konfiskata($cargo,'$remarks',$user_id)";        
         DB::call($sql);        
     }        
