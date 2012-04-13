@@ -39,7 +39,7 @@
 	<input class="button baseFont add" type="submit" value="Show">
 	</form>
 </div><br>
-<div class="cargo_list overf">
+<div class="commodities_list overf">
 	<?php
 				
 			if( isset($_POST['name_filter']) && $_POST['name_filter']!='Type name here') 			
@@ -54,14 +54,10 @@
 			if($commodities)
 				foreach($commodities as $commodity)
 				{
-					echo "<a href=\"?menu=commodities&id=$commodity->id\"><div class=\"name float_left left_col_cargo align_cols link\">";
-					echo "ID: $commodity->id";
-					echo "</div></a>";
-					echo "<div class=\"level float_left left_col_cargo align_cols\">";
-					echo "$commodity->name";
-					echo "</div></a>";
-					echo "<br><br><br>";
-
+					echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=commodities&id=$commodity->id'\">ID: $commodity->id</td></tr>";
+					echo "<tr><td class=\"level\">$commodity->name</td></tr>";
+					echo "</table><br>";
 				}
 	?>
 </div>

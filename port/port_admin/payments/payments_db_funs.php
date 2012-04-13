@@ -32,7 +32,7 @@
 	function add_payment($contractor,$value)
 	{				
             $user=1; //to będzie pobierane z sesji na podstawie zalogowania!
-            $sql="INSERT INTO Oplata VALUES (NULL,'Portowa(inna)',$value,FALSE,NOW(),$contractor,$user)";
+            $sql="INSERT INTO Oplata VALUES (NULL,'Portowa (inna)',$value,FALSE,NOW(),$contractor,$user)";
             DB::query($sql);	
 	}
 	
@@ -56,7 +56,7 @@
             if(!empty($type)) 
                     $sql.="AND Oplata.typ = '$type' ";
             else
-                    $sql.="AND Oplata.typ IN ('Portowa(za dok)','Portowa(za magazyn)','Portowa(inna)') ";
+                    $sql.="AND Oplata.typ IN ('Portowa (za dok)','Portowa (za magazyn)','Portowa (inna)') ";
             $result=DB::query($sql);		
             $count=$result->num_rows;
             if($count==0)

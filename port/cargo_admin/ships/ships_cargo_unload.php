@@ -6,17 +6,23 @@
 
 	echo "<form action=\"?action=unload&done=unload&id=" . $_GET['id'] . "\" method=\"post\">";
 
-	echo "<table class=\"stuff_info_wider\">
+	echo "<table class=\"stuff_info_wider\" style=\"text-align: center\" style=\"text-align: center\">
 		<tr>
-			<td class=\"stuff_no\" colspan=\"4\">
+			<td class=\"stuff_no\" colspan=\"5\">
 				Cargo
 			</td>
 		</tr>
 		<tr>
-			<td colspan=\"2\">
-				Details
+			<td>
+				ID
 			</td>
-			<td style=\"width: 240px\" class=\"unload_to_label\">
+			<td>
+				Cargo name
+			</td>
+			<td>
+				Amount
+			</td>
+			<td style=\"width: 250px\" class=\"unload_to_label\">
 				Unload to...
 			</td>
 			<td style=\"width: 200px\" class=\"unload_to_label\">
@@ -35,12 +41,14 @@
 				$warehouses=select_warehouses($ship->term_id,'');
 				$ships=select_docked_ships('','',$ship->term_id);
 				echo "<tr>
+					<td>
+						$cargo_item->id
+					</td>
 					<td class=\"cargo_name\">
-						ID: $cargo_item->id
+						$cargo_item->name<br>
 					</td>
 					<td>
-						$cargo_item->name<br>
-						Amount: $cargo_item->amount
+						$cargo_item->amount
 					</td>
 					<td class=\"unload_to\">
 						<!-- pierwszy argument showTarget to kolejne numery towarow (dla atrybutu name select'a ponizej), a drugi i trzeci Cie w sumie nie interesuje -->
@@ -78,12 +86,14 @@
 				echo "
 					<input type=\"hidden\" name=\"ignore$i\" />
 					<tr>
+					<td>
+						$cargo_item->id
+					</td>
 					<td class=\"cargo_name\">
-						ID: $cargo_item->id
+						$cargo_item->name
 					</td>
 					<td>
-						$cargo_item->name<br>
-						Amount: $cargo_item->amount
+						$cargo_item->amount
 					</td>
 					<td class=\"unload_to\">
 						Duty control required

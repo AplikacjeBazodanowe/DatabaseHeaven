@@ -4,31 +4,40 @@
 	include_once($root."/cargo_admin/contractors/contractors_db_funs.php");
 
 	echo "<span class=\"baseFont\"><h1>List of cargo on the $ship->name ship:</h1></span>
-	<table class=\"stuff_info_wider\">
+	<table class=\"stuff_info_wider\" style=\"text-align: center\">
 	<tr>
 		<td class=\"stuff_no\">
-                    Cargo
-                </td>
-                <td class=\"stuff_no\">
-                    Amount
-                </td>
-                <td style=\"width: 150px\" class=\"stuff_no\">
-                        Duty control requirement
-                </td>			
+			Cargo ID
+		</td>
+		<td class=\"stuff_no\">
+			Cargo name
+		</td>
+		<td class=\"stuff_no\">
+			Amount
+		</td>
+		<td style=\"width: 150px\" class=\"stuff_no\">
+			Duty control requirement
+		</td>			
 	</tr>";
 	if($cargo!=NULL)
 		foreach($cargo as $cargo_item)
 		{					 
 			echo	"<tr>
 					<td class=\"cargo_name\">
-						ID: $cargo_item->id <br>$cargo_item->name
+						$cargo_item->id
+					</td>
+					<td>
+						$cargo_item->name
 					</td>
 					<td>
 						$cargo_item->amount
 					</td>
-					<td>
-						$cargo_item->control_required
-					</td>					
+					<td>";
+						if( $cargo_item->control_required )
+							echo "Required";
+						else
+							echo "Not required";
+			echo	"</td>					
 				</tr>";				
 		}
 	echo "</table>";

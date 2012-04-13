@@ -31,7 +31,11 @@
 		$users=select_users($name,$level);
 		if($users)
 			foreach($users as $user)
-			{				 			 			  	echo "<a href=\"admin_system.php?menu=users&id=$user->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$user->nazwa";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=users&action=delete&id=$user->id\">";
-				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$user->funkcja</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $user->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='admin_system.php?menu=users&id=$user->id'\">$user->nazwa</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'admin_system.php?menu=users&action=delete&id=$user->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">$user->funkcja</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $user->id )\">Edit</td></tr>";
+				echo "</table><br>";
 			}			?>	</div>

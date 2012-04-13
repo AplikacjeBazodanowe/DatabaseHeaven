@@ -22,7 +22,6 @@
 			$docked_id = $_POST['docked_id'];				
 			$error=move_ship($ship_id,$docked_id,$dock_id);			
 		}
-        print_r($_POST);
 	}
 ?>
 <div>
@@ -33,8 +32,8 @@
 		Name:<br>
 		Type:<br>
 		Terminal:<br>		
-		Mass Cap.:<br>
-		Volume Cap.:<br>
+		Mass:<br>
+		Volume:<br>
 		Length:<br>
 		Width:<br>
 		Height:
@@ -139,19 +138,13 @@
 									$widthMin, $widthMax, $heightMin, $heightMax);
 		if($ships)
 			foreach($ships as $ship)
-			{				 			 
-			  	echo "<a href=\"port.php?menu=ships&id=$ship->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";
-				echo "$ship->name";
-				echo "</div></a>";
-				echo	"<a href=\"?menu=ships&action=undocking&id=$ship->id&docked_id=$ship->docked_id\">";
-				echo  "<div class=\" delete float_left right_col align_cols link\">";
-				echo	"Undock";
-				echo "</div></a><div class=\"level float_left left_col align_cols\">";
-				echo "Dok $ship->dock_id</div>";				
-				echo "<a href=\"ships/ships_dock.php?action=move&step=2&ship_id=$ship->id
-						&docked_id=$ship->docked_id\"><div class=\"change float_left right_col align_cols link\">";
-				echo "Move</div></a><br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=ships&id=$ship->id'\">$ship->name</td>";
+				echo "<td class=\"delete right_column\" onClick=\"window.location.href='?menu=ships&action=undocking&id=$ship->id&docked_id=$ship->docked_id'\">Undock</td></tr>";
+				echo "<tr><td class=\"level\">Dok $ship->dock_id</td>";
+				echo "<td class=\"edit\" onClick=\"window.location.href='ships/ships_dock.php?action=move&step=2&ship_id=$ship->id&docked_id=$ship->docked_id'\">Move</td></tr>";
+				echo "</table><br>";
 			}
 	?>	
 </div>

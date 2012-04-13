@@ -27,7 +27,11 @@
 		$docks=select_docks($terminal);
 		if($docks)
 			foreach($docks as $dock)
-			{				 			 			  	echo "<a href=\"admin_system.php?menu=docks&id=$dock->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "Dok $dock->id";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=docks&action=delete&id=$dock->id\">";
-				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Terminal: $dock->term_name</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $dock->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='admin_system.php?menu=docks&id=$dock->id'\">Dok $dock->id</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'admin_system.php?menu=docks&action=delete&id=$dock->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">Terminal: $dock->term_name</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $dock->id )\">Edit</td></tr>";
+				echo "</table><br>";
 			}			?>	</div>

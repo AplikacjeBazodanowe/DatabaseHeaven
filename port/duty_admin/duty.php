@@ -1,7 +1,8 @@
 <?php
+	session_start();
+
     include_once('duty_db_funs.php');
     DB::connect();
-    print_r($_POST);
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +13,7 @@
 		<script src="../js/fade.js"></script>
 		<script src="../js/edits.js"></script>
 		<script src="../js/duty.js"></script>
+		<script src="../js/deletion.js"></script>
 		<title>Customs duty admin</title>
 	</head>
 	<body class="baseFont">
@@ -21,7 +23,7 @@
 				<a href="?menu=cargo"><input class="button baseFont menu_button" type="button" value="Cargo list"></a>
 				<a href="?menu=history"><input class="button baseFont menu_button" type="button" value="Duty history"></a>
 				<a href="?menu=payments"><input class="button baseFont menu_button" type="button" value="Payments"></a>
-                                <a href="#"><input class="button baseFont menu_button" type="button" value="Log out"></a>
+                <a href="../index.php?logout="><input class="button baseFont menu_button" type="button" value="Log out"></a>
 			</div>	
 			<div id="adding" class="add_edit">
 				<?php 

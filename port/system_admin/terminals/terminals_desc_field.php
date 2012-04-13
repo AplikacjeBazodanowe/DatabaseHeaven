@@ -7,11 +7,11 @@
 		$warehouses = select_warehouses($id,'');
 		if($terminal)
 		{ 				
-			echo "<h1>Terminal name:</h1><p>$terminal->name</p>";
-			echo "<h1>Type:</h1><p>$terminal->type</p>";
-			echo "<a class=\"link\" href=\"#\" onClick=\"edit_toggle( $terminal->id )\">Edit this terminal</a><br />";
-			echo	"<a class=\"link\" href=\"admin_system.php?menu=users&action=delete&id=$terminal->id\">";						echo	"Delete this piece of shit!</a>";
-			echo "<h2>List of docks for this terminal:</h2>";
+			echo "<h2>Terminal name:</h2><p class=\"item_char_in_desc\">$terminal->name</p>";
+			echo "<h2>Type:</h2><p class=\"item_char_in_desc\">$terminal->type</p>";
+			echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Edit this terminal\" onClick=\"edit_toggle( $terminal->id )\">";
+			echo "<a href=\"admin_system.php?menu=users&action=delete&id=$terminal->id\">";						echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Delete this terminal\"></a>";
+			echo "<br><br><h3>List of docks for this terminal:</h3>";
 			if($docks!=NULL)
 			{
 				echo "<ol>";
@@ -21,7 +21,7 @@
 			}
 			else
 				echo "None";		
-			echo "<h2>List of warehouses for this terminal:</h2>";
+			echo "<h3>List of warehouses for this terminal:</h3>";
 			if($warehouses!=NULL)
 			{
 				echo "<ol>";

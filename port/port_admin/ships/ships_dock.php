@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	include_once('ships_db_funs.php');
 	DB::connect();
 ?>

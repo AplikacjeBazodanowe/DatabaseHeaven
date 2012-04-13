@@ -1,30 +1,39 @@
 <?php
 	echo "<span class=\"baseFont\"><h1>List of cargo on the $ship->name ship:</h1></span>
-	<table class=\"stuff_info_wider\">
+	<table class=\"stuff_info_wider\" style=\"text-align: center\">
 	<tr>
-		<td class=\"stuff_no\" >
-				Cargo
-                </td>
-                <td class=\"stuff_no\">
-                    Amount
-                </td>
-                <td style=\"width: 150px\" class=\"stuff_no\">
-                        Duty control requirement
-                </td>			
+		<td class=\"stuff_no\">
+			Cargo ID
+		</td>
+		<td class=\"stuff_no\">
+			Cargo name
+		</td>
+		<td class=\"stuff_no\">
+			Amount
+		</td>
+		<td style=\"width: 150px\" class=\"stuff_no\">
+			Duty control requirement
+		</td>			
 	</tr>";
 	if($cargo!=NULL)
 		foreach($cargo as $cargo_item)
 		{					 
 			echo	"<tr>
 					<td class=\"cargo_name\">
-						ID: $cargo_item->id <br>$cargo_item->name
+						$cargo_item->id
+					</td>
+					<td>
+						$cargo_item->name
 					</td>
 					<td>
 						$cargo_item->amount
 					</td>
-					<td>
-						$cargo_item->control_required
-					</td>					
+					<td>";
+						if( $cargo_item->control_required )
+							echo "Required";
+						else
+							echo "Not required";
+			echo	"</td>					
 				</tr>";				
 		}
 	echo "</table>";
@@ -119,7 +128,7 @@
 					foreach($commodities as $commodity)						
 						echo "<option value=\"$commodity->id\">$commodity->name</option>";
 				echo '</select>';
-				echo '<input name="amount0" type="text" placeholder="Amount" onBlur="addCargoFieldNoBox()" pattern="^[0-9]+$">';
+				echo '<input name="amount0" type="text" placeholder="Amount" pattern="^[0-9]+$">';
 				echo '<br><textarea style="margin-left: 40px" name="remarks0" cols="35" rows="3" placeholder="Remarks"></textarea><br>';
 				echo '<br><br><input type="submit" class="button baseFont add" value="Load">';
 				echo '</form>';

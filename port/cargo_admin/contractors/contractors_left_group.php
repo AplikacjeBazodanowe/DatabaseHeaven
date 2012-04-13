@@ -23,7 +23,7 @@
 						$countries=get_countries();
 						foreach($countries as $country)
 							echo "<option value=\"$country->id\">$country->name</option>";
-				?>			</select>			<br>		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="contractors_list overf">	<?php							if( isset($_POST['name_filter']) && $_POST['name_filter']!='Type name here') 							$name = $_POST['name_filter'];
+				?>			</select>			<br>		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="contractors_list overf">	<?php			if( isset($_POST['name_filter']) && $_POST['name_filter']!='Type name here') 							$name = $_POST['name_filter'];
 			else 
 				$name='';							
 			if( isset($_POST['country_filter'])) 							$country = $_POST['country_filter'];
@@ -33,4 +33,8 @@
 			if($contractors)
 				foreach($contractors as $contractor)
 				{
-					echo "<a href=\"?menu=contractors&id=$contractor->id\"><div class=\"name float_left left_col align_cols link\">";						echo "$contractor->name";					echo "</div></a>";					echo "<a href=\"#\" onClick=\"edit_toggle( $contractor->id );\"><div class=\"delete float_left right_col align_cols link\">";						echo "Edit";					echo "</div></a>";					echo "<div class=\"level float_left left_col align_cols\">";						echo "$contractor->country";					echo "</div></a>";					echo "<div class=\"change float_left right_col align_cols\">";										echo "</div>";					echo "<br><br><br>";				}							?>	</div>
+					echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=contractors&id=$contractor->id'\">$contractor->name</td>";
+					echo "<td class=\"edit right_column\" onClick=\"edit_toggle( $contractor->id )\" rowspan=\"2\">Edit</td></tr>";
+					echo "<tr><td class=\"level\">$contractor->country</td></tr>";
+					echo "</table><br>";				}							?>	</div>

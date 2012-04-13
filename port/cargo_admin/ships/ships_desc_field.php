@@ -85,7 +85,11 @@
 					</td>
 				</tr>
 				</table><br>";
-									
+		
+		echo '<a href="ships/ships_cargo.php?action=register&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Register cargo"></a><br>';
+		echo '<a href="ships/ships_cargo.php?action=load&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Load ship"></a><br>';
+		echo '<a href="ships/ships_cargo.php?action=unload&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Unload ship"></a><br>';
+	
         echo $historyOrCurrent;
 		
 		echo '<div style="text-align: center">';
@@ -147,10 +151,10 @@
                           </td>
                       </tr>				  
                       </table></div>";
-                }
-	
-			echo '<a href="ships/ships_cargo.php?action=register&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Register cargo"></a><br>';
-			echo '<a href="ships/ships_cargo.php?action=load&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Load ship"></a><br>';
-			echo '<a href="ships/ships_cargo.php?action=unload&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Unload ship"></a><br>';
-		}
+            }
+	} else {
+		echo "<h1>Docked ships</h1>";
+		echo "<p>This is the menu with docked ships.</p>";
+		echo "<p>You can browse, load, unload and register new cargo on the ship using the menu on the left.</p>";
+	}
 ?>

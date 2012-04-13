@@ -5,11 +5,11 @@
 		if($warehouse)
 		{ 	
 			echo "<h1>$warehouse->name</h1>";			
-			echo "<h1>Terminal:</h1><p>$warehouse->term_name</p>";
-			echo "<h1>Capacity:</h1><p>$warehouse->capacity [tu będzie pobierać jednostkę objętości z bazy]</p>";			
-			echo "<h1>Fee:</h1><p>$warehouse->fee $</p>";
-			echo "<a class=\"link\" href=\"#\" onClick=\"edit_toggle( $warehouse->id )\">Edit this warehouse</a><br />";
-			echo	"<a class=\"link\" href=\"admin_system.php?menu=warehouses&action=delete&id=$warehouse->id\">";						echo	"Delete this piece of shit!</a>";						
+			echo "<h2>Terminal:</h2><p class=\"item_char_in_desc\">$warehouse->term_name</p>";
+			echo "<h2>Capacity:</h2><p class=\"item_char_in_desc\">$warehouse->capacity</p>";			
+			echo "<h2>Fee:</h2><p class=\"item_char_in_desc\">$warehouse->fee</p>";
+			echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Edit this warehouse\" onClick=\"edit_toggle( $warehouse->id )\">";
+			echo "<a href=\"admin_system.php?menu=warehouses&action=delete&id=$warehouse->id\">";						echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Delete this warehouse\"></a>";						
 		}
 	}
 	else 

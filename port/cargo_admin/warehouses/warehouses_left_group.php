@@ -52,20 +52,13 @@
 		$warehouses=select_warehouses($terminal, $name, $minCap, $maxCap);
 		if($warehouses)
 			foreach($warehouses as $warehouse)
-			{				
-				echo "<a href=\"?menu=warehouses&id=$warehouse->id\"><div class=\"name float_left left_col align_cols link\">";
-					echo "$warehouse->name";
-				echo "</div></a>";
-				echo "<a href=\"warehouses/warehouses_cargo.php?action=load&id=$warehouse->id\"><div class=\"delete float_left right_col align_cols link\">";
-					echo "Load";
-				echo "</div></a>";
-				echo "<div class=\"level float_left left_col align_cols\">";
-					echo "$warehouse->term_name";
-				echo "</div></a>";
-				echo "<a href=\"warehouses/warehouses_cargo.php?action=unload&id=$warehouse->id\"><div class=\"change float_left right_col align_cols link\">";
-					echo "Unload";
-				echo "</div></a>";
-				echo "<br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=warehouses&id=$warehouse->id'\">$warehouse->name</td>";
+				echo "<td class=\"delete right_column\" onClick=\"window.location.href='warehouses/warehouses_cargo.php?action=load&id=$warehouse->id'\">Load</td></tr>";
+				echo "<tr><td class=\"level\">$warehouse->term_name</td>";
+				echo "<td class=\"edit\" onClick=\"window.location.href='warehouses/warehouses_cargo.php?action=unload&id=$warehouse->id'\">Unload</td></tr>";
+				echo "</table><br>";				
 			}		
 	?>	
 </div>

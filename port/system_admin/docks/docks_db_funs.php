@@ -21,7 +21,7 @@
 					 maks_dlugosc_statku=$max_length,
 					 maks_szerokosc_statku=$max_width,
 					 maks_wysokosc_statku=$max_height,
-				 	 cena_za_pobyt=$fee, 
+				 	 cena_za_pobyt=$fee 
 				WHERE id_Dok=$id";
 		DB::query($sql);
 	}

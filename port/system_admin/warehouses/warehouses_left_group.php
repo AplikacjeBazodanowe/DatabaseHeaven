@@ -3,7 +3,7 @@
 		if( isset( $_GET['action'] ) ) 
 	{		if( $_GET['action'] == 'delete' ) 
 		{			$warehouse_id = $_GET['id'];			delete_warehouse($warehouse_id);		} 
-		else if( $_GET['action'] == 'edit' ) 
+		elseif( $_GET['action'] == 'edit' ) 
 		{ // edycja magazynu			$warehouse_id = $_GET['id'];			$name = $_POST['name'];
 			$capacity = $_POST['capacity']; 			 
 			$fee = $_POST['fee'];					update_warehouse($warehouse_id,$name,$capacity, $fee);		}
@@ -26,7 +26,11 @@
 		$warehouses=select_warehouses($terminal, $name);
 		if($warehouses)
 			foreach($warehouses as $warehouse)
-			{				 			 			  	echo "<a href=\"admin_system.php?menu=warehouses&id=$warehouse->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$warehouse->name";				echo "</div></a>";				echo	"<a href=\"admin_system.php?menu=warehouses&action=delete&id=$warehouse->id\">";
-				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "Terminal: $warehouse->term_name</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $warehouse->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='admin_system.php?menu=warehouses&id=$warehouse->id'\">$warehouse->name</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'admin_system.php?menu=warehouses&action=delete&id=$warehouse->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">Terminal: $warehouse->term_name</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $warehouse->id )\">Edit</td></tr>";
+				echo "</table><br>";
 			}	?>	</div>

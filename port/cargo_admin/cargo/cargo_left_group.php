@@ -8,7 +8,7 @@
 					foreach($types as $type)
 						echo "<option value=\"$type->id\">$type->name</option>";
 				?>			</select>			<br>
-			<label>Current only</label><input type="checkbox" name="current" />					</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="cargo_list overf">	<?php							if( isset($_POST['commodity']) && $_POST['commodity']!='Type commodity here') 							$commodity = $_POST['commodity'];
+			<label>Current only</label><input type="checkbox" name="current" />					</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="cargo_list overf">	<?php			if( isset($_POST['commodity']) && $_POST['commodity']!='Type commodity here') 							$commodity = $_POST['commodity'];
 			else 
 				$commodity='';							
 			if( isset($_POST['type'])) 							$type = $_POST['type'];
@@ -18,7 +18,11 @@
 			else
 				$current = false;
 			$cargo=select_cargo($commodity,$type,$current);
+
 			if($cargo)
 				foreach($cargo as $cargoItem)
 				{
-					echo "<a href=\"?menu=cargo&id=$cargoItem->id\"><div class=\"name float_left left_col_cargo align_cols link\">";					echo "ID: $cargoItem->id";					echo "</div></a>";					echo "<div class=\"level float_left left_col_cargo align_cols\">";					echo "$cargoItem->commodity: $cargoItem->amount";					echo "</div></a>";					echo "<br><br><br>";				}	?></div>
+					echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+					echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=cargo&id=$cargoItem->id'\">ID: $cargoItem->id</td></tr>";
+					echo "<tr><td class=\"level\">$cargoItem->commodity: $cargoItem->amount</td></tr>";
+					echo "</table><br>";				}	?></div>

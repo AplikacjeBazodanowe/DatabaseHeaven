@@ -117,6 +117,9 @@
 	  		}
 			echo '<a href="warehouses/warehouses_cargo.php?action=load&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Load to warehouse"></a><br>';
 			echo '<a href="warehouses/warehouses_cargo.php?action=unload&id=' . $_GET['id'] . '"><input class="button baseFont add" type="submit" value="Unload from warehouse"></a><br>';
-
+	} else {
+		echo "<h1>Warehouses</h1>";
+		echo "<p>This is the Warehouses menu.</p>";
+		echo "<p>You can load, unload and browse cargo using the menu on the left.</p>";	
 	}
 ?>

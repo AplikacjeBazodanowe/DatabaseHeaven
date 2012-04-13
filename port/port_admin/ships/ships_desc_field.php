@@ -71,7 +71,7 @@
 					</table><br>";
 			
 			echo '<a href="?menu=ships&action=undocking&id=' . $ship_id . '&docked_id='.$ship->docked_id.'"><input class="button baseFont add" type="button" value="Undock the ship"></a>';
-			echo '<a href="ships/ships_dock.php?action=move&step=2&docked_id='.$ship->docked_id.
+			echo '<br><a href="ships/ships_dock.php?action=move&step=2&docked_id='.$ship->docked_id.
 					'&ship_id='.$ship_id.'&ship_name=' . $ship->name . '">
 					<input class="button baseFont add" type="button" value="Move the ship"></a>';					
 			echo '<br><h2>Cargo on board:</h2>';				  						
@@ -169,21 +169,21 @@
 	elseif( $_GET['action'] == 'undocked' ) 
 	{			
 		if($error)
-			echo $error;
+			echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
 		else 
 			echo 'The ship\'s been undocked.';
 	}
 	elseif($_GET['action'] == 'move') 
 	{
 		if($error)
-			echo $error;
+			echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
 		else 
 			echo 'The ship\'s been moved.';
 	}
 	elseif($_GET['action'] == 'dock_new') 
 	{
 		if($error)
-			echo $error;
+			echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
 		else 
 			echo 'The ship\'s been docked.';
 	}

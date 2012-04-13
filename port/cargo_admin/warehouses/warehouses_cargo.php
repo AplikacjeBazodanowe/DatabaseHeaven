@@ -1,7 +1,9 @@
 <?php
+	session_start();
+	
 	include_once('../loading_db_funs.php');	
 	DB::connect();
-    print_r($_POST);
+ 
 	if( isset( $_GET['done'] ) ) 
 	{		
 		if( $_GET['done']  == 'load' && isset($_GET['from'])) 
@@ -157,7 +159,7 @@
 				echo '&nbsp;<a href="?action=unload&id='   . $_GET['id'] . '"><input class="button baseFont menu_button" type="button" value="Unload cargo"></a>';
 				echo '</div>';
                 if(isset($error) && $error!=NULL )
-                    echo "<p>$error</p>";
+					echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
                 echo "<h1>You are currently managing the $warehouse->name warehouse</h1>";                                
                 echo "<h2>Cargo volume: $warehouse->curVol / $warehouse->capacity </h2>";
 				if( isset( $_GET['action'] ) ) 

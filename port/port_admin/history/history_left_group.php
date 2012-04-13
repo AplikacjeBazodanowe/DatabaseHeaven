@@ -3,8 +3,8 @@
 		include_once($root."/port_admin/ships/ships_db_funs.php");
 ?>
 
-<div>	<div style="float: left; line-height: 20px;">		Name:<br>		Type:<br>		Terminal:<br>						Dock date:<br>
-		UdockDate			</div>	<form action="?menu=history&action=show" method="post">		<div style="margin-left: 69px;">			<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="type" class="baseFont select">	
+<div>	<div style="float: left; line-height: 20px">		Name:<br>		Type:<br>		Terminal:<br>						Dock date:<br>
+		Undock date:			</div>	<form action="?menu=history&action=show" method="post">		<div style="margin-left: 77px;">			<input name="ship_name" class="edit baseFont" type="edit" placeholder="Type name here">			<select name="type" class="baseFont select">	
 				<option value="">All</option>				<?php					
 					$types=get_ship_types();
 					foreach($types as $type)											
@@ -16,9 +16,9 @@
 					foreach($types as $type)											
 						echo "<option value=\"$type->id\">$type->name</option>";					
 				?>			</select>
-			<br>				<input name="from_dockdate" class="ship_edit baseFont" type="text" 
+			<br>				<input name="from_dockdate" style="width: 45px" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_dockdate" class="ship_edit baseFont" type="text" 
-						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" style="width: 45px" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_undockdate" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="undockdate_check" type="checkbox" onClick="on_off_edit('undockdate')">		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="ships_history_list overf">	<?php		if( isset($_POST['ship_name']) && $_POST['ship_name']!='Type name here') 						$name = $_POST['ship_name'];
 		else 
@@ -45,9 +45,10 @@
 									$undockdateMin, $undockdateMax);
 		if($ships)
 			foreach($ships as $ship)
-			{				 			 			  	echo "<a href=\"?menu=history&id=$ship->docked_id\">
-			  		<div style=\"width: 175px; border-bottom: 1px solid RGB( 84, 122, 150 )\" 
-			  		class=\"name float_left align_cols link\">";
-			  	echo "$ship->name</div></a>";												echo	"<div style=\"width: 175px; border-bottom: none\" class=\"level float_left align_cols\">";
-				echo  "Docked: $ship->dock_date</div>";				echo	"<div style=\"width: 175px\" class=\"level float_left align_cols\">";				echo "Undocked: $ship->undock_date</div>";				echo "<br><br><br><br><br>";																																														
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name\" onClick=\"window.location.href='?menu=history&id=$ship->docked_id'\">$ship->name</td></tr>";
+				echo "<tr><td class=\"level\">Docked: $ship->dock_date</td></tr>";
+				echo "<tr><td class=\"level\">Undocked: $ship->undock_date</td></tr>";
+				echo "</table><br>";				
 			}	?>	</div>

@@ -18,11 +18,7 @@
 			return;		
 		if(!get_warehouse_by_id($id))
 			return;		
-		$sql="UPDATE Magazyn 
-				SET nazwa=$name
-					 pojemnosc=$capacity,
-					 cena_Za_Przechowanie=$fee,					  
-				WHERE id_Magazyn=$id";
+		$sql="UPDATE Magazyn SET nazwa='$name', pojemnosc=$capacity, cena_Za_Przechowanie=$fee WHERE id_Magazyn=$id";
 		DB::query($sql);
 	}
 	

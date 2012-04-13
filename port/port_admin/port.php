@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	$root=$_SERVER['DOCUMENT_ROOT'];		
 	include_once($root."/DB.php");
 	
@@ -11,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="../style.css">
 		<script src="../js/fade.js"></script>
 		<script src="../js/edits.js"></script>
+		<script src="../js/deletion.js"></script>
 		<title>Port admin</title>
 	</head>
 	<body class="baseFont">
@@ -21,6 +24,7 @@
 				<a href="?menu=history"><input class="button baseFont menu_button" type="button" value="History"></a>
                 <a href="?menu=contractors"><input class="button baseFont menu_button" type="button" value="Contractors"></a>
 				<a href="?menu=payments"><input class="button baseFont menu_button" type="button" value="Payments"></a>
+				<a href="../index.php?logout="><input class="button baseFont menu_button" type="button" value="Log out"></a>
 			</div>
 			<div id="adding" class="add_edit">
 				<?php 

@@ -48,7 +48,11 @@
 		$payments=select_payments($contractor, $valueMin, $valueMax, $dateMin, $dateMax, $paid, $type);
 		if($payments)
 			foreach($payments as $payment)
-			{										  	echo "<a href=\"port.php?menu=payments&id=$payment->id\">";
-			  	echo "<div class=\"name float_left left_col align_cols link\">";				echo "$payment->contractor";				echo "</div></a>";				echo	"<a href=\"port.php?menu=payments&action=delete&id=$payment->id\">";
-				echo  "<div onclick=\"return confirm('Are you sure?')\" class=\" delete float_left right_col align_cols link\">";				echo	"Delete";				echo "</div></a><div class=\"level float_left left_col align_cols\">";				echo "$payment->value $</div>";								echo "<a href=\"#\" onClick=\"edit_toggle( $payment->id )\"><div class=\"change float_left right_col align_cols link\">";				echo "Edit</div></a><br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='port.php?menu=payments&id=$payment->id'\">$payment->contractor</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'port.php?menu=payments&action=delete&id=$payment->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">$payment->value $</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $payment->id )\">Edit</td></tr>";
+				echo "</table><br>";
 			}		?>	</div>

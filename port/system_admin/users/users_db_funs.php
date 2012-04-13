@@ -29,7 +29,7 @@
 		if(get_user_by_name($name))
 			return;
 		$pass=sha1($pass);
-		$sql="INSERT INTO Uzytkownik VALUES (NULL,'$name','$pass',NULL,'$level')";
+		$sql="INSERT INTO Uzytkownik VALUES (NULL,'$name','$level','$pass',NULL)";
 		DB::query($sql);	
 	}
 	

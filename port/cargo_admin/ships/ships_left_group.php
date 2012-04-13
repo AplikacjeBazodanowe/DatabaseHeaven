@@ -40,20 +40,13 @@
 		$ships=select_docked_ships($name, '',$terminal);
 		if($ships)
 			foreach($ships as $ship)
-			{					
-				echo "<a href=\"?menu=ships&id=$ship->id\"><div class=\"name float_left left_col align_cols link\">";
-					echo $ship->name;
-				echo "</div></a>";
-				echo "<a href=\"ships/ships_cargo.php?action=load&id=$ship->id\"><div class=\"delete float_left right_col align_cols link\">";
-					echo "Load";
-				echo "</div></a>";
-				echo "<a href=\"ships/ships_cargo.php?action=register&id=$ship->id\"><div class=\"level_link float_left left_col align_cols link\">";
-					echo "Register cargo";
-				echo "</div></a>";
-				echo "<a href=\"ships/ships_cargo.php?action=unload&id=$ship->id\"><div class=\"change float_left right_col align_cols link\">";
-					echo "Unload";
-				echo "</div></a>";
-				echo "<br><br><br>";
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=ships&id=$ship->id'\">$ship->name</td>";
+				echo "<td class=\"delete right_column\" onClick=\"window.location.href='ships/ships_cargo.php?action=load&id=$ship->id'\">Load</td></tr>";
+				echo "<tr><td class=\"delete\" onClick=\"window.location.href='ships/ships_cargo.php?action=register&id=$ship->id'\">Register cargo</td>";
+				echo "<td class=\"edit\" onClick=\"window.location.href='ships/ships_cargo.php?action=unload&id=$ship->id'\">Unload</td></tr>";
+				echo "</table><br>";
 			}
 	?>
 </div>

@@ -7,4 +7,4 @@
 					$contractors=get_contractors();
 					foreach($contractors as $contractor)											
 						echo "<option value=\"$contractor->id\">$contractor->name</option>";					
-			?>	</select>		Amount: <br><input name="value" class="edit_adding baseFont" type="edit" pattern="^[0-9]+$" required><br><br>	<input class="button baseFont menu_button" type="submit" value="Add">	<input class="button baseFont menu_button" type="button" value="Cancel" onClick="add_toggle()"></form>
+			?>	</select>		<br><br>Amount: <br><input name="value" class="edit_adding baseFont" type="edit" pattern="^[0-9]+$" required><br><br>	<input class="button baseFont menu_button" type="submit" value="Add">	<input class="button baseFont menu_button" type="button" value="Cancel" onClick="add_toggle()"></form>
