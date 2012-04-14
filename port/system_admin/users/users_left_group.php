@@ -1,6 +1,5 @@
 <?php	
 	include_once("users_db_funs.php");	
-	print_r($_FILES);
     
 	if( isset( $_GET['action'] ) ) 
 	{		
