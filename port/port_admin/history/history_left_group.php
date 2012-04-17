@@ -16,9 +16,9 @@
 					foreach($types as $type)											
 						echo "<option value=\"$type->id\">$type->name</option>";					
 				?>			</select>
-			<br>				<input name="from_dockdate" style="width: 45px" class="ship_edit baseFont" type="text" 
+			<br>				<input name="from_dockdate" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_dockdate" class="ship_edit baseFont" type="text" 
-						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" style="width: 45px" class="ship_edit baseFont" type="text" 
+						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="dockdate_check" type="checkbox" onClick="on_off_edit('dockdate')">			<input name="from_undockdate" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="From">			<input name="to_undockdate" class="ship_edit baseFont" type="text" 
 						disabled="true" pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" placeholder="To">			<input name="undockdate_check" type="checkbox" onClick="on_off_edit('undockdate')">		</div>	<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="ships_history_list overf">	<?php		if( isset($_POST['ship_name']) && $_POST['ship_name']!='Type name here') 						$name = $_POST['ship_name'];
 		else 
