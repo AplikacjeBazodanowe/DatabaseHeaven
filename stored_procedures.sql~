@@ -164,7 +164,7 @@ root:BEGIN
     DECLARE data1, data2 DATETIME;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
-                                    WHERE p.id_Ladunek = cargo;
+                                    WHERE p.id_Ladunek = cargo AND p.id_Magazyn2 IS NOT NULL;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
     SELECT COUNT(*) FROM Ladunek l
