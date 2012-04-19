@@ -27,7 +27,7 @@
 	<hr class="line">
 	<br>
 	<div style="float: left; line-height: 21px;">
-		Surname:<br>
+		Name:<br>
 		Country:<br>
         Type:
 	</div>

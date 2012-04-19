@@ -9,15 +9,28 @@
 		 if(isset($_GET['stuff']) && $_GET['stuff']=='history')
          {
             if(isset($_POST['from']) && $_POST['from']!=='')            
-                $from= 'from '.$_POST['from'];
+            {
+                $fromStr= 'from '.$_POST['from'];
+                $from=$_POST['from'];
+            }
             else           
-                $from=' ';                
+            {
+                $fromStr=' ';                
+                $from='1900-01-01';
+            }
             if(isset($_POST['to']) && $_POST['to']!=='')            
-                $to= 'to '.$_POST['to'];                
+            {
+                $toStr= 'to '.$_POST['to'];
+                $to=$_POST['to'];
+            }
             else            
-                $to=' ';                
-            $historyOrCurrent= "<br><h2>History of cargo $from $to:</h2>";				  													  			
-            $cargo = get_ship_cargo($ship_id,$_POST['from'],$_POST['to']);			
+            {
+                $toStr=' ';                                        
+                $to=date('Y-m-d');
+            }            
+            echo $from.' '.$to;
+            $historyOrCurrent= "<br><h2>History of cargo $fromStr $toStr:</h2>";				  													  			
+            $cargo = get_ship_cargo($ship_id,$from,$to);
          }
          else
          {

@@ -8,30 +8,38 @@
             $result=DB::query($sql);		
             $count=$result->num_rows;
             if($count==0)
-                return; 
+                return "Podano błędne ID opłaty"; 
             $payment=$result->fetch_object();
-            /*$current_user=1;
-            if($payment->paid || $payment->added_by!=$current_user)
-              return;*/     
+            $current_user=$_SESSION['user'];
+            if($payment->paid)
+                return "Nie można usunąć opłaty, ponieważ została już opłacona.";            
             $sql="DELETE FROM Oplata WHERE id_Oplata=$id";
             DB::query($sql);
 	}
 	
 	function modify_payment($id, $value)
-	{						
-            $sql="UPDATE Oplata SET kwota=$value WHERE id_Oplata=$id";
+	{
+            $sql="SELECT id_Uzytkownik as added_by, czy_oplacona as paid FROM Oplata WHERE id_Oplata=$id";
+            $result=DB::query($sql);		
+            $count=$result->num_rows;
+            if($count==0)
+                return "Podano błędne ID opłaty"; 
+            $payment=$result->fetch_object();
+            if($payment->paid)
+                return "Nie możesz zmodyfikować już opłaconej opłaty.";
+            $sql="UPDATE Oplata SET kwota=$value WHERE id_Oplata=$id";            
             DB::query($sql);
 	}
 	
-	function change_status($payment_id, $status)
+	function set_as_paid($payment_id)
 	{						
-            $sql="UPDATE Oplata SET czy_oplacona=$status WHERE id_Oplata=$payment_id";
+            $sql="UPDATE Oplata SET czy_oplacona=TRUE WHERE id_Oplata=$payment_id";
             DB::query($sql);
 	}
 			
 	function add_payment($contractor,$value)
 	{				
-            $user_id=$_SESSION['user']; //to będzie pobierane z sesji na podstawie zalogowania!
+            $user_id=$_SESSION['user']; 
             $sql="INSERT INTO Oplata VALUES (NULL,'Portowa (inna)',$value,FALSE,NOW(),$contractor,$user_id)";
             DB::query($sql);	
 	}

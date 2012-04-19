@@ -3,6 +3,8 @@
 
     if( isset( $_GET['id'] ) ) 
     {
+            if(isset($error) && $error!=NULL)
+                echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
             $payment_id = $_GET['id'];
             $payment=get_payment_by_id($payment_id);
             $contractor=get_payment_contractor($payment_id);    
@@ -94,10 +96,10 @@
                                     $contractor->type
                             </td>
                     </tr>
-            </table><br><br>
-
-            <a href=\"?menu=payments&status=$oppositeStatus&id=$payment_id\"><input class=\"button baseFont add\" type=\"button\" value=\"Change status\"></a><br>
-            <a href=\"?menu=payments&action=delete&id=$payment_id\">
+            </table><br><br>";
+            if(!$payment->paid)
+                echo "<a href=\"?menu=payments&status=1&id=$payment_id\"><input class=\"button baseFont add\" type=\"button\" value=\"Mark as paid\"></a><br>";
+            echo "<a href=\"?menu=payments&action=delete&id=$payment_id\">
             <input class=\"button baseFont add\" type=\"button\" value=\"Delete the payment\"></a><br>
             <a href=\"#\" onClick=\"edit_toggle($payment_id)\">
             <input class=\"button baseFont add\" type=\"button\" value=\"Edit the payment\"></a>";

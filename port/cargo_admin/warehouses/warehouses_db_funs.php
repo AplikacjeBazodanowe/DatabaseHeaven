@@ -20,8 +20,8 @@
 					INNER JOIN Przeladunek USING ( id_Ladunek )
 					INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
 					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
-					INNER JOIN Uzytkownik USING(id_Uzytkownik)						 
-				WHERE Przeladunek.id_magazyn2 = $warehouse_id AND czy_aktualne_polozenie=TRUE ";		
+					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
+				WHERE Przeladunek.id_Magazyn2 = $warehouse_id AND czy_aktualne_polozenie=TRUE ";		
         if($from==='' AND $to==='')
             $sql.="AND czy_aktualne_polozenie=TRUE ";
 		else

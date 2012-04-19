@@ -58,7 +58,7 @@
 				echo '<option value="empty slot">empty slot';
 				if($cargo!=NULL)
 					foreach($cargo as $cargo_item)
-						echo "<option value=\"$cargo->id\">$cargo->name: $cargo->amount</option>";
+						echo "<option value=\"$cargo_item->id\">$cargo_item->name, amount: $cargo_item->amount</option>";
 				echo '</select>';
 				echo '<br><textarea style="margin-left: 40px" name="remarks0" cols="35" rows="3" placeholder="Remarks"></textarea><br>';
 				echo '<br><br><input type="submit" class="button baseFont add" value="Load">';

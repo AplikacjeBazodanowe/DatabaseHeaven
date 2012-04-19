@@ -1,6 +1,5 @@
 <?php
-	session_start();
-
+	session_start();    
 	$root=$_SERVER['DOCUMENT_ROOT'];		
 	include_once($root."/DB.php");
 	

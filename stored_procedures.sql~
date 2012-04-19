@@ -61,7 +61,7 @@ root:BEGIN
     WHERE p.czy_aktualne_polozenie = 1 AND l.czy_kontrola_celna = 1 INTO iloscLadunkow;
     
     /* OK jesli wszystkie ladunki na statku przeszly pozytywna kontrole celna*/
-    IF iloscLadunkow = iloscPozytywnychKontroliCelnych THEN
+    IF iloscLadunkow <= iloscPozytywnychKontroliCelnych THEN
        START TRANSACTION;
        IF oplataZaDokowanie > 0 THEN
 		   INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
@@ -164,7 +164,7 @@ root:BEGIN
     DECLARE data1, data2 DATETIME;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
-                                    WHERE p.id_Ladunek = cargo AND p.id_Magazyn2 IS NOT NULL;
+                                    WHERE p.id_Ladunek = cargo;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     
     SELECT COUNT(*) FROM Ladunek l
@@ -477,11 +477,19 @@ BEGIN
 	DECLARE ship_id INT;
 	START TRANSACTION;
 	SELECT id_Statek2 
-	FROM Przeladunek 
-		INNER JOIN Ladunek USING(id_Ladunek) 
-	WHERE id_Ladunek=cargo AND czy_aktualne_polozenie=TRUE
+		FROM Przeladunek 
+			INNER JOIN Ladunek USING(id_Ladunek) 
+		WHERE id_Ladunek=cargo AND czy_aktualne_polozenie=TRUE
 	INTO ship_id;
+	SELECT (t.masa_jednostkowa *l.ilosc) FROM Ladunek l
+        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+        WHERE l.id_Ladunek = cargo INTO sumWeight;
+    SELECT (t.objetosc_jednostkowa *l.ilosc) FROM Ladunek l
+        INNER JOIN Towar t ON t.id_Towar = l.id_Towar
+        WHERE l.id_Ladunek = cargo INTO sumVol;   
 	INSERT INTO Kontrola_Celna VALUES(NULL,remarks,FALSE,NOW(),user,cargo);
+	UPDATE Statek SET aktualna_masa_ladunkow = aktualna_masa_ladunkow - sumWeight WHERE id_Statek = ship_id;
+    UPDATE Statek SET aktualna_objetosc_ladunkow = aktualna_objetosc_ladunkow - sumVol WHERE id_Statek = ship_id;
     UPDATE Przeladunek SET czy_aktualne_polozenie = FALSE WHERE id_Ladunek = cargo AND czy_aktualne_polozenie = TRUE;		
 	INSERT INTO Przeladunek VALUES(NULL,NOW(),NULL,TRUE,ship_id,NULL,NULL,NULL,user,cargo);	
 	COMMIT; 

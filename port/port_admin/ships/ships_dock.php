@@ -112,7 +112,7 @@
 			else
 				$ship_name = '';
 			
-			$ships = select_all_ships($ship_name);
+			$ships = select_undocked_ships($ship_name);
 			foreach($ships as $ship)
 				echo "<option value=\"$ship->id\">$ship->name</option>";
 		}

@@ -131,6 +131,7 @@
                      data AS date,
                      Towar.nazwa AS commodity,
                      Ladunek.ilosc AS amount,
+                     Kontrola_Celna.uwagi AS remarks,
                      CONCAT(Ladunek.ilosc*Towar.clo_jednostkowe,' $') AS duty
               FROM Kontrola_Celna INNER JOIN Ladunek USING(id_Ladunek)
                         INNER JOIN Towar USING(id_Towar)
@@ -219,7 +220,7 @@
 
     function add_payment($contractor,$value,$type)
     {				
-        $user=1; //to będzie pobierane z sesji na podstawie zalogowania!
+        $user=$_SESSION['user']; //to będzie pobierane z sesji na podstawie zalogowania!
         $sql="INSERT INTO Oplata VALUES (NULL,'$type',$value,FALSE,NOW(),$contractor,$user)";
         DB::query($sql);	
     }

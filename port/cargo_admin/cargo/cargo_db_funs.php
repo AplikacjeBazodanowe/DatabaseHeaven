@@ -4,16 +4,17 @@
 	
 	function select_cargo( $name, $typeId='', $current=false)
 	{
-		$sql="SELECT Ladunek.id_Ladunek AS id, 
+		$sql="SELECT l.id_Ladunek AS id, 
                                      ilosc AS amount,
                                      nazwa as commodity						 						  
-                    FROM Ladunek NATURAL JOIN Towar
-                                 LEFT OUTER JOIN Odbior_Ladunku USING(id_Ladunek)  
+                    FROM Ladunek l NATURAL JOIN Towar                                 
                     WHERE nazwa LIKE '%$name%' ";
 		if($typeId!=='')
 			$sql.="AND id_Typ_Ladunku=$typeId ";
 		if($current)
-			$sql.="AND id_Odbior_Ladunku IS NULL";					
+			$sql.="AND NOT EXISTS(
+                    SELECT id_Przeladunek FROM Przeladunek
+                    WHERE id_Ladunek=l.id_Ladunek AND id_Magazyn2 IS NULL AND id_Statek2 IS NULL)";					                        
 		$result=DB::query($sql);		
               $count=$result->num_rows;
               if($count==0)

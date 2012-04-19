@@ -48,16 +48,16 @@
 				FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
 				WHERE Kontrahent.nazwa LIKE '%$name%' ";
 		if($country!=='')
-			$sql.="AND Kraj.id_Kraj=$country";
-        if($type!=='')
-            $sql.="AND Kontrahent.typ='$type'";
-		$result=DB::query($sql);		
-        $count=$result->num_rows;
-        if($count==0)
-            return NULL;
-        for($i=0; $i<$count;$i++)      
-            $contractors[$i]=$result->fetch_object();                          
-        return $contractors;
+			$sql.="AND Kraj.id_Kraj=$country ";
+                if($type!=='')
+                    $sql.="AND Kontrahent.typ='$type' ";
+                        $result=DB::query($sql);		
+                $count=$result->num_rows;
+                if($count==0)
+                    return NULL;
+                for($i=0; $i<$count;$i++)      
+                    $contractors[$i]=$result->fetch_object();                          
+                return $contractors;
 	}
 	
 	function get_contractor_by_id($id)
@@ -69,34 +69,34 @@
 						 FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
 						 WHERE id_Kontrahent=$id";
 		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object();                               
+                $count=$result->num_rows;
+                if($count==0)
+                    return NULL;
+                else 
+                    return $result->fetch_object();                               
 	}	
 	
 	function get_contractor_by_name($name)
 	{
 		$sql="SELECT id_Kontrahent FROM Kontrahent WHERE nazwa='$name'";
 		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object();                               
+                $count=$result->num_rows;
+                if($count==0)
+                    return NULL;
+                else 
+                    return $result->fetch_object();                               
 	}	
 		
 	function get_countries()
 	{	
-		$sql="SELECT id_Kraj AS id, nazwa AS name FROM Kraj";  				
+		$sql="SELECT id_Kraj AS id, nazwa AS name FROM Kraj ORDER BY NAME ASC";  				
 		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      for($i=0; $i<$count;$i++)      
-          $countries[$i]=$result->fetch_object();                          
-      return $countries;		
+                $count=$result->num_rows;
+                if($count==0)
+                    return NULL;
+                for($i=0; $i<$count;$i++)      
+                    $countries[$i]=$result->fetch_object();                          
+                return $countries;		
 	}
 	
 	function get_types()
