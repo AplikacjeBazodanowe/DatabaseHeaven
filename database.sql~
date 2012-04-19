@@ -1,6 +1,6 @@
 /* Usuwanie bazy danych */
 DROP DATABASE IF EXISTS `databaseheaven`;
-CREATE DATABASE `databaseheaven` CHARACTER SET utf8 COLLATE utf8_polish_ci;
+CREATE DATABASE `databaseheaven`;
 
 DROP USER 'PortUser'@'localhost';
 CREATE USER 'PortUser'@'localhost' IDENTIFIED BY 'jakieshaslo';
