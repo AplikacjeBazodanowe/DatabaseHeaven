@@ -63,11 +63,12 @@
 	function get_contractor_by_id($id)
 	{
 		$sql="SELECT id_Kontrahent AS id, 
-						 Kontrahent.nazwa AS name,
-						 adres AS address,
-						 Kraj.nazwa AS country 
-						 FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
-						 WHERE id_Kontrahent=$id";
+                     Kontrahent.nazwa AS name,
+                     adres AS address,
+                     typ AS type,
+                     Kraj.nazwa AS country 
+                     FROM Kontrahent INNER JOIN Kraj USING(id_Kraj)
+                     WHERE id_Kontrahent=$id";
 		$result=DB::query($sql);		
                 $count=$result->num_rows;
                 if($count==0)

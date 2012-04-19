@@ -1,17 +1,17 @@
 <?php
 	$root=$_SERVER['DOCUMENT_ROOT'];		
 	include_once($root."/cargo_admin/cargo/cargo_db_funs.php");        	
-    include_once("commodities_db_funs.php");        	
+        include_once("commodities_db_funs.php");        	
 	
 	if( isset( $_GET['action'] ) && $_GET['action'] == 'add') 
 	{								
-        $name=$_POST['name'];
-        $type=$_POST['type'];
-        $uValue=$_POST['value'];
-        $uDuty=$_POST['duty'];
-        $uMass=$_POST['mass'];
-        $uVol=$_POST['volume'];
-        insert_commodity($name,$type,$uValue,$uDuty,$uMass,$uVol);		
+            $name=$_POST['name'];
+            $type=$_POST['type'];
+            $uValue=$_POST['value'];
+            $uDuty=$_POST['duty'];
+            $uMass=$_POST['mass'];
+            $uVol=$_POST['volume'];
+            insert_commodity($name,$type,$uValue,$uDuty,$uMass,$uVol);		
 	}
 ?>
 
@@ -55,8 +55,8 @@
 				foreach($commodities as $commodity)
 				{
 					echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
-					echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=commodities&id=$commodity->id'\">ID: $commodity->id</td></tr>";
-					echo "<tr><td class=\"level\">$commodity->name</td></tr>";
+					echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='?menu=commodities&id=$commodity->id'\">$commodity->name</td></tr>";
+					echo "<tr><td class=\"level\">$commodity->type</td></tr>";
 					echo "</table><br>";
 				}
 	?>

@@ -42,7 +42,7 @@ root:BEGIN
     END IF;
     
     
-    SELECT DATEDIFF(data, z.data)*d.cena_Za_Pobyt FROM Zadokowany z
+    SELECT (DATEDIFF(data, z.data)+1)*d.cena_Za_Pobyt FROM Zadokowany z
     INNER JOIN Dok d ON (z.id_Dok = d.id_Dok)
     WHERE z.id_Zadokowany = zadok INTO oplataZaDokowanie;    
     
@@ -219,7 +219,7 @@ root:BEGIN
         
         IF oldStore IS NOT NULL THEN
 	        SELECT cena_za_Przechowanie FROM Magazyn WHERE id_Magazyn = oldStore INTO storePrice;        
-            SELECT DATEDIFF(data2,data1)*volume*storePrice INTO tempCost;
+            SELECT (DATEDIFF(data2,data1)+1)*volume*storePrice INTO tempCost;
             SET cost = cost + tempCost;
         END IF;
 
@@ -447,8 +447,8 @@ root:BEGIN
         LEAVE root;
     END IF;
     
-    SELECT user FROM Kontrola_Celna
-    WHERE id_Kontrola_Celna = NEW.id_Kontrola_Celna
+    SELECT id_Uzytkownik FROM Kontrola_Celna
+	    WHERE id_Kontrola_Celna = NEW.id_Kontrola_Celna
     INTO user;
     
     SELECT l.ilosc * t.clo_jednostkowe FROM Kontrola_Celna k

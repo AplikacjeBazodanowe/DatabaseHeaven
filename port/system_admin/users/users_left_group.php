@@ -79,8 +79,8 @@
 			Surname:&nbsp;<br>
 			Level:
 		</div>
-		<input name="user_name" class="edit baseFont" type="text" placeholder="Type surname here">	
-		<select name="level" class="baseFont select">
+		<input name="name_filter" class="edit baseFont" type="text" placeholder="Type surname here">	
+		<select name="level_filter" class="baseFont select">
 			<?php					
 					$levels=get_levels();
 					echo "<option value=\"%\">All</option>";
@@ -94,12 +94,12 @@
 <div class="users_list overf">
 	<?php		
 				
-		if( isset($_POST['user_name']) && $_POST['user_name']!='Surname') 			
-			$name = $_POST['user_name'];
+		if( isset($_POST['name_filter']) && $_POST['user_name']!='Surname') 			
+			$name = $_POST['name_filter'];
 		else 
 			$name='';							
-		if( isset($_POST['level'])) 			
-			$level = $_POST['level'];
+		if( isset($_POST['level_filter'])) 			
+			$level = $_POST['level_filter'];
 		else
 			$level="%";									 
 		$users=select_users($name,$level);

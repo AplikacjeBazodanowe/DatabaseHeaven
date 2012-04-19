@@ -99,6 +99,7 @@ function select_history_ships($name='', $typeId='', $termId='', $dockdateMin='',
     $sql = "SELECT id_Zadokowany AS docked_id, 
                         nazwa AS name,
                         Zadokowany.data AS dock_date,
+                        Dok.id_Dok as dock_id,
                         Oddokowany.data AS undock_date 
                 FROM Statek NATURAL JOIN Zadokowany
                 INNER JOIN Dok ON Dok.id_Dok=Zadokowany.id_Dok

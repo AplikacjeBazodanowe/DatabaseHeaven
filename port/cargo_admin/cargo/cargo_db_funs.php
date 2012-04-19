@@ -96,8 +96,9 @@
 	function get_commodities($type='',$name='')
 	{
             $sql="SELECT id_Towar AS id, 
-                         nazwa AS name						  
-                FROM Towar WHERE 1 ";
+                         nazwa AS name,
+                         Typ_Ladunku.nazwa_Typu_Ladunku AS type
+                FROM Towar INNER JOIN Typ_Ladunku USING(id_Typ_Ladunku) WHERE 1 ";
             if($type!=='')
                     $sql.="AND id_Typ_Ladunku=$type";
             if($name!=='')

@@ -50,30 +50,30 @@ INSERT INTO `Kontrahent` VALUES(8, 'Compagnie Maritime Belge', 'Haga', 14, 'Arma
 INSERT INTO `Kontrahent` VALUES(9, 'Hapag-Lloyd', 'Hamburg', 6, 'Armator');
 INSERT INTO `Kontrahent` VALUES(10, 'H. Vogemann', 'Berlin, Ludwigsstrasse 122', 6, 'Armator');
 
-INSERT INTO `Magazyn` VALUES(1, 'Magazyn', 1000, 30, 100, 1);
+INSERT INTO `Magazyn` VALUES(1, 'Magazyn', 1000, 0, 100, 1);
 INSERT INTO `Magazyn` VALUES(2, 'Inny magazyn', 3000, 0, 300, 2);
-INSERT INTO `Magazyn` VALUES(3, 'Du?y magazyn', 50000, 0, 5000, 3);
-INSERT INTO `Magazyn` VALUES(4, 'CCCP', 100, 30, 56, 1);
+INSERT INTO `Magazyn` VALUES(3, 'Duży magazyn', 50000, 0, 5000, 3);
+INSERT INTO `Magazyn` VALUES(4, 'CCCP', 100, 0, 56, 1);
 INSERT INTO `Magazyn` VALUES(5, 'AAA', 1300, 0, 300, 2);
 INSERT INTO `Magazyn` VALUES(6, 'BBB', 1500, 0, 5200, 3);
-INSERT INTO `Magazyn` VALUES(7, 'CCC', 1100, 100, 1100, 1);
-INSERT INTO `Magazyn` VALUES(8, 'DDDE', 200, 30, 100, 4);
+INSERT INTO `Magazyn` VALUES(7, 'CCC', 1100, 0, 1100, 1);
+INSERT INTO `Magazyn` VALUES(8, 'DDDE', 200, 0, 100, 4);
 INSERT INTO `Magazyn` VALUES(9, 'EEE', 1500, 0, 1500, 4);
 
 INSERT INTO `Statek` VALUES(1, 'Pilateus', 100, 100, 0, 100, 0, 100, 100, 100, 'Jack Sparrow', '1998-01-29', 1, 1);
-INSERT INTO `Statek` VALUES(2, 'Pilateus2', 1000, 1000, 2, 1000, 20, 1000, 100, 100, 'Micheal Platini', '1498-01-29', 1, 1);
+INSERT INTO `Statek` VALUES(2, 'Pilateus2', 1000, 1000, 0, 1000, 0, 1000, 100, 100, 'Micheal Platini', '1498-01-29', 1, 1);
 INSERT INTO `Statek` VALUES(3, 'Nautilius', 300, 300, 0, 300, 0, 300, 300, 300, ' Richard Phillips', '1968-01-29', 1, 2);
-INSERT INTO `Statek` VALUES(4, 'Alabama', 200, 200, 100, 200, 100, 200, 200, 200, ' John Corn', '1968-01-29', 1, 3);
-INSERT INTO `Statek` VALUES(5, 'Tytanik', 200, 1000, 100, 1000, 1000, 100, 100, 20, 'Aaaa Bbbbb', '2000-10-10', 4, 1);
-INSERT INTO `Statek` VALUES(6, 'Concordia', 3000, 2000, 2000, 2500, 200, 300, 67, 40, 'Schettino', '1990-01-01', 9, 2);
+INSERT INTO `Statek` VALUES(4, 'Alabama', 200, 200, 0, 200, 0, 200, 200, 200, ' John Corn', '1968-01-29', 1, 3);
+INSERT INTO `Statek` VALUES(5, 'Tytanik', 200, 1000, 0, 1000, 0, 100, 100, 20, 'Aaaa Bbbbb', '2000-10-10', 4, 1);
+INSERT INTO `Statek` VALUES(6, 'Concordia', 3000, 2000, 0, 2500, 0, 300, 67, 40, 'Schettino', '1990-01-01', 9, 2);
 
 INSERT INTO `Towar` VALUES(1, 'iPad', 100, 2000, 1, 1, 1);
 INSERT INTO `Towar` VALUES(2, 'Honda Civic', 10000, 200000, 1, 10, 1);
-INSERT INTO `Towar` VALUES(3, 'Ropa', 10, 100, 1000, 100, 2);
-INSERT INTO `Towar` VALUES(4, 'Benzyna', 40, 400, 1000, 100, 2);
-INSERT INTO `Towar` VALUES(5, 'Ruda żelaza', 20, 200, 1000, 100, 3);
-INSERT INTO `Towar` VALUES(6, 'Wegiel', 30, 10, 1000, 100, 3);
-INSERT INTO `Towar` VALUES(7, 'Miedź', 50, 30000, 1000, 100, 3);
+INSERT INTO `Towar` VALUES(3, 'Ropa', 10, 100, 1, 1000, 2);
+INSERT INTO `Towar` VALUES(4, 'Benzyna', 40, 400, 1, 1000, 2);
+INSERT INTO `Towar` VALUES(5, 'Ruda żelaza', 20, 200, 5, 1, 3);
+INSERT INTO `Towar` VALUES(6, 'Wegiel', 30, 10, 6, 1, 3);
+INSERT INTO `Towar` VALUES(7, 'Miedź', 50, 30000, 8, 1, 3);
 INSERT INTO `Towar` VALUES(11, 'iPhone 4S', 100, 2000, 5, 10, 1);
 
 INSERT INTO `Dok` VALUES(1, 100, 100, 100, 1000, 1);

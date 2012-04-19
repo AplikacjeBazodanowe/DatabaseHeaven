@@ -42,7 +42,7 @@ root:BEGIN
     END IF;
     
     
-    SELECT DATEDIFF(data, z.data)*d.cena_Za_Pobyt FROM Zadokowany z
+    SELECT (DATEDIFF(data, z.data)+1)*d.cena_Za_Pobyt FROM Zadokowany z
     INNER JOIN Dok d ON (z.id_Dok = d.id_Dok)
     WHERE z.id_Zadokowany = zadok INTO oplataZaDokowanie;    
     
@@ -219,7 +219,7 @@ root:BEGIN
         
         IF oldStore IS NOT NULL THEN
 	        SELECT cena_za_Przechowanie FROM Magazyn WHERE id_Magazyn = oldStore INTO storePrice;        
-            SELECT DATEDIFF(data2,data1)*volume*storePrice INTO tempCost;
+            SELECT (DATEDIFF(data2,data1)+1)*volume*storePrice INTO tempCost;
             SET cost = cost + tempCost;
         END IF;
 
@@ -474,7 +474,7 @@ DROP PROCEDURE IF EXISTS konfiskata;
 delimiter |
 CREATE PROCEDURE konfiskata(cargo INT, remarks TEXT, user INT)
 BEGIN
-	DECLARE ship_id INT;
+	DECLARE ship_id, sumWeight, sumVol INT;
 	START TRANSACTION;
 	SELECT id_Statek2 
 		FROM Przeladunek 

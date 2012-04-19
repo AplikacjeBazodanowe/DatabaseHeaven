@@ -27,8 +27,7 @@
 	}
 	if( isset( $_GET['status'] ) )
 	{
-		$payment_id = $_GET['id'];
-		$status = $_GET['status'];
+		$payment_id = $_GET['id'];		
 		set_as_paid($payment_id);
 	}
 ?>
@@ -44,8 +43,8 @@
 	</div>
 	<form action="?menu=payments&action=show" method="post">
 		<div style="margin-left: 69px;">
-			<input name="contractor" class="edit baseFont" type="edit" placeholder="Name of contractor">
-			<select name="type" class="baseFont select">
+			<input name="contractor_filter" class="edit baseFont" type="edit" placeholder="Name of contractor">
+			<select name="type_filter" class="baseFont select">
 				<option value="">Wszystkie portowe</option>
 				<?php					
 					$types=get_payment_types();
@@ -68,12 +67,12 @@
 </div><br>
 <div class="payments_list overf">
 	<?php		
-		if( isset($_POST['contractor']) && $_POST['contractor']!='Name of contractor') 			
-			$contractor = $_POST['contractor'];
+		if( isset($_POST['contractor_filter']) && $_POST['contractor_filter']!='Name of contractor') 			
+			$contractor = $_POST['contractor_filter'];
 		else 
 			$contractor='';							
-		if( isset($_POST['type'])) 			
-			$type = $_POST['type'];
+		if( isset($_POST['type_filter'])) 			
+			$type = $_POST['type_filter'];
 		else
 			$type='';		
 		if( isset($_POST['from_value'])) 			
