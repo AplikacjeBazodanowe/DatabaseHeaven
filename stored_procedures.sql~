@@ -447,8 +447,8 @@ root:BEGIN
         LEAVE root;
     END IF;
     
-    SELECT user FROM Kontrola_Celna
-    WHERE id_Kontrola_Celna = NEW.id_Kontrola_Celna
+    SELECT id_Uzytkownik FROM Kontrola_Celna
+	    WHERE id_Kontrola_Celna = NEW.id_Kontrola_Celna
     INTO user;
     
     SELECT l.ilosc * t.clo_jednostkowe FROM Kontrola_Celna k
