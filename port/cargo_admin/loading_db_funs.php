@@ -9,7 +9,9 @@
     
     function register_cargo_ship($commodity,$amount,$contractor,$ship,$duty_control=0, $remarks='')
     {
-        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];
+        if($amount==='')
+            return "Błąd: podaj ilość towaru";
         $sql="CALL nadanie($commodity, $amount , $contractor, $duty_control ,
                              $ship, NULL, $user_id, '$remarks')";
 		DB::call($sql);	
@@ -24,7 +26,9 @@
     
     function register_cargo_warehouse($commodity,$amount,$contractor,$warehouse, $remarks='')
     {
-        $user_id=$_SESSION['user'];	//będzie pobierane z sesji        
+        $user_id=$_SESSION['user'];        
+        if($amount==='')
+            return "Błąd: podaj ilość towaru";
         $sql="CALL nadanie($commodity, $amount , $contractor, FALSE ,
                              NULL, $warehouse, $user_id, '$remarks')";
 		DB::call($sql);	

@@ -71,12 +71,12 @@
                     LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)								   
                     WHERE id_Ladunek=$id ";							
 		$result=DB::query($sql);		
-              $count=$result->num_rows;
-              if($count==0)
-                  return NULL;
-              for($i=0; $i<$count;$i++)      
-                  $history[$i]=$result->fetch_object();                          
-              return $history;
+        $count=$result->num_rows;
+        if($count==0)
+            return NULL;
+        for($i=0; $i<$count;$i++)      
+            $history[$i]=$result->fetch_object();                          
+        return $history;
 	}	
 	
 	function get_cargo_types()

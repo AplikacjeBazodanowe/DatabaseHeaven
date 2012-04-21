@@ -15,6 +15,12 @@
 		<td class=\"stuff_no\">
 			Amount
 		</td>
+        <td class=\"stuff_no\">
+			Mass
+		</td>
+        <td class=\"stuff_no\">
+			Volume
+		</td>
 		<td style=\"width: 150px\" class=\"stuff_no\">
 			Duty control requirement
 		</td>			
@@ -31,6 +37,12 @@
 					</td>
 					<td>
 						$cargo_item->amount
+					</td>
+                    <td>
+						$cargo_item->mass
+					</td>
+                    <td>
+						$cargo_item->volume
 					</td>
 					<td>";
 						if( $cargo_item->control_required )

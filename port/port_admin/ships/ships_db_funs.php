@@ -117,6 +117,7 @@ function select_history_ships($name='', $typeId='', $termId='', $dockdateMin='',
         $sql.="AND Oddokowany.data >= '$undockdateMin' ";
     if (!empty($undockdateMax))
         $sql.="AND Oddokowany.data <= '$undockdateMax' ";
+    $sql.=" ORDER BY Zadokowany.data DESC";
     $result = DB::query($sql);
     $count = $result->num_rows;
     if ($count == 0)
@@ -285,6 +286,7 @@ function get_ship_cargo($ship_id, $from='', $to='')
 						CONCAT(Towar.objetosc_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
 						CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,												
 						Kontrahent.nazwa AS owner,
+                        czy_pozytywna AS control_positive,
 						czy_kontrola_celna AS control_required						
 				FROM Ladunek
 					INNER JOIN Towar USING ( id_Towar )
@@ -293,6 +295,7 @@ function get_ship_cargo($ship_id, $from='', $to='')
 					INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
 					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
 					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
+                    LEFT OUTER JOIN Kontrola_Celna USING(id_Ladunek)
 				WHERE Przeladunek.id_statek2 = $ship_id ";
     if ($from === '' AND $to === '')
         $sql.="AND czy_aktualne_polozenie=TRUE ";

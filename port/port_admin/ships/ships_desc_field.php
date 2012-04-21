@@ -79,6 +79,19 @@
 				return;
 			foreach($cargo as $cargo_item)			
 			{				
+                if($cargo_item->control_required)
+                {
+                    $dutyReq="Yes";
+                    if($cargo_item->control_positive)
+                        $dutyPass="Passed";
+                    else
+                        $dutyPass="Not passed";
+                }
+                else
+                {
+                    $dutyReq="No";
+                    $dutyPass="-";
+                }
 				echo "<br><div style=\"text-align: center\">
 					  <table class=\"stuff_info\">
 					  <tr>
@@ -123,6 +136,14 @@
 							  Value: $cargo_item->value
 						  </td>
 					  </tr>					  
+                      <tr>
+						  <td>
+							  Duty control required: $dutyReq
+						  </td>
+						  <td>
+							  Duty control status: $dutyPass
+						  </td>
+					  </tr>
 					  </table></div>";
 		  		}
 				  

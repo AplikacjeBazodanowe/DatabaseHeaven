@@ -5,6 +5,12 @@
 	{
 		$cargo = get_cargo_by_id($_GET['id']);
 		$history = get_cargo_history($_GET['id']);
+        if($ship=$history[count($history)-1]->toShip)
+            $location="Ship: $ship";
+        elseif($warehouse=$history[count($history)-1]->toWarehouse)
+            $location="Warehouse: $warehouse";
+        else
+            $location="Delivered to Receiver";
 		if($cargo==NULL)
 			return;
 		echo "<table class=\"stuff_info\">
@@ -43,7 +49,11 @@
 				Receiver
 			</td><td>
 				$cargo->receiver
-			</td></tr>
+			</td></tr><tr><td>
+				Current location
+			</td><td>
+				$location
+			</td></tr>                
 		</table><br>	
 		<hr><br>";
 		
