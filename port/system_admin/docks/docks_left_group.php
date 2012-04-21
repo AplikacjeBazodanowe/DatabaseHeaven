@@ -1,1 +1,37 @@
-<?php	if( isset( $_GET['action'] ) ) {		if( $_GET['action'] == 'delete' ) {			$dock_id = $_GET['id'];			// zapytanie na wywalenie doku		} else if( $_GET['action'] == 'edit' ) { // edycja doku			$dock_id = $_GET['id'];			// $terminal = $_POST['terminal']; tu w zaleznosci jakiego checkboxa zaznaczylismy to to edytujemy			// najlepiej po prostu odpowiednio doklejac do zapytania warunki		}	}?><div>	<input class="button baseFont add" type="button" value="Add dock" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=docks&action=search" method="post">		<input name="dock_name" class="edit baseFont" type="edit" value="Name" onClick="clr( this )" onBlur="back( this )">		<input class="button baseFont" type="submit" value="Search">	</form>	<br>	<div style="float: left; line-height: 21px;">		Terminal:<br>		Fee:<br>		Length:<br>		Width:<br>		Height:	</div>	<form action="admin_system.php?menu=docks&action=show" method="post">		<div style="margin-left: 69px;">			<select name="terminal" class="baseFont select">				<option>All				<option>Terminal			</select>			<br>			<input name="from_fee" class="ship_edit baseFont" type="text" value="From" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="to_fee" class="ship_edit baseFont" type="text" value="To" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="fee_check" type="checkbox" onClick="on_off_edit('fee')">			<input name="from_length" class="ship_edit baseFont" type="text" value="From" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="to_length" class="ship_edit baseFont" type="text" value="To" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="length_check" type="checkbox" onClick="on_off_edit('length')">			<input name="from_width" class="ship_edit baseFont" type="text" value="From" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="to_width" class="ship_edit baseFont" type="text" value="To" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="width_check" type="checkbox" onClick="on_off_edit('width')">			<input name="from_height" class="ship_edit baseFont" type="text" value="From" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="to_height" class="ship_edit baseFont" type="text" value="To" disabled="true" onClick="clr( this )" onBlur="back( this ); validateEdit( this )">			<input name="height_check" type="checkbox" onClick="on_off_edit('height')">		</div>		<input class="button baseFont add" type="submit" value="Show" onClick="return validate( 'from_fee|to_fee|from_length|to_length|from_width|to_width|from_height|to_height' )">	</form></div><br><div class="docks_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'search' ) {				$surname = $_POST['dock_name'];				// wyswietl dok na podstawie nazwy			} else if( $_GET['action'] == 'show' ) {				// $terminal = $_POST['terminal']; tu w zaleznosci jakiego checkboxa zaznaczylismy to wzgledem tego wyswietlamy				// najlepiej po prostu odpowiednio doklejac do zapytania warunki			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="admin_system.php?menu=docks&id=ID"><div class="name float_left left_col align_cols link">			//		Jan Kowalski			//	</div></a>			//	<a href="admin_system.php?menu=docks&action=delete&id=ID"><div class=" delete float_left right_col align_cols link">			//		Delete			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Ninja			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "docks/users.txt" ); ?></div>
+<?php
+	include_once("docks_db_funs.php");
+	if( isset( $_GET['action'] ) ) 
+	{		if( $_GET['action'] == 'delete' ) 
+		{			$dock_id = $_GET['id'];			delete_dock($dock_id);		} 
+		else if( $_GET['action'] == 'edit' ) 
+		{ // edycja doku			$dock_id = $_GET['id'];			$max_width = $_POST['width']; 
+			$max_length = $_POST['length'];
+			$max_height = $_POST['height']; 
+			$fee = $_POST['fee'];
+			$new_id = $_POST['id'];						update_dock($dock_id,$new_id,$max_width, $max_length, $max_height, $fee);		}
+		elseif($_GET['action'] == 'add') 
+		{
+			$max_width = $_POST['width']; 
+			$max_length = $_POST['length'];
+			$max_height = $_POST['height']; 
+			$fee = $_POST['fee'];
+			$id = $_POST['id'];
+			$term_id = $_POST['terminal'];			insert_dock($id,$term_id,$max_width, $max_length, $max_height, $fee);
+		}	}?><div>	<input class="button baseFont add" type="button" value="Add dock" onClick="add_toggle()">	<hr class="line">	<br>	<div style="float: left; line-height: 21px;">				Terminal:<br>			</div>	<form action="admin_system.php?menu=docks&action=show" method="post">		<div style="margin-left: 69px;">						<select name="terminal_filter" class="baseFont select">				<option value="">All</option>				<?php					
+					$terminals=select_terminals();
+					foreach($terminals as $terminal)											
+						echo "<option value=\"$terminal->id\">$terminal->name</option>";					
+				?>			</select>			<br>					</div>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="docks_list overf">	<?php		if( isset($_POST['terminal_filter']) ) 						$terminal = $_POST['terminal_filter'];
+		else 
+			$terminal='';																		 
+		$docks=select_docks($terminal);
+		if($docks)
+			foreach($docks as $dock)
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='admin_system.php?menu=docks&id=$dock->id'\">Dok $dock->id</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'admin_system.php?menu=docks&action=delete&id=$dock->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">Terminal: $dock->term_name</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $dock->id )\">Edit</td></tr>";
+				echo "</table><br>";
+			}			?>	</div>

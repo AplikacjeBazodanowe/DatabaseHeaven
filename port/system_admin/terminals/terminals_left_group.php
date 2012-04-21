@@ -1,1 +1,69 @@
-<?php	if( isset( $_GET['action'] ) ) {		if( $_GET['action'] == 'delete' ) {			$terminal_id = $_GET['id'];			// zapytanie na wywalenie terminalu		} else if( $_GET['action'] == 'edit' ) { // edycja terminalu			$terminal_id = $_GET['id'];		}	}?><div>	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">	<hr class="line">	<form action="admin_system.php?menu=terminals&action=search" method="post">		<input name="terminal_name" class="edit baseFont" type="edit" value="Name" onClick="clr( this )" onBlur="back( this )">		<input class="button baseFont" type="submit" value="Search">	</form>	<br>	<div style="float: left; line-height: 21px;">		Type:&nbsp;	</div>	<form action="admin_system.php?menu=terminals&action=show" method="post">		<select name="type" class="baseFont select">			<option>type 1		</select>		<input class="button baseFont add" type="submit" value="Show">	</form></div><br><div class="terminals_list overf">	<?php		if( isset( $_GET['action'] ) ) {			if( $_GET['action'] == 'search' ) {				$surname = $_POST['terminal_name'];				// wyswietl terminal na podstawie nazwy			} else if( $_GET['action'] == 'show' ) {				// atrybuty ida przez posta			}		} else {			// wyswietl all			// wzor na "tabelke" dla itemu:			//  <a href="admin_system.php?menu=terminals&id=ID"><div class="name float_left left_col align_cols link">			//		Jan Kowalski			//	</div></a>			//	<a href="admin_system.php?menu=terminals&action=delete&id=ID"><div class=" delete float_left right_col align_cols link">			//		Delete			//	</div></a>			//	<div class="level float_left left_col align_cols">			//		Ninja			//	</div>			//	<a href="#" onClick="edit_toggle( ID )"><div class="change float_left right_col align_cols link">			//		Edit			//	</div></a>			//	<br><br><br>		}	?>	<!-- to tylko do testowania, wiec do wywalenia pozniej -->	<?php include( "terminals/users.txt" ); ?></div>
+<?php
+	include_once("terminals_db_funs.php");
+	
+	if( isset( $_GET['action'] ) ) 
+	{
+		if( $_GET['action'] == 'delete' ) 
+		{
+			$terminal_id = $_GET['id'];
+			delete_terminal($terminal_id);
+		} 
+		else if( $_GET['action'] == 'edit' ) 
+		{ 
+			$terminal_id = $_GET['id'];
+			$name=$_POST['name'];
+			$typeId=$_POST['type'];
+			update_terminal($terminal_id,$name,$typeId);
+		}
+		elseif($_GET['action'] == 'add') 
+		{
+			$name=$_POST['name'];
+			$typeId=$_POST['type'];
+			insert_terminal($name,$typeId);
+		}
+	}
+?>
+<div>
+	<input class="button baseFont add" type="button" value="Add terminal" onClick="add_toggle()">
+	<hr class="line">
+	<br>
+	<div style="float: left; line-height: 21px;">
+		Name:&nbsp;<br>
+		Type:
+	</div>
+	<form action="admin_system.php?menu=terminals&action=show" method="post">
+		<input name="name_filter" class="edit baseFont" type="edit" placeholder="Type name here">
+		<select name="type_filter" class="baseFont select">
+			<option value="">All</option>
+			<?php					
+					$types=get_types();
+					foreach($types as $type)											
+						echo "<option value=\"$type->id\">$type->name</option>";					
+			?>
+		</select>
+		<input class="button baseFont add" type="submit" value="Show">
+	</form>
+</div><br>
+<div class="terminals_list overf">
+	<?php
+		if( isset($_POST['name_filter']) && $_POST['name_filter']!='Type name here') 			
+			$name = $_POST['name_filter'];
+		else 
+			$name='';							
+		if( isset($_POST['type_filter'])) 			
+			$type = $_POST['type_filter'];
+		else
+			$type='';									 
+		$terminals=select_terminals($name,$type);
+		if($terminals)
+			foreach($terminals as $terminal)
+			{
+				echo "<table class=\"item\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">";
+				echo "<tr><td class=\"name left_column\" onClick=\"window.location.href='admin_system.php?menu=terminals&id=$terminal->id'\">$terminal->name</td>";
+				echo "<td class=\"delete right_column\" onClick=\"del( 'Are you sure?', 'admin_system.php?menu=terminals&action=delete&id=$terminal->id' )\">Delete</td></tr>";
+				echo "<tr><td class=\"level\">$terminal->type</td>";
+				echo "<td class=\"edit\" onClick=\"edit_toggle( $terminal->id )\">Edit</td></tr>";
+				echo "</table><br>";
+			}
+	?>	
+</div>
