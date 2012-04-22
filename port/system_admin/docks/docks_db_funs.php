@@ -13,9 +13,11 @@
 	{		
 		//jakaś walidacja					
 		if(empty($id) || empty($new_id) || empty($max_width) || empty($max_length) || empty($max_height) || empty($fee))
-			return;		
+                    return "Błąd: Podano niekompletne dane.";		
 		if(!get_dock_by_id($id))
-			return;		
+                    return "Błąd: Nie istnieje taki dok.";
+                if(get_dock_by_id($new_id) && get_dock_by_id($new_id)->id!=$id)
+                    return "Błąd: Istnieje już dok o podanym ID.";
 		$sql="UPDATE Dok 
 				SET id_Dok=$new_id,
 					 maks_dlugosc_statku=$max_length,
@@ -31,13 +33,16 @@
 		$terminals=select_terminals();
 		$goodTerminal=false;
 		foreach($terminals as $terminal)
-			if($terminal->id==$terminal_id)
-			{
-				$goodTerminal=true;
-				break;
-			}			
-		if(empty($id) || empty($max_width) || empty($max_length) || empty($max_height) || empty($fee))
-			return;				
+                    if($terminal->id==$terminal_id)
+                    {
+                            $goodTerminal=true;
+                            break;
+                    }			
+		if(empty($id) || empty($max_width) || empty($max_length) || 
+                        empty($max_height) || empty($fee) || !$goodTerminal)
+                    return "Błąd: Podano niekompletne lub błędne dane.";
+                if(get_dock_by_id($id))
+                    return "Błąd: Istnieje już dok o podanym ID.";
 		$sql="INSERT INTO Dok VALUES ($id, $max_length, $max_width, $max_height, $fee, $terminal_id)";
 		DB::query($sql);	
 	}
@@ -52,29 +57,29 @@
 			$sql="SELECT id_Dok AS id, nazwa AS term_name 
 					FROM Dok NATURAL JOIN Terminal";
 		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      for($i=0; $i<$count;$i++)      
-          $docks[$i]=$result->fetch_object();                          
-      return $docks;
+                  $count=$result->num_rows;
+                  if($count==0)
+                      return NULL;
+                  for($i=0; $i<$count;$i++)      
+                      $docks[$i]=$result->fetch_object();                          
+                  return $docks;
 	}
 	
 	function get_dock_by_id($id)
 	{
 		$sql="SELECT id_Dok AS id, 
-						 maks_dlugosc_statku AS max_length,
-					 	 maks_szerokosc_statku AS max_width,
-					 	 maks_wysokosc_statku AS max_height,
-				 	 	 CONCAT(cena_za_pobyt, ' $') AS fee,				 	 	  
-				 	 	 nazwa AS term_name 
-				FROM Dok NATURAL JOIN Terminal 
-				WHERE id_Dok = $id";
+                         maks_dlugosc_statku AS max_length,
+                         maks_szerokosc_statku AS max_width,
+                         maks_wysokosc_statku AS max_height,
+                         CONCAT(cena_za_pobyt, ' $') AS fee,				 	 	  
+                         nazwa AS term_name 
+                    FROM Dok NATURAL JOIN Terminal 
+                    WHERE id_Dok = $id";
 		$result=DB::query($sql);		
-      $count=$result->num_rows;
-      if($count==0)
-          return NULL;
-      else 
-      	return $result->fetch_object();                               
+                  $count=$result->num_rows;
+                  if($count==0)
+                      return NULL;
+                  else 
+                    return $result->fetch_object();                               
 	}						
 ?>

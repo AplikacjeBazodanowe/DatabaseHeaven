@@ -15,9 +15,11 @@
 	{		
 		//jakaś walidacja					
 		if(empty($id) || empty($name) || empty($capacity) || empty($fee))
-			return;		
+			return "Błąd: Podano niekompletne lub błędne dane.";				
+                if(get_warehouse_by_name($name) && get_warehouse_by_name($name)->id != $id)
+			return "Błąd: Istnieje już magazyn o tej nazwie.";				
 		if(!get_warehouse_by_id($id))
-			return;		
+			return "Błąd: Nie istnieje taki magazyn.";		
 		$sql="UPDATE Magazyn SET nazwa='$name', pojemnosc=$capacity, cena_Za_Przechowanie=$fee WHERE id_Magazyn=$id";
 		DB::query($sql);
 	}
@@ -33,9 +35,9 @@
 				break;
 			}
 		if(get_warehouse_by_name($name) && get_warehouse_by_name($name)->id != $id)
-			return;			
+			return "Błąd: Istnieje już magazyn o tej nazwie.";				
 		if(empty($name) || empty($capacity) || empty($fee) )
-			return;				
+			return "Błąd: Podano niekompletne lub błędne dane.";				
 		$sql="INSERT INTO Magazyn VALUES (NULL, '$name', $capacity,0, $fee, $terminal_id)";
 		DB::query($sql);	
 	}

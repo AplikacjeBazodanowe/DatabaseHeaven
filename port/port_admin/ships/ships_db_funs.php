@@ -276,7 +276,7 @@ function get_ship_owner($ship_id)
 
 function get_ship_cargo($ship_id, $from='', $to='')
 {
-    $sql = "SELECT Ladunek.id_Ladunek AS id, 
+    $sql = "SELECT  Ladunek.id_Ladunek AS id, 
                     Towar.nazwa AS name,
                     Typ_Ladunku.nazwa_Typu_Ladunku AS type,
                     Przeladunek.data AS date,
@@ -296,7 +296,7 @@ function get_ship_cargo($ship_id, $from='', $to='')
                     INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
                     LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
                     LEFT OUTER JOIN Kontrola_Celna USING(id_Ladunek)
-            WHERE Przeladunek.id_statek2 = $ship_id ";
+            WHERE Przeladunek.id_statek2 = $ship_id ";            
     if ($from === '' AND $to === '')
         $sql.="AND czy_aktualne_polozenie=TRUE ";
     else
@@ -306,6 +306,7 @@ function get_ship_cargo($ship_id, $from='', $to='')
         if ($to !== '')
             $sql.="AND Przeladunek.data<='$to' ";
     }
+    $sql.=" GROUP BY Ladunek.id_Ladunek";
     $result = DB::query($sql);
     $count = $result->num_rows;
     if ($count == 0)

@@ -1,8 +1,12 @@
 <?php	
 	include_once("terminals_db_funs.php");	
 		
+        if(isset($error) && $error!=NULL)
+                echo "<table class=\"error\" border=\"0\"><tr><td class=\"error_title\">Error</td></tr><tr><td><p class=\"error_msg\">$error</p></td></tr></table>";
 	if(isset($_GET['id']))
-	{			$id = $_GET['id'];		$terminal = get_terminal_by_id($id);
+	{	
+		$id = $_GET['id'];
+		$terminal = get_terminal_by_id($id);
 		$docks = select_docks($id);
 		$warehouses = select_warehouses($id,'');
 		if($terminal)
@@ -10,7 +14,8 @@
 			echo "<h2>Terminal name:</h2><p class=\"item_char_in_desc\">$terminal->name</p>";
 			echo "<h2>Type:</h2><p class=\"item_char_in_desc\">$terminal->type</p>";
 			echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Edit this terminal\" onClick=\"edit_toggle( $terminal->id )\">";
-			echo "<a href=\"admin_system.php?menu=users&action=delete&id=$terminal->id\">";						echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Delete this terminal\"></a>";
+			echo "<a href=\"admin_system.php?menu=users&action=delete&id=$terminal->id\">";			
+			echo "<br><input class=\"button baseFont add\" type=\"button\" value=\"Delete this terminal\"></a>";
 			echo "<br><br><h3>List of docks for this terminal:</h3>";
 			if($docks!=NULL)
 			{
@@ -38,4 +43,5 @@
 		echo "<h1>Terminals</h1>";
 		echo "<p>This is the Terminals menu.</p>";
 		echo "<p>Select a terminal from the list to view its details</p>";
-	}	?>
+	}	
+?>

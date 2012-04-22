@@ -33,12 +33,12 @@ if (isset($_GET['action']))
                 $oldPicture = get_user_by_id($user_id)->url_Obrazka;
                 if ($oldPicture != NULL)
                     unlink('../photos/' . $oldPicture);
-                update_user($user_id, $name, $pass, $level, $imgName);
+                $error=update_user($user_id, $name, $pass, $level, $imgName);
             }
         }
         else
         {
-            update_user($user_id, $name, $pass, $level);
+            $error=update_user($user_id, $name, $pass, $level);
         }
     }
     elseif ($_GET['action'] == 'add')
@@ -61,11 +61,11 @@ if (isset($_GET['action']))
             }
             else
             {
-                insert_user($name, $pass, $level, $imgName);
+                $error=insert_user($name, $pass, $level, $imgName);
             }
         }
         else
-            insert_user($name, $pass, $level);
+            $error=insert_user($name, $pass, $level);
     }
 }
 ?>
