@@ -22,11 +22,11 @@
 				break;
 			}			
 		if(empty($name) || !$goodType)
-			return;
+			return "Błąd: Podano błędne lub niekompletne dane.";
 		if(get_terminal_by_name($name) && get_terminal_by_name($name)->id_Terminal != $id)
-			return;
+			return "Błąd: Istnieje już terminal o podanej nazwie.";
 		if(!get_terminal_by_id($id))
-			return;		
+			return "Błąd: Nie ma takiego terminala.";
 		$sql="UPDATE Terminal 
 				SET nazwa='$name', id_Typ_Ladunku=$typeId 
 				WHERE id_Terminal=$id";
@@ -44,9 +44,9 @@
 				break;
 			}			
 		if( empty($name) || !$goodType)
-			return;
+			return "Błąd: Podano błędne lub niekompletne dane.";
 		if(get_terminal_by_name($name))
-			return;		
+			return "Błąd: Istnieje już terminal o podanej nazwie.";
 		$sql="INSERT INTO Terminal VALUES (NULL,'$name',$typeId)";
 		DB::query($sql);	
 	}

@@ -10,8 +10,8 @@
 						Przeladunek.data AS date,
 						Uzytkownik.nazwa AS loaded_by,
 						Ladunek.ilosc AS amount,						
-                        CONCAT(Towar.masa_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Masy) AS mass,
-						CONCAT(Towar.objetosc_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
+                                                CONCAT(ROUND(Towar.masa_jednostkowa*Ladunek.ilosc,2), ' ' ,Typ_Ladunku.jednostka_Masy) AS mass,
+						CONCAT(ROUND(Towar.objetosc_jednostkowa*Ladunek.ilosc,2), ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
 						CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,						
 						Kontrahent.nazwa AS owner											 
 				FROM Ladunek

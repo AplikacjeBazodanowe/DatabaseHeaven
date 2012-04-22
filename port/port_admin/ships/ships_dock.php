@@ -43,8 +43,8 @@
 						echo "<option value=\"$contractor->id\">$contractor->name</option>";					
 				?>
 			</select></td></tr><tr><td>
-			<span class="baseFont">Capacity (mass): </span></td><td><input name="cap_mass" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>
-			<span class="baseFont">Capacity (volume): </span></td><td><input name="cap_vol" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>
+			<span class="baseFont">Capacity (mass): </span></td><td><input name="cap_mass" type="text" class="edit baseFont" pattern="^[0-9]+.?[0-9]*$" required></td></tr><tr><td>
+			<span class="baseFont">Capacity (volume): </span></td><td><input name="cap_vol" type="text" class="edit baseFont" pattern="^[0-9]+.?[0-9]*$" required></td></tr><tr><td>
 			<span class="baseFont">Displacement: </span></td><td><input name="displacement" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>
 			<span class="baseFont">Length: </span></td><td><input name="length" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>
 			<span class="baseFont">Width: </span></td><td><input name="width" type="text" class="edit baseFont" pattern="^[0-9]+$" required></td></tr><tr><td>

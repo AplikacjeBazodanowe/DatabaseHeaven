@@ -67,8 +67,8 @@ root:BEGIN
 		   INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
 				VALUES ('Portowa (za dok)', oplataZaDokowanie, 0, data, kontrh, user);
 		END IF;
-        INSERT INTO Oddokowany(data, uwagi, id_zadokowany, id_Uzytkownik)
-            VALUES(data, "Brak uwag", zadok, user); 
+        INSERT INTO Oddokowany(data, id_zadokowany, id_Uzytkownik)
+            VALUES(data, zadok, user); 
         select "Wszystko ok";
 	    TRUNCATE TABLE Bledy_Operacji;        
         COMMIT;
@@ -147,8 +147,8 @@ root:BEGIN
         LEAVE root;
     END IF;
     
-    INSERT INTO Zadokowany(data, uwagi, id_Uzytkownik, id_Dok, id_Statek)
-            VALUES(data, "Brak uwag", user, docNr, ship); 
+    INSERT INTO Zadokowany(data, id_Uzytkownik, id_Dok, id_Statek)
+            VALUES(data, user, docNr, ship); 
     TRUNCATE TABLE Bledy_Operacji;
     SELECT "Wszystko ok!";
 END
@@ -160,7 +160,8 @@ DROP PROCEDURE IF EXISTS odbior;
 DELIMITER //
 CREATE PROCEDURE odbior(cargo INT, recipient INT, user INT, remarks TEXT)
 root:BEGIN
-    DECLARE loadID, storeID, oldStore, shipID, cost, tempCost, volume, mass, storePrice, taxChecked INT;
+    DECLARE loadID, storeID, oldStore, shipID, cost, tempCost, storePrice, taxChecked INT;
+    DECLARE volume, mass FLOAT;
     DECLARE data1, data2 DATETIME;
     DECLARE done INT DEFAULT FALSE;
     DECLARE cur1 CURSOR FOR SELECT p.id_Magazyn2, p.data FROM Przeladunek p
@@ -273,9 +274,9 @@ DROP PROCEDURE IF EXISTS przeladuj;
 DELIMITER //
 CREATE PROCEDURE przeladuj(cargo INT, ship INT, store INT, user INT, remarks TEXT, ignoreDuty BOOLEAN)
 root:BEGIN
-    DECLARE loadID, taxChecked, typesMatch, sourceStore, sourceShip,
-            sumVol, sumWeight, destMaxVol, destMaxWeight, destVol, destWeight,
+    DECLARE loadID, taxChecked, typesMatch, sourceStore, sourceShip,            
 			cost INT;
+	DECLARE sumVol, sumWeight, destMaxVol, destMaxWeight, destVol, destWeight FLOAT;
     SET taxChecked = 0;
     SET typesMatch = 0;
     SET sumVol = 1;
@@ -474,7 +475,8 @@ DROP PROCEDURE IF EXISTS konfiskata;
 delimiter |
 CREATE PROCEDURE konfiskata(cargo INT, remarks TEXT, user INT)
 BEGIN
-	DECLARE ship_id, sumWeight, sumVol INT;
+	DECLARE ship_id INT;
+	DECLARE sumWeight, sumVol FLOAT;
 	START TRANSACTION;
 	SELECT id_Statek2 
 		FROM Przeladunek 

@@ -1,6 +1,6 @@
 /* Usuwanie bazy danych */
 DROP DATABASE IF EXISTS `databaseheaven`;
-CREATE DATABASE `databaseheaven`;
+CREATE DATABASE `databaseheaven` CHARACTER SET utf8 COLLATE utf8_polish_ci;
 
 DROP USER 'PortUser'@'localhost';
 CREATE USER 'PortUser'@'localhost' IDENTIFIED BY 'jakieshaslo';
@@ -245,8 +245,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Zadokowany` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
-
-  `uwagi` LONGTEXT NULL ,
   
   `id_Uzytkownik` INT  NULL, 
     
@@ -333,8 +331,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Oddokowany` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
-
-  `uwagi` LONGTEXT NULL ,
 
   `id_Zadokowany` INT NOT NULL ,
 

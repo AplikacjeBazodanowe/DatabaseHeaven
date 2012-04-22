@@ -194,32 +194,32 @@ function get_ship_by_id($id)
 function get_docked_ship_by_id($id)
 {
     $sql = "SELECT id_Statek AS id, 
-						Statek.nazwa AS name, 
-						wypornosc AS displacement,
-						ladownosc_masowa AS capMass,
-						ladownosc_objetosciowa AS capVol,
-                        aktualna_masa_ladunkow AS curMass,
-                        aktualna_objetosc_ladunkow AS curVol,
-						kapitan AS captain,
-						data_produkcji AS production_date,
-						typ_Statku AS type,
-						id_Typ_Ladunku AS type_id,
-						dlugosc AS length,
-						szerokosc AS width,
-						wysokosc AS height,						
-						Uzytkownik.nazwa AS docked_by,
-						Zadokowany.id_Dok AS dock_id,
-						Zadokowany.id_Zadokowany AS docked_id,
-						Zadokowany.data AS dock_date,
-						Dok.id_Terminal AS term_id,
-						Kontrahent.nazwa AS owner
-				FROM Statek NATURAL JOIN Typ_Ladunku
-					NATURAL JOIN Zadokowany 
-					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)
-					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
-					INNER JOIN Kontrahent USING(id_Kontrahent)
-					INNER JOIN Dok USING(id_Dok)						 
-				WHERE id_Statek = $id AND id_Oddokowany IS NULL";
+                    Statek.nazwa AS name, 
+                    CONCAT(wypornosc,' t') AS displacement,
+                    CONCAT(ladownosc_masowa, ' ' ,Typ_Ladunku.jednostka_Masy) AS capMass,
+                    CONCAT(ladownosc_objetosciowa, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS capVol,
+                    CONCAT(aktualna_masa_ladunkow, ' ' ,Typ_Ladunku.jednostka_Masy) AS curMass,
+                    CONCAT(aktualna_objetosc_ladunkow, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS curVol,                                          
+                    kapitan AS captain,
+                    data_produkcji AS production_date,
+                    typ_Statku AS type,
+                    id_Typ_Ladunku AS type_id,
+                    CONCAT(dlugosc,' m') AS length,
+                    CONCAT(szerokosc,' m') AS width,
+                    CONCAT(wysokosc,' m') AS height,						
+                    Uzytkownik.nazwa AS docked_by,
+                    Zadokowany.id_Dok AS dock_id,
+                    Zadokowany.id_Zadokowany AS docked_id,
+                    Zadokowany.data AS dock_date,
+                    Dok.id_Terminal AS term_id,
+                    Kontrahent.nazwa AS owner
+            FROM Statek NATURAL JOIN Typ_Ladunku
+                    NATURAL JOIN Zadokowany 
+                    LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)
+                    LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
+                    INNER JOIN Kontrahent USING(id_Kontrahent)
+                    INNER JOIN Dok USING(id_Dok)						 
+            WHERE id_Statek = $id AND id_Oddokowany IS NULL";
     $result = DB::query($sql);
     $count = $result->num_rows;
     if ($count == 0)
@@ -231,28 +231,28 @@ function get_docked_ship_by_id($id)
 function get_history_ship_by_id($docked_id)
 {
     $sql = "SELECT id_Statek AS id, 
-						Statek.nazwa AS name, 
-						wypornosc AS displacement,
-						ladownosc_masowa AS capMass,
-						ladownosc_objetosciowa AS capVol,
-						kapitan AS captain,
-						data_produkcji AS production_date,
-						typ_Statku AS type,
-						dlugosc AS length,
-						szerokosc AS width,
-						wysokosc AS height,
-						U1.nazwa AS docked_by,
-						Zadokowany.data AS dock_date,						
-						U2.nazwa AS undocked_by,
-						Kontrahent.nazwa AS owner,
-						Oddokowany.data AS undock_date
-				FROM Statek NATURAL JOIN Typ_Ladunku
-					NATURAL JOIN Zadokowany 
-					LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
-					LEFT OUTER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik					
-					LEFT OUTER JOIN Uzytkownik U2 ON Oddokowany.id_Uzytkownik=U2.id_Uzytkownik	
-					INNER JOIN Kontrahent USING(id_Kontrahent)															 
-				WHERE id_Zadokowany = $docked_id";
+                    Statek.nazwa AS name, 
+                    CONCAT(wypornosc, ' t') AS displacement,                    
+                    CONCAT(ladownosc_masowa, ' ' ,Typ_Ladunku.jednostka_Masy) AS capMass,
+                    CONCAT(ladownosc_objetosciowa, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS capVol,                    
+                    kapitan AS captain,
+                    data_produkcji AS production_date,
+                    typ_Statku AS type,
+                    CONCAT(dlugosc, ' m') AS length,
+                    CONCAT(szerokosc, ' m') AS width,
+                    CONCAT(wysokosc, ' m') AS height,
+                    U1.nazwa AS docked_by,
+                    Zadokowany.data AS dock_date,						
+                    U2.nazwa AS undocked_by,
+                    Kontrahent.nazwa AS owner,
+                    Oddokowany.data AS undock_date
+            FROM Statek NATURAL JOIN Typ_Ladunku
+                    NATURAL JOIN Zadokowany 
+                    LEFT OUTER JOIN Oddokowany USING(id_Zadokowany)
+                    LEFT OUTER JOIN Uzytkownik U1 ON Zadokowany.id_Uzytkownik=U1.id_Uzytkownik					
+                    LEFT OUTER JOIN Uzytkownik U2 ON Oddokowany.id_Uzytkownik=U2.id_Uzytkownik	
+                    INNER JOIN Kontrahent USING(id_Kontrahent)															 
+            WHERE id_Zadokowany = $docked_id";
     $result = DB::query($sql);
     $count = $result->num_rows;
     if ($count == 0)
@@ -276,27 +276,27 @@ function get_ship_owner($ship_id)
 
 function get_ship_cargo($ship_id, $from='', $to='')
 {
-    $sql = "SELECT Ladunek.id_Ladunek AS id, 
-						Towar.nazwa AS name,
-						Typ_Ladunku.nazwa_Typu_Ladunku AS type,
-						Przeladunek.data AS date,
-						Uzytkownik.nazwa AS loaded_by,
-						Ladunek.ilosc AS amount,						
-                        CONCAT(Towar.masa_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Masy) AS mass,
-						CONCAT(Towar.objetosc_jednostkowa*Ladunek.ilosc, ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
-						CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,												
-						Kontrahent.nazwa AS owner,
-                        czy_pozytywna AS control_positive,
-						czy_kontrola_celna AS control_required						
-				FROM Ladunek
-					INNER JOIN Towar USING ( id_Towar )
-					INNER JOIN Typ_Ladunku	USING (id_Typ_Ladunku)									
-					INNER JOIN Przeladunek USING ( id_Ladunek )
-					INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
-					INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
-					LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
+    $sql = "SELECT  Ladunek.id_Ladunek AS id, 
+                    Towar.nazwa AS name,
+                    Typ_Ladunku.nazwa_Typu_Ladunku AS type,
+                    Przeladunek.data AS date,
+                    Uzytkownik.nazwa AS loaded_by,
+                    Ladunek.ilosc AS amount,						
+                    CONCAT(ROUND(Towar.masa_jednostkowa*Ladunek.ilosc,2), ' ' ,Typ_Ladunku.jednostka_Masy) AS mass,
+                    CONCAT(ROUND(Towar.objetosc_jednostkowa*Ladunek.ilosc,2), ' ' ,Typ_Ladunku.jednostka_Objetosci) AS volume,
+                    CONCAT(Towar.wartosc_jednostkowa*Ladunek.ilosc, ' ' ,'$') AS value,												
+                    Kontrahent.nazwa AS owner,
+                    czy_pozytywna AS control_positive,
+                    czy_kontrola_celna AS control_required						
+            FROM Ladunek
+                    INNER JOIN Towar USING ( id_Towar )
+                    INNER JOIN Typ_Ladunku	USING (id_Typ_Ladunku)									
+                    INNER JOIN Przeladunek USING ( id_Ladunek )
+                    INNER JOIN Nadanie_Ladunku USING ( id_Ladunek )
+                    INNER JOIN Kontrahent USING ( id_Kontrahent )				 					
+                    LEFT OUTER JOIN Uzytkownik USING(id_Uzytkownik)						 
                     LEFT OUTER JOIN Kontrola_Celna USING(id_Ladunek)
-				WHERE Przeladunek.id_statek2 = $ship_id ";
+            WHERE Przeladunek.id_statek2 = $ship_id ";            
     if ($from === '' AND $to === '')
         $sql.="AND czy_aktualne_polozenie=TRUE ";
     else
@@ -306,6 +306,7 @@ function get_ship_cargo($ship_id, $from='', $to='')
         if ($to !== '')
             $sql.="AND Przeladunek.data<='$to' ";
     }
+    $sql.=" GROUP BY Ladunek.id_Ladunek";
     $result = DB::query($sql);
     $count = $result->num_rows;
     if ($count == 0)

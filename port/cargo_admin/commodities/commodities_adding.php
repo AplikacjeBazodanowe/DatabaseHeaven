@@ -7,8 +7,8 @@
 	Name: <br><input name="name" class="edit_adding baseFont" type="edit" placeholder="Name" pattern="^[a-zA-Z0-9 ]+$" required />
 	Unit value: <br><input name="value" class="edit_adding baseFont" type="edit" placeholder="Value" pattern="^[0-9]+$" required />
     Unit duty: <br><input name="duty" class="edit_adding baseFont" type="edit" placeholder="Customs duty" pattern="^[0-9]+$"/>
-    Unit mass: <br><input name="mass" class="edit_adding baseFont" type="edit" placeholder="Mass" pattern="^[0-9]+$" required />
-    Unit volume: <br><input name="volume" class="edit_adding baseFont" type="edit" placeholder="Volume" pattern="^[0-9]+$" required />
+    Unit mass: <br><input name="mass" class="edit_adding baseFont" type="edit" placeholder="Mass" pattern="^[0-9]+.?[0-9]*$" required />
+    Unit volume: <br><input name="volume" class="edit_adding baseFont" type="edit" placeholder="Volume" pattern="^[0-9]+.?[0-9]*$" required />
     Type: <br><select name="type">
 	<?php	
 		$types=get_cargo_types();

@@ -29,7 +29,7 @@
 						$cargo_item->id
 					</td>
 					<td>
-						$cargo_item->name
+						<a class=\"link\" href=\"../cargo.php?menu=cargo&id=$cargo_item->id\">$cargo_item->name</a>
 					</td>
 					<td>
 						$cargo_item->amount

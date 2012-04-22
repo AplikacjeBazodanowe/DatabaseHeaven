@@ -13,13 +13,13 @@
 			$terminal_id = $_GET['id'];
 			$name=$_POST['name'];
 			$typeId=$_POST['type'];
-			update_terminal($terminal_id,$name,$typeId);
+			$error=update_terminal($terminal_id,$name,$typeId);
 		}
 		elseif($_GET['action'] == 'add') 
 		{
 			$name=$_POST['name'];
 			$typeId=$_POST['type'];
-			insert_terminal($name,$typeId);
+			$error=insert_terminal($name,$typeId);
 		}
 	}
 ?>
