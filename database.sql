@@ -99,13 +99,13 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `wypornosc` INT NOT NULL ,
 
-  `ladownosc_masowa` INT NOT NULL ,
+  `ladownosc_masowa` FLOAT NOT NULL ,
 
-   `aktualna_masa_ladunkow` INT NOT NULL DEFAULT 0,
+   `aktualna_masa_ladunkow` FLOAT NOT NULL DEFAULT 0,
   
-  `ladownosc_objetosciowa` INT NOT NULL,
+  `ladownosc_objetosciowa` FLOAT NOT NULL,
 
-   `aktualna_objetosc_ladunkow` INT NOT NULL DEFAULT 0,
+   `aktualna_objetosc_ladunkow` FLOAT NOT NULL DEFAULT 0,
 
   `dlugosc` INT NOT NULL ,
 
@@ -140,9 +140,9 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   
   `wartosc_jednostkowa` INT NOT NULL ,
   
-  `masa_jednostkowa` INT NOT NULL ,
+  `masa_jednostkowa` FLOAT NOT NULL ,
   
-  `objetosc_jednostkowa` INT NOT NULL ,
+  `objetosc_jednostkowa` FLOAT NOT NULL ,
   
   `id_Typ_Ladunku` INT NOT NULL,
 
@@ -208,9 +208,9 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
 
   `nazwa` VARCHAR(255) NOT NULL ,
 
-  `pojemnosc` INT NOT NULL ,
+  `pojemnosc` FLOAT NOT NULL ,
 
-  `aktualna_objetosc_ladunkow` INT NOT NULL DEFAULT 0,
+  `aktualna_objetosc_ladunkow` FLOAT NOT NULL DEFAULT 0,
   `cena_Za_Przechowanie` INT NOT NULL ,
   `id_Terminal` INT NOT NULL ,
 

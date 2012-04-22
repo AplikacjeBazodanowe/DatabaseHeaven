@@ -245,8 +245,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Zadokowany` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
-
-  `uwagi` LONGTEXT NULL ,
   
   `id_Uzytkownik` INT  NULL, 
     
@@ -333,8 +331,6 @@ CREATE  TABLE `databaseheaven`.`Kontrahent` (
   `id_Oddokowany` INT NOT NULL AUTO_INCREMENT ,
 
   `data` DATETIME NOT NULL ,
-
-  `uwagi` LONGTEXT NULL ,
 
   `id_Zadokowany` INT NOT NULL ,
 

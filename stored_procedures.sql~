@@ -67,8 +67,8 @@ root:BEGIN
 		   INSERT INTO Oplata(typ, kwota, czy_Oplacona, data_naliczenia, id_kontrahent, id_Uzytkownik) 
 				VALUES ('Portowa (za dok)', oplataZaDokowanie, 0, data, kontrh, user);
 		END IF;
-        INSERT INTO Oddokowany(data, uwagi, id_zadokowany, id_Uzytkownik)
-            VALUES(data, "Brak uwag", zadok, user); 
+        INSERT INTO Oddokowany(data, id_zadokowany, id_Uzytkownik)
+            VALUES(data, zadok, user); 
         select "Wszystko ok";
 	    TRUNCATE TABLE Bledy_Operacji;        
         COMMIT;
@@ -147,8 +147,8 @@ root:BEGIN
         LEAVE root;
     END IF;
     
-    INSERT INTO Zadokowany(data, uwagi, id_Uzytkownik, id_Dok, id_Statek)
-            VALUES(data, "Brak uwag", user, docNr, ship); 
+    INSERT INTO Zadokowany(data, id_Uzytkownik, id_Dok, id_Statek)
+            VALUES(data, user, docNr, ship); 
     TRUNCATE TABLE Bledy_Operacji;
     SELECT "Wszystko ok!";
 END
