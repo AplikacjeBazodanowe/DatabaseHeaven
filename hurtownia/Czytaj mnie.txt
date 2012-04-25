@@ -1,0 +1,10 @@
+Wrzucam bazê hurtowni oraz nieco zcheatowan¹ bazê aplikacji.
+Cheaty:
+- zrezygnowano z ENUM-ów, zamiast tego s¹ inty. ¯eby siê nie pierdoliæ, nie dodawa³em nowych tabel tylko poprzypisywa³em na chama wartoœci intowe. (w komentarzach s¹ wyjaœnione. Z punktu widzenia hurtowni i tak nie ma to ¿adnego znaczenia.)
+- do Kontroli_Celnej dodano pole id_Terminal - ¿eby siê ³atwiej transformowa³o do hurtowni
+- do Op³aty dodano pola id_Zadokowany (nie-NULL jeœli op³ata za dokowanie) i id_Ladunek (nie-NULL jeœli op³ata celna lub za przechowanie ³adunku), powód jw.
+- dodano tabelê Port (to ju¿ w sumie nie cheat, wszak aplikacja by³a dla pojedynczego portu, a hurtownia dla ca³ej sieci). Ka¿dy terminal nale¿y do jakiegoœ portu.
+
+Ponadto wrzucam skrypt populuj¹cy bazê aplikacji i skrypt transformuj¹cy dane z bazy aplikacji do bazy hurtowni. Oczywiœcie najpierw wywo³ujemy pierwszy, potem drugi. Ogólnie kolejnoœæ odpalania: database1.sql, database2.sql, warehouse1.sql, warehouse2.sql, populate.sql, transform.sql
+
+Skrypt populuj¹cy nie jest jeszcze skoñczony - na razie wype³niam tylko te tabele, które sobie mogê ot tak wype³niaæ. To, co najwa¿niejsze czyli wygenerowanie kilkuset zadokowañ, oddokowañ, prze³adunków, kontrol i op³at dorobiê póŸniej (ko³o pi¹tku, jak wspomina³em). Z góry uprzedzam, ¿e bêdzie to doœæ pokrêtne - ¿eby to dzia³a³o, muszê to wstawiaæ poprzez nasze wspania³e procedury, których jest ~500 linii i przepisanie ich do MS SQL-a wymaga³oby zrobienia w zasadzie wszystkiego od nowa - nierealne. Zamiast tego, napisze skrypt dla MySQL, który powstawia te dane do bazy MySQL, po czym zrobiê dumpa z MySQL-a i przerobiê tak ¿eby dzia³a³ w Serverze (to ju¿ kwestia 5 minut).
