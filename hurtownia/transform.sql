@@ -76,8 +76,9 @@ FROM databaseheaven.dbo.Ladunek L
 	INNER JOIN databaseheaven.dbo.Towar T ON L.id_Towar=T.id_Towar
 	INNER JOIN databaseheaven.dbo.Nadanie_Ladunku N ON L.id_Ladunek=N.id_Ladunek
 	INNER JOIN databaseheaven.dbo.Odbior_Ladunku O ON L.id_Ladunek=O.id_Ladunek
-	INNER JOIN Oplata Op ON L.id_Ladunek=O.id_Ladunek
+	INNER JOIN databaseheaven.dbo.Oplata Op ON L.id_Ladunek=Op.id_Ladunek
 WHERE Op.typ=1;
+
 
 INSERT INTO warehouseheaven.dbo.Pobyt_Statku
 (data_zadokowania,data_oddokowania,oplata,id_Statek,id_Dok,id_Kontrahent)

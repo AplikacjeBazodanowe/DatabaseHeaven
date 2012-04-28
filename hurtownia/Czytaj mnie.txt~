@@ -7,10 +7,8 @@ Cheaty:
 
 Ponadto wrzucam skrypt populuj¹cy bazê aplikacji i skrypt transformuj¹cy dane z bazy aplikacji do bazy hurtowni. Oczywicie najpierw wywo³ujemy pierwszy, potem drugi. Ogólnie kolejnoæ odpalania: database1.sql, database2.sql, warehouse1.sql, warehouse2.sql, populate.sql, transform.sql
 
-Ponieważ komuś mogą się nie podobać dane wygenerowane przez populate.sql (np. to że jest ich za mało, albo że są na przestrzeni 2 miesięcy - poprawię to, ale raczej po weekendzie), wrzucam także skrypt mysql-a, który je wygenerował. Instrukcja obsługi:
+Ponieważ komuś mogą się nie podobać dane wygenerowane przez populate.sql (np. to że jest ich za mało, albo że są na przestrzeni 2 miesięcy), wrzucam także skrypt mysql-a, który je wygenerował. Instrukcja obsługi:
 - database.sql
 - stored_procedures.sql
 - populate_2.sql
-- mysqldump
-- usunięcie `
-- dodanie SET IDENTITY_INSERT <nazwa tabeli> ON i SET IDENTITY_INSERT <nazwa tabeli> OFF
+

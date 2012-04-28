@@ -1,0 +1,10 @@
+Wrzucam bazê hurtowni oraz nieco zcheatowan¹ bazê aplikacji.
+Cheaty:
+- zrezygnowano z ENUM-ów, zamiast tego s¹ inty. ¯eby siê nie pierdoliæ, nie dodawa³em nowych tabel tylko poprzypisywa³em na chama wartoœci intowe. (w komentarzach s¹ wyjaœnione. Z punktu widzenia hurtowni i tak nie ma to ¿adnego znaczenia.)
+- do Kontroli_Celnej dodano pole id_Terminal - ¿eby siê ³atwiej transformowa³o do hurtowni
+- do Op³aty dodano pola id_Zadokowany (nie-NULL jeœli op³ata za dokowanie) i id_Ladunek (nie-NULL jeœli op³ata celna lub za przechowanie ³adunku), powód jw.
+- dodano tabelê Port (to ju¿ w sumie nie cheat, wszak aplikacja by³a dla pojedynczego portu, a hurtownia dla ca³ej sieci). Ka¿dy terminal nale¿y do jakiegoœ portu.
+
+Ponadto wrzucam skrypt populuj¹cy bazê aplikacji i skrypt transformuj¹cy dane z bazy aplikacji do bazy hurtowni. Oczywiœcie najpierw wywo³ujemy pierwszy, potem drugi. Ogólnie kolejnoœæ odpalania: database1.sql, database2.sql, warehouse1.sql, warehouse2.sql, populate.sql, transform.sql
+
+Poniewa
