@@ -60,18 +60,19 @@ INSERT INTO warehouseheaven.dbo.Dok
 SELECT id_Dok, maks_dlugosc_statku,maks_szerokosc_statku,maks_wysokosc_statku,cena_za_pobyt,id_Terminal FROM databaseheaven.dbo.Dok;
 SET IDENTITY_INSERT warehouseheaven.dbo.Dok OFF
 
-INSERT INTO warehouseheaven.dbo.Kontrola_Celna(data, czy_pozytywna, oplata, id_Towar, id_Terminal)
-SELECT K.data, K.czy_pozytywna, O.kwota, L.id_Towar, K.id_Terminal
+INSERT INTO warehouseheaven.dbo.Kontrola_Celna(data, czy_pozytywna, oplata, id_Towar, id_Terminal, id_Kontrahent)
+SELECT K.data, K.czy_pozytywna, O.kwota, L.id_Towar, K.id_Terminal, N.id_Kontrahent
 FROM databaseheaven.dbo.Kontrola_Celna K
 	INNER JOIN databaseheaven.dbo.Ladunek L ON L.id_Ladunek=K.id_Ladunek
 	INNER JOIN databaseheaven.dbo.Towar T ON L.id_Towar=T.id_Towar
 	INNER JOIN databaseheaven.dbo.Oplata O ON K.id_Ladunek=O.id_Ladunek
+	INNER JOIN databaseheaven.dbo.Nadanie_Ladunku N ON N.id_Ladunek=L.id_Ladunek
 WHERE O.typ=2;
 	
 INSERT INTO warehouseheaven.dbo.Obsluga_Ladunku
-(data_nadania,data_odbioru,ilosc,wartosc,masa,objetosc,oplata,id_Towar)
+(data_nadania,data_odbioru,ilosc,wartosc,masa,objetosc,oplata,id_Towar,id_Nadawcy,id_Odbiorcy)
 SELECT N.data, O.data, L.ilosc, T.wartosc_jednostkowa*L.ilosc, T.masa_jednostkowa*L.ilosc
-, T.objetosc_jednostkowa*L.ilosc, Op.kwota, L.id_Towar
+, T.objetosc_jednostkowa*L.ilosc, Op.kwota, L.id_Towar, N.id_Kontrahent, O.id_Kontrahent
 FROM databaseheaven.dbo.Ladunek L
 	INNER JOIN databaseheaven.dbo.Towar T ON L.id_Towar=T.id_Towar
 	INNER JOIN databaseheaven.dbo.Nadanie_Ladunku N ON L.id_Ladunek=N.id_Ladunek
