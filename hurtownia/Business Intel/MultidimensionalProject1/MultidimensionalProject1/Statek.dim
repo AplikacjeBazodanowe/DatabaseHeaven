@@ -1,4 +1,4 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="a4357d52-79e9-4158-ba12-286f54f00b88" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="e5e891fc-890e-42ea-9969-c174d387b9a3" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Statek</ID>
   <Name>Statek</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
@@ -42,35 +42,37 @@
   </Annotations>
   <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
   <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="7beeae7b-9bd9-4f15-aacb-4607412a477e">
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="2ec0e125-85eb-4547-a85c-d319f3a2921e">
     <DataSourceViewID>Warehouseheaven</DataSourceViewID>
   </Source>
-  <ErrorConfiguration dwd:design-time-name="98659edb-f9a8-42e9-8943-d15d51ed9779">
+  <UnknownMember>Visible</UnknownMember>
+  <ErrorConfiguration dwd:design-time-name="a1042db1-522a-49b2-af7b-cc8a3022d38e">
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
   <Attributes>
-    <Attribute dwd:design-time-name="565b2d2d-a568-441b-957d-cff49fd17e74">
+    <Attribute dwd:design-time-name="af7bac73-e849-499b-a06e-7bee6bd96752">
       <ID>Id Statek</ID>
       <Name>Id Statek</Name>
       <Usage>Key</Usage>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="2508f186-5cd3-4971-80b8-ec5ecfb2ab26">
+        <KeyColumn dwd:design-time-name="b3a38c7c-b50b-4ccf-bc8b-f07977903ef4">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="7ac48884-613d-4b94-8ac1-7382341c91ae">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="45ead7a8-214f-4914-bd6c-d86ef761bfa9">
             <TableID>dbo_Statek</TableID>
             <ColumnID>id_Statek</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="a499c854-6434-4547-89c4-abdfebfda19a">
+        <AttributeRelationship dwd:design-time-name="ff61e661-75d5-4acb-9584-513b9ba1d037">
           <AttributeID>Id Kontrahent</AttributeID>
           <Name>Id Kontrahent</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="dcf942e4-e201-4b06-aead-eeb4ad1a76e7">
+        <AttributeRelationship dwd:design-time-name="d748599f-3ee3-46e7-946d-042d8fe7f09d">
           <AttributeID>Id Typ Ladunku</AttributeID>
           <Name>Id Typ Ladunku</Name>
         </AttributeRelationship>
@@ -79,13 +81,13 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="e501eb21-8722-4b2e-8ace-ed8b14841512">
+    <Attribute dwd:design-time-name="9779f459-b331-4275-8ad5-b4b1cbba5431">
       <ID>Id Kontrahent</ID>
       <Name>Id Kontrahent</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="e136ec6e-7ca2-4d47-97a8-88721ebbb8b5">
+        <KeyColumn dwd:design-time-name="bb3459a4-c0f8-475f-85d6-bf2993137399">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="75de509a-2832-4302-96b1-9fd54c5fa197">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="005e8946-81da-402e-981a-c19dacf27f07">
             <TableID>dbo_Statek</TableID>
             <ColumnID>id_Kontrahent</ColumnID>
           </Source>
@@ -96,13 +98,13 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="b24c326d-c2ac-480d-b69a-1f233bffeec6">
+    <Attribute dwd:design-time-name="40180c4e-713c-4004-859a-017246f73e7f">
       <ID>Id Typ Ladunku</ID>
       <Name>Id Typ Ladunku</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="b3a29eae-a69e-4aba-8fe0-b8645a14e1bf">
+        <KeyColumn dwd:design-time-name="e9e90aa4-bc97-41e8-8aa4-3736975e6967">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="9426c4d9-74ab-4a19-8437-91a47a792889">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="988b8085-5238-42db-a313-8b5c855674e1">
             <TableID>dbo_Typ_Ladunku</TableID>
             <ColumnID>id_Typ_Ladunku</ColumnID>
           </Source>

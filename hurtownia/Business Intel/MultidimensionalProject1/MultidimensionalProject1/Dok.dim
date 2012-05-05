@@ -1,4 +1,4 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="c48f5357-314a-4b12-9f0b-543faa7fe7ac" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="1563e647-aa45-400e-94b2-1bff0358a0ea" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Dok</ID>
   <Name>Dok</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
@@ -42,31 +42,33 @@
   </Annotations>
   <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
   <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="7d14a035-9ce6-41ca-95ba-db62a9004bda">
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="a4831585-b148-4680-bc1d-c6fa2934f3dd">
     <DataSourceViewID>Warehouseheaven</DataSourceViewID>
   </Source>
-  <ErrorConfiguration dwd:design-time-name="d8838bdd-6068-48bb-9523-8775dd52e31b">
+  <UnknownMember>Visible</UnknownMember>
+  <ErrorConfiguration dwd:design-time-name="00d69ae8-abd8-4a4c-96f1-a0e755f3d974">
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
   <Attributes>
-    <Attribute dwd:design-time-name="d22c2c7a-13bd-4525-b77c-1abd34cef0e9">
+    <Attribute dwd:design-time-name="2466fe82-9c8a-4628-9186-d983f5933740">
       <ID>Id Dok</ID>
       <Name>Id Dok</Name>
       <Usage>Key</Usage>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="b89ccefb-1768-4d0f-a064-148965875535">
+        <KeyColumn dwd:design-time-name="4d347b32-e554-4a0b-add8-8bfa34d6fae9">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="d983c7d9-ff33-4b2f-a3af-a28115986182">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="0c33872b-f727-47f1-8a7a-5d46260c5b55">
             <TableID>dbo_Dok</TableID>
             <ColumnID>id_Dok</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="ceb63265-5b2f-42e0-b20a-d4c4ae18fcf2">
+        <AttributeRelationship dwd:design-time-name="46c5925f-3b74-4365-b458-e5285d3402cf">
           <AttributeID>Id Terminal</AttributeID>
           <Name>Id Terminal</Name>
         </AttributeRelationship>
@@ -75,13 +77,13 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="e754e3a5-a9b4-44bd-a056-5fdf5c1b601d">
+    <Attribute dwd:design-time-name="fddcec42-db41-4c65-930c-ef3b22ac0fa2">
       <ID>Id Terminal</ID>
       <Name>Id Terminal</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="684575ce-24d5-49ff-93ce-e3f1c85812c3">
+        <KeyColumn dwd:design-time-name="8570d63e-a6b3-4e47-961f-2e6b05e247b7">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="12dad627-33ea-40fb-b8cd-6ac619ffda00">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="cf133044-a351-45fa-9893-941714da797d">
             <TableID>dbo_Dok</TableID>
             <ColumnID>id_Terminal</ColumnID>
           </Source>

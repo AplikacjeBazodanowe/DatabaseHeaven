@@ -20,16 +20,12 @@
   </Cubes>
   <Dimensions>
     <ProjectItem>
-      <Name>Terminal.dim</Name>
-      <FullPath>Terminal.dim</FullPath>
+      <Name>Towar.dim</Name>
+      <FullPath>Towar.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Kontrahent.dim</Name>
       <FullPath>Kontrahent.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Towar.dim</Name>
-      <FullPath>Towar.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Dok.dim</Name>
@@ -38,6 +34,30 @@
     <ProjectItem>
       <Name>Statek.dim</Name>
       <FullPath>Statek.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Terminal.dim</Name>
+      <FullPath>Terminal.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Kontrola Celna Data.dim</Name>
+      <FullPath>Kontrola Celna Data.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Obluga Ladunku Data Nadania.dim</Name>
+      <FullPath>Obluga Ladunku Data Nadania.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Obluga Ladunku Data Odbioru.dim</Name>
+      <FullPath>Obluga Ladunku Data Odbioru.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Pobyt Statku Data Zadokowania.dim</Name>
+      <FullPath>Pobyt Statku Data Zadokowania.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Pobyt Statku Data Oddokowania.dim</Name>
+      <FullPath>Pobyt Statku Data Oddokowania.dim</FullPath>
     </ProjectItem>
   </Dimensions>
   <DataSources>

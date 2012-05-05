@@ -13,19 +13,34 @@
     </DataSources>
     <Dimensions>
       <Dimension>
-        <ID>Terminal</ID>
+        <ID>Towar</ID>
       </Dimension>
       <Dimension>
         <ID>Kontrahent</ID>
-      </Dimension>
-      <Dimension>
-        <ID>Towar</ID>
       </Dimension>
       <Dimension>
         <ID>Dok</ID>
       </Dimension>
       <Dimension>
         <ID>Statek</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Terminal</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Kontrola Celna</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Obluga Ladunku Data Nadania</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Obluga Ladunku Data Odbioru</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Pobyt Statku Data Zadokowania</ID>
+      </Dimension>
+      <Dimension>
+        <ID>Pobyt Statku Data Oddokowania</ID>
       </Dimension>
     </Dimensions>
     <Cubes>
@@ -41,18 +56,18 @@
             </Partitions>
           </MeasureGroup>
           <MeasureGroup>
-            <ID>Obsluga Ladunku</ID>
-            <Partitions>
-              <Partition>
-                <ID>Obsluga Ladunku</ID>
-              </Partition>
-            </Partitions>
-          </MeasureGroup>
-          <MeasureGroup>
             <ID>Pobyt Statku</ID>
             <Partitions>
               <Partition>
                 <ID>Pobyt Statku</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Obsluga Ladunku</ID>
+            <Partitions>
+              <Partition>
+                <ID>Obsluga Ladunku</ID>
               </Partition>
             </Partitions>
           </MeasureGroup>

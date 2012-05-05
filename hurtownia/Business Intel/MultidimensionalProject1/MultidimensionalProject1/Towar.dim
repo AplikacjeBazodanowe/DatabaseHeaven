@@ -1,4 +1,4 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="a78f654d-926e-48ee-a6a2-cd39e3cc8ce5" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="535547bb-17e6-4e7d-b144-2bcebd469992" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Towar</ID>
   <Name>Towar</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
@@ -42,31 +42,33 @@
   </Annotations>
   <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
   <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="305171f4-c54b-45d2-828e-3602430c3f72">
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="22e9f61a-c76b-4029-b848-ea64d4346f1a">
     <DataSourceViewID>Warehouseheaven</DataSourceViewID>
   </Source>
-  <ErrorConfiguration dwd:design-time-name="5c8e9c0c-5157-41da-88bf-665f09eef06f">
+  <UnknownMember>Visible</UnknownMember>
+  <ErrorConfiguration dwd:design-time-name="041f288d-cd60-41c5-8808-b5f4d9fbec4b">
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
   <Attributes>
-    <Attribute dwd:design-time-name="e4bffe2e-5512-4706-a43d-c28ed31473bf">
+    <Attribute dwd:design-time-name="e91d72c5-7ac4-4191-a5de-820ecd9f8bae">
       <ID>Id Towar</ID>
       <Name>Id Towar</Name>
       <Usage>Key</Usage>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="a9614b3e-b72a-4e96-9f32-5531b1cb57b9">
+        <KeyColumn dwd:design-time-name="9bff1c34-eb65-4c68-a063-dcbe9e31ce87">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="543338be-04e9-4f3b-ba0c-1f2a88d8712d">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="9232c423-101b-4232-8a04-300acb536dde">
             <TableID>dbo_Towar</TableID>
             <ColumnID>id_Towar</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="4bd3b2dc-06f7-42bf-81ff-79ccd5f506e3">
+        <AttributeRelationship dwd:design-time-name="8b4d92c2-82cf-4dc2-8738-4c2714d82ecb">
           <AttributeID>Id Typ Ladunku</AttributeID>
           <Name>Id Typ Ladunku</Name>
         </AttributeRelationship>
@@ -75,13 +77,13 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="0223a23a-c620-43f6-b8e7-7d0a0a95b6cd">
+    <Attribute dwd:design-time-name="66d736e7-e9fd-41d3-bbb1-a4e575eae287">
       <ID>Id Typ Ladunku</ID>
       <Name>Id Typ Ladunku</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="0336ef30-1f18-4b98-9a12-4ce4ef7bfb4a">
+        <KeyColumn dwd:design-time-name="bd5a10f1-cc1b-461a-b63f-524134c44b83">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="e3e0a3f4-0c5f-418e-9b7d-98c198c574be">
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="57ce360a-df39-47ca-96c6-cee4a4985511">
             <TableID>dbo_Typ_Ladunku</TableID>
             <ColumnID>id_Typ_Ladunku</ColumnID>
           </Source>

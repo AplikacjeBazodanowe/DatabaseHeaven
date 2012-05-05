@@ -19,56 +19,91 @@
     <ObjectSnapshots>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
-        <TimeStamp>dt9AQ+wGoK8F5K7vIfa79jthe5s=2012-05-05 01:13:472012-05-05 01:13:47</TimeStamp>
+        <TimeStamp>JuRz5wDPWFBg8+bmT+0U9C3VdQQ=2012-05-05 18:51:212012-05-05 18:51:21</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.DataSourceView</Type>
-        <TimeStamp>Ob6SnOL0q4iB41FmwrY1nNnQ+iM=2012-05-05 02:04:442012-05-05 01:13:59</TimeStamp>
+        <TimeStamp>vDyL1NVkTgjdk7tgpFFFHTw1vOs=2012-05-05 19:57:252012-05-05 18:51:31</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>ko7K3VYIdJ6iEgWCr/aA8GszEfs=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
-        <ID>
-          <String>Terminal</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>l9cFf0xuWVdA9STJSVH40vqdchw=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
-        <ID>
-          <String>Kontrahent</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>hes+QUzKYhJw3MCllTQPUUBubmM=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <TimeStamp>QmncMAeZJKpJk2hCT40bhpqFvoE=2012-05-05 17:44:542012-05-05 17:44:53</TimeStamp>
         <ID>
           <String>Towar</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>zVwIlDvjijf9Xwr7qJqLDFK8J+8=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <TimeStamp>gmot9MK0CKb/TasrcNnaaAgx1uo=2012-05-05 17:44:552012-05-05 17:44:53</TimeStamp>
+        <ID>
+          <String>Kontrahent</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>oiIFMN9HG3HV4oqTCdgeHAIOQDM=2012-05-05 17:44:552012-05-05 17:44:53</TimeStamp>
         <ID>
           <String>Dok</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>Wf/0v1cJRCcMVpa3pjV3BPGq6jc=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <TimeStamp>g6V//NeJjHuWS6MDGTpA6btmj3I=2012-05-05 17:44:552012-05-05 17:44:54</TimeStamp>
         <ID>
           <String>Statek</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>IMI4O10AuO1NKlKyDjQfQnTYgFY=2012-05-05 17:44:552012-05-05 17:44:54</TimeStamp>
+        <ID>
+          <String>Terminal</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>TZy4s44wuDm9ARs7jfeJBzo/PVk=2012-05-05 19:58:282012-05-05 18:34:30</TimeStamp>
+        <ID>
+          <String>Kontrola Celna</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>AbYJXXJZEGTRmjlVDbJxXFXmPsE=2012-05-05 18:59:462012-05-05 18:39:07</TimeStamp>
+        <ID>
+          <String>Obluga Ladunku Data Nadania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>YcfqT19Q62diX/axwaGuUBQOke4=2012-05-05 18:59:462012-05-05 18:40:20</TimeStamp>
+        <ID>
+          <String>Obluga Ladunku Data Odbioru</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>0t3P76JWEaQ/49/8IfIfRIELYTw=2012-05-05 19:45:202012-05-05 18:41:36</TimeStamp>
+        <ID>
+          <String>Pobyt Statku Data Zadokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Dgh6IgOj5YISbgtC4OFvOExM3ds=2012-05-05 19:49:442012-05-05 18:42:38</TimeStamp>
+        <ID>
+          <String>Pobyt Statku Data Oddokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>PtAJlf33X5shUeyqD8PhI1QvbHc=2012-05-05 02:04:442012-05-05 01:14:14vsZAHgkA79z3dXlgEDb+jh1NXZc=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <TimeStamp>qCM8jmHL2uEfFKL8mecOvoL9efk=2012-05-05 20:10:172012-05-05 18:58:183trVWPgFBuRQjaYe7RIymijv36w=2012-05-05 18:58:182012-05-05 18:58:18</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
@@ -76,7 +111,7 @@
     </ObjectSnapshots>
     <DatabaseSnapshot>
       <Type>Microsoft.AnalysisServices.Database</Type>
-      <TimeStamp>dpT9+h6H0TH2tysUmUWLFeb26G0=2012-05-05 01:13:162012-05-05 01:13:16</TimeStamp>
+      <TimeStamp>XOECWNN91ZpNUSvWy+XyWMlwisM=2012-05-05 18:18:382012-05-05 01:13:16</TimeStamp>
       <ID>
         <String>MultidimensionalProject1</String>
       </ID>
@@ -85,5 +120,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2012-05-05T00:04:49.586667Z</LastDeployed>
+  <LastDeployed>2012-05-05T18:11:47.426667Z</LastDeployed>
 </DeploymentSnapshot>

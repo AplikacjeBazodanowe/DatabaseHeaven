@@ -1,4 +1,4 @@
-﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="9b8e1976-864d-4ec7-b55a-75883ff3c39e" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="49b9b48f-d3f7-4fdc-9f3c-8419c9d28335" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Terminal</ID>
   <Name>Terminal</Name>
   <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
@@ -42,52 +42,54 @@
   </Annotations>
   <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
   <State>Unprocessed</State>
-  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="cb494c66-30a1-48f6-93e9-5aa39127cda8">
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="5ab530d9-55b2-435c-a0a5-af98b5342a8c">
     <DataSourceViewID>Warehouseheaven</DataSourceViewID>
   </Source>
-  <ErrorConfiguration dwd:design-time-name="c2c3acaa-d83d-4f16-a11a-cc4ad64fbf49">
+  <UnknownMember>Visible</UnknownMember>
+  <ErrorConfiguration dwd:design-time-name="f401c4b7-9344-4aa6-af89-090a9035d0ea">
     <KeyNotFound>ReportAndStop</KeyNotFound>
     <KeyDuplicate>ReportAndStop</KeyDuplicate>
     <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
   </ErrorConfiguration>
   <CurrentStorageMode>Molap</CurrentStorageMode>
   <Attributes>
-    <Attribute dwd:design-time-name="377665c8-4832-4585-94fc-8830541729b8">
+    <Attribute dwd:design-time-name="b4da7329-59dd-425d-b2e6-7886195303e2">
       <ID>Id Terminal</ID>
       <Name>Id Terminal</Name>
       <Usage>Key</Usage>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="51b95fc9-8802-4a9b-a1e6-19e606c51d20">
+        <KeyColumn dwd:design-time-name="34a10b27-c383-4b60-8db4-ace86090657d">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="053d2ec9-2a2c-4c99-9c35-9fc355ad16b1">
+          <NullProcessing>UnknownMember</NullProcessing>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bb165ac6-10f9-45fe-b0eb-f0175600d619">
             <TableID>dbo_Terminal</TableID>
             <ColumnID>id_Terminal</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
       <AttributeRelationships>
-        <AttributeRelationship dwd:design-time-name="77a72643-09f4-4bfc-9a2f-536e4a1bc65b">
-          <AttributeID>Id Port</AttributeID>
-          <Name>Id Port</Name>
-        </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="6042ef41-f23e-4952-949e-59ca285a0dac">
+        <AttributeRelationship dwd:design-time-name="1e7608e4-5b97-4621-aa40-3c00efbf86a9">
           <AttributeID>Id Typ Ladunku</AttributeID>
           <Name>Id Typ Ladunku</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="86875bc8-ecd4-4982-98be-def50b2f31ab">
+          <AttributeID>Id Port</AttributeID>
+          <Name>Id Port</Name>
         </AttributeRelationship>
       </AttributeRelationships>
       <OrderBy>Key</OrderBy>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="1e456976-815f-4035-b75c-b69eb9ab9b49">
-      <ID>Id Port</ID>
-      <Name>Id Port</Name>
+    <Attribute dwd:design-time-name="84d97db4-ebbd-47dc-96fd-4a24ddaadf89">
+      <ID>Id Typ Ladunku</ID>
+      <Name>Id Typ Ladunku</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="3cc2c377-94d2-43bf-8a03-951aaf588db8">
+        <KeyColumn dwd:design-time-name="df3631ec-c01f-4e4d-a4ef-3d45b14c3cf8">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="c9f3b57d-4b6e-4d37-8a59-4a5da5e763e1">
-            <TableID>dbo_Port</TableID>
-            <ColumnID>id_Port</ColumnID>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e58811f7-d42b-4b37-85fe-625757551d60">
+            <TableID>dbo_Typ_Ladunku</TableID>
+            <ColumnID>id_Typ_Ladunku</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>
@@ -95,15 +97,15 @@
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
       <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="8f923fbb-a7c7-4b4e-8a92-17d80249c463">
-      <ID>Id Typ Ladunku</ID>
-      <Name>Id Typ Ladunku</Name>
+    <Attribute dwd:design-time-name="f7ddd042-639a-42e0-9498-340fc209a225">
+      <ID>Id Port</ID>
+      <Name>Id Port</Name>
       <KeyColumns>
-        <KeyColumn dwd:design-time-name="0eb2db97-05d0-436e-8670-b8dce867a91c">
+        <KeyColumn dwd:design-time-name="97683c76-8a54-49a4-adc3-a02ed877a81d">
           <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="5305ff01-29de-41ce-b617-0c1c902cdc7b">
-            <TableID>dbo_Typ_Ladunku</TableID>
-            <ColumnID>id_Typ_Ladunku</ColumnID>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a485c817-ef43-4cc3-8112-ca9f22950f51">
+            <TableID>dbo_Port</TableID>
+            <ColumnID>id_Port</ColumnID>
           </Source>
         </KeyColumn>
       </KeyColumns>

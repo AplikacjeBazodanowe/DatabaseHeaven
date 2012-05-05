@@ -1,17 +1,17 @@
-﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="48b3ce48-04dc-4257-9a8c-6e55bc874dd6" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="0bb1aef1-8362-4175-bb9f-994aefd451da" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Warehouseheaven</ID>
   <MeasureGroups>
     <MeasureGroup>
       <ID>Kontrola Celna</ID>
       <Partitions>
-        <Partition dwd:design-time-name="2d76f173-cfdd-4094-8853-784a42c55e53">
+        <Partition dwd:design-time-name="b350e77e-515f-45de-bc6f-eaef488408a4">
           <ID>Kontrola Celna</ID>
           <Name>Kontrola Celna</Name>
           <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
           <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
           <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
           <State>Unprocessed</State>
-          <Source xsi:type="DsvTableBinding" dwd:design-time-name="35266ebc-192e-4e54-aa9c-4e3733fcff00">
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="60158030-8098-40b2-b1d5-981cf8bf6304">
             <DataSourceViewID>Warehouseheaven</DataSourceViewID>
             <TableID>dbo_Kontrola_Celna</TableID>
           </Source>
@@ -22,18 +22,18 @@
       </Partitions>
     </MeasureGroup>
     <MeasureGroup>
-      <ID>Obsluga Ladunku</ID>
+      <ID>Pobyt Statku</ID>
       <Partitions>
-        <Partition dwd:design-time-name="ec373ce1-e393-42af-aabc-2f43104bb257">
-          <ID>Obsluga Ladunku</ID>
-          <Name>Obsluga Ladunku</Name>
+        <Partition dwd:design-time-name="22c60a5b-6a14-43e4-acb7-76fe342fdba6">
+          <ID>Pobyt Statku</ID>
+          <Name>Pobyt Statku</Name>
           <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
           <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
           <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
           <State>Unprocessed</State>
-          <Source xsi:type="DsvTableBinding" dwd:design-time-name="f7290b2e-7749-4c5e-8198-d4225a4ff6f5">
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="6860f981-d4ea-4e80-996c-267b249bac45">
             <DataSourceViewID>Warehouseheaven</DataSourceViewID>
-            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <TableID>dbo_Pobyt_Statku</TableID>
           </Source>
           <StorageMode>Molap</StorageMode>
           <CurrentStorageMode>Molap</CurrentStorageMode>
@@ -42,18 +42,18 @@
       </Partitions>
     </MeasureGroup>
     <MeasureGroup>
-      <ID>Pobyt Statku</ID>
+      <ID>Obsluga Ladunku</ID>
       <Partitions>
-        <Partition dwd:design-time-name="23a428a3-1d1f-4f11-afda-fa6a9b10a4cf">
-          <ID>Pobyt Statku</ID>
-          <Name>Pobyt Statku</Name>
+        <Partition dwd:design-time-name="2171081a-7c2e-4ea2-b67e-1860c8e6b2b4">
+          <ID>Obsluga Ladunku</ID>
+          <Name>Obsluga Ladunku</Name>
           <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
           <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
           <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
           <State>Unprocessed</State>
-          <Source xsi:type="DsvTableBinding" dwd:design-time-name="b1aa14fb-c86e-4781-be1a-52805558256e">
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="9d15d4b4-eaf2-41d3-9564-ba078f8dd97e">
             <DataSourceViewID>Warehouseheaven</DataSourceViewID>
-            <TableID>dbo_Pobyt_Statku</TableID>
+            <TableID>dbo_Obsluga_Ladunku</TableID>
           </Source>
           <StorageMode>Molap</StorageMode>
           <CurrentStorageMode>Molap</CurrentStorageMode>

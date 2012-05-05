@@ -10,4 +10,87 @@
     <ImpersonationMode>Default</ImpersonationMode>
     <ImpersonationInfoSecurity>Unchanged</ImpersonationInfoSecurity>
   </DataSourceImpersonationInfo>
+  <Dimensions />
+  <Cubes />
+  <DataSources />
+  <DataSourceViews />
+  <Accounts>
+    <Account dwd:design-time-name="b11e267c-5a2e-4e37-8dfd-ddef789c695d">
+      <AccountType>Liability</AccountType>
+    </Account>
+    <Account dwd:design-time-name="35ef83c9-b71b-4fed-9617-4932e57da690">
+      <AccountType>Expense</AccountType>
+    </Account>
+    <Account dwd:design-time-name="4e3fda0a-d532-4a47-9bac-13bf37466521">
+      <AccountType>Statistical</AccountType>
+    </Account>
+    <Account dwd:design-time-name="281864e3-c053-4e06-ab24-2e6f385d4f77">
+      <AccountType>Balance</AccountType>
+    </Account>
+    <Account dwd:design-time-name="110e495b-d9ae-4bcc-94e6-bafbaa15a5eb">
+      <AccountType>Asset</AccountType>
+      <Aliases>
+        <Alias>1990-01-01 05:00:00</Alias>
+        <Alias>1990-01-01 07:00:00</Alias>
+        <Alias>1990-01-01 13:00:00</Alias>
+        <Alias>1990-01-01 17:00:00</Alias>
+        <Alias>1990-01-02 08:00:00</Alias>
+        <Alias>1990-01-02 12:00:00</Alias>
+        <Alias>1990-01-02 22:00:00</Alias>
+        <Alias>1990-01-03 02:00:00</Alias>
+        <Alias>1990-01-03 13:00:00</Alias>
+        <Alias>1990-01-03 20:00:00</Alias>
+        <Alias>1990-01-03 23:00:00</Alias>
+        <Alias>1990-01-04 13:00:00</Alias>
+        <Alias>1990-01-04 15:00:00</Alias>
+        <Alias>1990-01-08 20:00:00</Alias>
+        <Alias>1990-01-10 00:00:00</Alias>
+        <Alias>1990-01-10 02:00:00</Alias>
+        <Alias>1990-01-10 06:00:00</Alias>
+        <Alias>1990-01-10 12:00:00</Alias>
+        <Alias>1990-01-11 01:00:00</Alias>
+        <Alias>1990-01-11 13:00:00</Alias>
+        <Alias>1990-01-11 15:00:00</Alias>
+        <Alias>1990-01-11 23:00:00</Alias>
+        <Alias>1990-01-13 01:00:00</Alias>
+        <Alias>1990-01-13 05:00:00</Alias>
+        <Alias>1990-01-13 17:00:00</Alias>
+        <Alias>1990-01-15 06:00:00</Alias>
+        <Alias>1990-01-15 19:00:00</Alias>
+        <Alias>1990-01-16 06:00:00</Alias>
+        <Alias>1990-01-16 11:00:00</Alias>
+        <Alias>1990-01-18 02:00:00</Alias>
+        <Alias>1990-01-19 01:00:00</Alias>
+        <Alias>1990-01-19 08:00:00</Alias>
+        <Alias>1990-01-19 15:00:00</Alias>
+        <Alias>1990-01-20 19:00:00</Alias>
+        <Alias>1990-01-21 04:00:00</Alias>
+        <Alias>1990-01-22 08:00:00</Alias>
+        <Alias>1990-01-22 16:00:00</Alias>
+        <Alias>1990-01-23 11:00:00</Alias>
+        <Alias>1990-01-23 14:00:00</Alias>
+        <Alias>1990-01-27 11:00:00</Alias>
+        <Alias>1990-01-28 04:00:00</Alias>
+        <Alias>1990-01-28 10:00:00</Alias>
+        <Alias>1990-01-29 13:00:00</Alias>
+        <Alias>1990-01-31 14:00:00</Alias>
+        <Alias>1990-02-01 00:00:00</Alias>
+        <Alias>1990-02-02 12:00:00</Alias>
+        <Alias>1990-02-03 03:00:00</Alias>
+        <Alias>1990-02-07 07:00:00</Alias>
+        <Alias>1990-02-08 11:00:00</Alias>
+        <Alias>1990-02-08 14:00:00</Alias>
+        <Alias>1990-02-10 23:00:00</Alias>
+        <Alias>1990-02-11 16:00:00</Alias>
+        <Alias>1990-02-13 22:00:00</Alias>
+        <Alias>1990-02-15 06:00:00</Alias>
+      </Aliases>
+    </Account>
+    <Account dwd:design-time-name="bdee88f0-6c37-45f9-87e4-a83e13786826">
+      <AccountType>Income</AccountType>
+    </Account>
+    <Account dwd:design-time-name="649082bc-ac00-41b1-8638-2d296c24ebe0">
+      <AccountType>Flow</AccountType>
+    </Account>
+  </Accounts>
 </Database>
