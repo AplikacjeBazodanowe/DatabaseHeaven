@@ -1,0 +1,89 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>MultidimensionalProject1</Database>
+    <Server>localhost</Server>
+    <ConnectionString>DataSource=localhost;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>dt9AQ+wGoK8F5K7vIfa79jthe5s=2012-05-05 01:13:472012-05-05 01:13:47</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>Ob6SnOL0q4iB41FmwrY1nNnQ+iM=2012-05-05 02:04:442012-05-05 01:13:59</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ko7K3VYIdJ6iEgWCr/aA8GszEfs=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Terminal</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>l9cFf0xuWVdA9STJSVH40vqdchw=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Kontrahent</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>hes+QUzKYhJw3MCllTQPUUBubmM=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Towar</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>zVwIlDvjijf9Xwr7qJqLDFK8J+8=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Dok</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>Wf/0v1cJRCcMVpa3pjV3BPGq6jc=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Statek</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>PtAJlf33X5shUeyqD8PhI1QvbHc=2012-05-05 02:04:442012-05-05 01:14:14vsZAHgkA79z3dXlgEDb+jh1NXZc=2012-05-05 01:14:142012-05-05 01:14:14</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>dpT9+h6H0TH2tysUmUWLFeb26G0=2012-05-05 01:13:162012-05-05 01:13:16</TimeStamp>
+      <ID>
+        <String>MultidimensionalProject1</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2012-05-05T00:04:49.586667Z</LastDeployed>
+</DeploymentSnapshot>

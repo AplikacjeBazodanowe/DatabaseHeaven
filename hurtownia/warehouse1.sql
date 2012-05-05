@@ -11,13 +11,12 @@ GO
 
 /****** Object:  Database [warehouseheaven]    Script Date: 04/25/2012 19:46:17 ******/
 CREATE DATABASE [warehouseheaven] ON  PRIMARY 
-( NAME = N'warehouseheaven', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\DATA\warehouseheaven.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+( NAME = N'warehouseheaven', FILENAME = N'F:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\warehouseheaven.mdf' , SIZE = 5072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'warehouseheaven_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL10.MSSQLSERVER\MSSQL\DATA\warehouseheaven_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'warehouseheaven_log', FILENAME = N'F:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\warehouseheaven_log.ldf' , SIZE = 5024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 GO
 
-ALTER DATABASE [warehouseheaven] SET COMPATIBILITY_LEVEL = 100
-GO
+
 
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
@@ -91,8 +90,6 @@ GO
 ALTER DATABASE [warehouseheaven] SET READ_COMMITTED_SNAPSHOT OFF 
 GO
 
-ALTER DATABASE [warehouseheaven] SET HONOR_BROKER_PRIORITY OFF 
-GO
 
 ALTER DATABASE [warehouseheaven] SET  READ_WRITE 
 GO

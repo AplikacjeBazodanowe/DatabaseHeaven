@@ -1,0 +1,166 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="69adb27a-a97d-453e-9b4b-8bc69c93b2e1" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Czas Nadania ładunku</ID>
+  <Name>Czas Nadania ładunku</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="e349c2c9-978b-4855-84ca-0f83d731c8a3">
+    <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="4e831451-acb1-4d66-bd4b-d161effaa500">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="483fe421-d63e-4d79-aa38-7d3c8669f5c1">
+      <ID>Id Obsluga Ladunku</ID>
+      <Name>Id Obsluga Ladunku</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="42737ee2-c5da-4646-bdaa-55b73122fcf3">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="76bd64b9-589b-4bb5-992f-9483d515b34a">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>id_Obsluga_Ladunku</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <NameColumn dwd:design-time-name="67cc29ea-4a29-4bcc-9f80-cc35e0d5e532">
+        <DataType>WChar</DataType>
+        <Source xsi:type="ColumnBinding" dwd:design-time-name="27ea815c-dd7c-4a19-b87e-03e6d4cb3d11">
+          <TableID>dbo_Obsluga_Ladunku</TableID>
+          <ColumnID>data_nadania</ColumnID>
+        </Source>
+      </NameColumn>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="41abae9f-64a3-4cac-a904-98590813fe3b">
+          <AttributeID>Id Towar</AttributeID>
+          <Name>Id Towar</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="dfca34b6-7b1b-45d8-8636-4ae656d2e625">
+          <AttributeID>Id Kontrahent</AttributeID>
+          <Name>Id Kontrahent</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="c145d727-d370-49cb-b765-0511498a71d2">
+      <ID>Id Towar</ID>
+      <Name>Id Towar</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="981cf897-8b37-4264-9df6-1bfdf4c17b8c">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="fd25ead5-c811-4186-937b-ae9ed3bf98e9">
+            <TableID>dbo_Towar</TableID>
+            <ColumnID>id_Towar</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="709ffc03-22ef-4bcd-a9a7-356656817bf1">
+          <AttributeID>Id Typ Ladunku</AttributeID>
+          <Name>Id Typ Ladunku</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="e768a78e-7b58-44de-9a97-83f71ec34497">
+      <ID>Id Typ Ladunku</ID>
+      <Name>Id Typ Ladunku</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="3250fc90-25df-4a5c-8901-d95b92251dbc">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e9be9cbf-b4c2-4143-944e-82f763526c49">
+            <TableID>dbo_Typ_Ladunku</TableID>
+            <ColumnID>id_Typ_Ladunku</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="13709869-30ba-4efe-931b-0da998f39911">
+      <ID>Id Kontrahent</ID>
+      <Name>Id Kontrahent</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="c3ac376f-43db-4821-a4b8-48c064e4546a">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="e241ae06-5188-49f5-bd18-df622ce8a282">
+            <TableID>dbo_Kontrahent</TableID>
+            <ColumnID>id_Kontrahent</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="7fec03c3-9ed9-41dd-9024-15e850518168">
+          <AttributeID>Id Kraj</AttributeID>
+          <Name>Id Kraj</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="6138dec8-81cb-4548-8cfc-db51f3a00b8c">
+      <ID>Id Kraj</ID>
+      <Name>Id Kraj</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="657fe5a1-e896-405a-ac83-dec42595a61f">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="b15bf668-4e48-4853-8110-b4ef3f547907">
+            <TableID>dbo_Kraj</TableID>
+            <ColumnID>id_Kraj</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>
