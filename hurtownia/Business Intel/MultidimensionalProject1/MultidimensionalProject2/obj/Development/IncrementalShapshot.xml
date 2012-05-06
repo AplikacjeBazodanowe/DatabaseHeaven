@@ -1,0 +1,131 @@
+﻿<DeploymentSnapshot xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Target>
+    <Database>MultidimensionalProject2</Database>
+    <Server>localhost</Server>
+    <ConnectionString>DataSource=localhost;Timeout=0</ConnectionString>
+  </Target>
+  <Options>
+    <TransactionalDeployment>false</TransactionalDeployment>
+    <PartitionDeployment>DeployPartitions</PartitionDeployment>
+    <RoleDeployment>DeployRolesRetainMembers</RoleDeployment>
+    <ProcessingOption>DoNotProcess</ProcessingOption>
+    <OutputScript></OutputScript>
+    <ImpactAnalysisFile></ImpactAnalysisFile>
+    <ConfigurationSettingsDeployment>Deploy</ConfigurationSettingsDeployment>
+    <OptimizationSettingsDeployment>Deploy</OptimizationSettingsDeployment>
+    <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+  </Options>
+  <Snapshot>
+    <ObjectSnapshots>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
+        <TimeStamp>/P+sA8s6xWOx/bX/otfRuhs5naI=2012-05-06 17:42:162012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.DataSourceView</Type>
+        <TimeStamp>FD1tnnCVnZev163qrubpaWCNkCY=2012-05-06 17:45:152012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>lIl6w6/NQmsb/wMIDEr9lSicUo8=2012-05-06 17:45:152012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Obsluga Ladunku Data Nadania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>WCjgdgE06L06K7h30pmz2BS+ZMo=2012-05-06 17:45:452012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Obsluga Ladunku</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>81Oj8mNCTiTYzd1ainAOt/pQXWo=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Pobyt Statku Data Zadokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>PxVMeUrMvYVuur/R57qZxxH8SZQ=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Pobyt Statku Data Oddokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>yGL7ejh5mvDYC33w68SGO5bLcoQ=2012-05-06 17:47:112012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Kontrola Celna</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>ZoVe6r0hk8X09+yQr7BjFXOJbm0=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Pobyt Statku Czas Zadokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>D/KBuCUNr+YDIAEIVNRKiH2gBlw=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Terminal</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>wIo86mXz7E/fqxAAzwHaXrk0YSg=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Kontrahent</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>zVgY5jUD4D8HPzfFm0ij8deToIA=2012-05-06 17:51:412012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Towar</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>d8LNdAKYibwtits5W10kFm90hEY=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Dok</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>wQHgZQNVpc2qbcYsAnzCxX77fFI=2012-05-06 18:39:122012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Statek</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Cube</Type>
+        <TimeStamp>m48eO4mcnKbx8Xb+BMIC+8+Eay0=2012-05-06 18:46:182012-05-06 17:53:005XAA40rlUtR9mwIvqMSqPrv2p/g=2012-05-06 18:45:182012-05-06 17:53:00</TimeStamp>
+        <ID>
+          <String>Warehouseheaven</String>
+        </ID>
+      </ObjectSnapshot>
+    </ObjectSnapshots>
+    <DatabaseSnapshot>
+      <Type>Microsoft.AnalysisServices.Database</Type>
+      <TimeStamp>qNbRbydAi8D72JOof0zOFFDsm18=2012-05-06 17:42:032012-05-06 17:53:00</TimeStamp>
+      <ID>
+        <String>MultidimensionalProject2</String>
+      </ID>
+    </DatabaseSnapshot>
+    <Granularity>Coarse</Granularity>
+  </Snapshot>
+  <AssemblyLocations />
+  <ProcessingComplete>true</ProcessingComplete>
+  <LastDeployed>2012-05-06T16:46:20.196667Z</LastDeployed>
+</DeploymentSnapshot>

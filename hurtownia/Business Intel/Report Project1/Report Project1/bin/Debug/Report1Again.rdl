@@ -6,7 +6,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>7.60417in</Width>
+              <Width>5in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -21,19 +21,19 @@
                           <TablixBody>
                             <TablixColumns>
                               <TablixColumn>
-                                <Width>1.23958in</Width>
-                              </TablixColumn>
-                              <TablixColumn>
-                                <Width>0.9375in</Width>
-                              </TablixColumn>
-                              <TablixColumn>
-                                <Width>1.19792in</Width>
+                                <Width>1in</Width>
                               </TablixColumn>
                               <TablixColumn>
                                 <Width>1in</Width>
                               </TablixColumn>
                               <TablixColumn>
-                                <Width>1.78125in</Width>
+                                <Width>1in</Width>
+                              </TablixColumn>
+                              <TablixColumn>
+                                <Width>1in</Width>
+                              </TablixColumn>
+                              <TablixColumn>
+                                <Width>1in</Width>
                               </TablixColumn>
                             </TablixColumns>
                             <TablixRows>
@@ -49,7 +49,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Port</Value>
+                                                <Value>Id Port</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -85,7 +85,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Miesiąc </Value>
+                                                <Value>Miesiac Data Oddokowania</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -121,7 +121,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value> Terminal</Value>
+                                                <Value>Id Terminal</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -157,7 +157,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Dok</Value>
+                                                <Value>Id Dok</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -193,7 +193,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Ilość statków</Value>
+                                                <Value>Pobyt Statku Count</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -474,7 +474,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Łącznie</Value>
+                                                <Value>Total</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontWeight>Bold</FontWeight>
@@ -619,7 +619,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Łącznie</Value>
+                                                <Value>Total</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontWeight>Bold</FontWeight>
@@ -764,7 +764,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Łącznie</Value>
+                                                <Value>Total</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontWeight>Bold</FontWeight>
@@ -1020,7 +1020,7 @@
                           <DataSetName>DataSet1</DataSetName>
                           <Top>0.5in</Top>
                           <Height>1.06in</Height>
-                          <Width>6.15625in</Width>
+                          <Width>5in</Width>
                           <Style />
                         </Tablix>
                         <Textbox Name="Rok_Data_Oddokowania">
@@ -1030,15 +1030,6 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Rok: </Value>
-                                  <Style>
-                                    <FontFamily>Tahoma</FontFamily>
-                                    <FontSize>14pt</FontSize>
-                                    <Color>SlateGray</Color>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Label>Rok</Label>
                                   <Value>=Fields!Rok_Data_Oddokowania.Value</Value>
                                   <Style>
                                     <FontFamily>Tahoma</FontFamily>
@@ -1063,11 +1054,7 @@
                         </Textbox>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Style>
-                        <Border>
-                          <Style>None</Style>
-                        </Border>
-                      </Style>
+                      <Style />
                     </Rectangle>
                   </CellContents>
                 </TablixCell>
@@ -1087,6 +1074,9 @@
                 <GroupExpressions>
                   <GroupExpression>=Fields!Rok_Data_Oddokowania.Value</GroupExpression>
                 </GroupExpressions>
+                <PageBreak>
+                  <BreakLocation>Between</BreakLocation>
+                </PageBreak>
               </Group>
               <SortExpressions>
                 <SortExpression>
@@ -1104,7 +1094,7 @@
         </PageBreak>
         <Top>0.36in</Top>
         <Height>1.56in</Height>
-        <Width>7.60417in</Width>
+        <Width>5in</Width>
         <Style>
           <FontFamily>Tahoma</FontFamily>
           <FontSize>14pt</FontSize>
@@ -1118,7 +1108,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Report2</Value>
+                <Value>Report1Again</Value>
                 <Style>
                   <FontFamily>Tahoma</FontFamily>
                   <FontSize>20pt</FontSize>
@@ -1145,7 +1135,7 @@
     <Height>1.92in</Height>
     <Style />
   </Body>
-  <Width>7.60417in</Width>
+  <Width>5in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
@@ -1158,31 +1148,21 @@
     <DataSource Name="DataSource2">
       <DataSourceReference>DataSource2</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>c2fcff92-c500-404f-ae92-606e8ed3a1fb</rd:DataSourceID>
+      <rd:DataSourceID>7551988f-b9cf-496f-b828-25ff74383f5a</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>DataSource2</DataSourceName>
-        <CommandText>SELECT NON EMPTY { [Measures].[Pobyt Statku Count] } ON COLUMNS, NON EMPTY { ([Dok].[Id Dok].[Id Dok].ALLMEMBERS * [Terminal].[Id Port].[Id Port].ALLMEMBERS * [Terminal].[Id Terminal].[Id Terminal].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Rok Data Oddokowania].[Rok Data Oddokowania].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Miesiac Data Oddokowania].[Miesiac Data Oddokowania].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM [Warehouseheaven] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</CommandText>
+        <CommandText>SELECT NON EMPTY { [Measures].[Pobyt Statku Count] } ON COLUMNS, NON EMPTY { ([Terminal].[Id Port].[Id Port].ALLMEMBERS * [Dok].[Id Dok].[Id Dok].ALLMEMBERS * [Terminal].[Id Terminal].[Id Terminal].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Rok Data Oddokowania].[Rok Data Oddokowania].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Miesiac Data Oddokowania].[Miesiac Data Oddokowania].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM [Warehouseheaven] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</CommandText>
         <rd:DesignerState>
           <QueryDefinition xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
             <CommandType>MDX</CommandType>
+            <Type>Query</Type>
             <QuerySpecification xsi:type="MDXQuerySpecification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
               <Select>
                 <Items>
-                  <Item>
-                    <ID xsi:type="Level">
-                      <DimensionName>Dok</DimensionName>
-                      <HierarchyName>Id Dok</HierarchyName>
-                      <HierarchyUniqueName>[Dok].[Id Dok]</HierarchyUniqueName>
-                      <LevelName>Id Dok</LevelName>
-                      <UniqueName>[Dok].[Id Dok].[Id Dok]</UniqueName>
-                    </ID>
-                    <ItemCaption>Id Dok</ItemCaption>
-                    <UniqueName>true</UniqueName>
-                  </Item>
                   <Item>
                     <ID xsi:type="Level">
                       <DimensionName>Terminal</DimensionName>
@@ -1192,6 +1172,17 @@
                       <UniqueName>[Terminal].[Id Port].[Id Port]</UniqueName>
                     </ID>
                     <ItemCaption>Id Port</ItemCaption>
+                    <UniqueName>true</UniqueName>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Dok</DimensionName>
+                      <HierarchyName>Id Dok</HierarchyName>
+                      <HierarchyUniqueName>[Dok].[Id Dok]</HierarchyUniqueName>
+                      <LevelName>Id Dok</LevelName>
+                      <UniqueName>[Dok].[Id Dok].[Id Dok]</UniqueName>
+                    </ID>
+                    <ItemCaption>Id Dok</ItemCaption>
                     <UniqueName>true</UniqueName>
                   </Item>
                   <Item>
@@ -1254,19 +1245,19 @@
               <QueryProperties />
             </QuerySpecification>
             <Query>
-              <Statement> SELECT NON EMPTY { [Measures].[Pobyt Statku Count] } ON COLUMNS, NON EMPTY { ([Dok].[Id Dok].[Id Dok].ALLMEMBERS * [Terminal].[Id Port].[Id Port].ALLMEMBERS * [Terminal].[Id Terminal].[Id Terminal].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Rok Data Oddokowania].[Rok Data Oddokowania].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Miesiac Data Oddokowania].[Miesiac Data Oddokowania].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM [Warehouseheaven] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</Statement>
+              <Statement> SELECT NON EMPTY { [Measures].[Pobyt Statku Count] } ON COLUMNS, NON EMPTY { ([Terminal].[Id Port].[Id Port].ALLMEMBERS * [Dok].[Id Dok].[Id Dok].ALLMEMBERS * [Terminal].[Id Terminal].[Id Terminal].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Rok Data Oddokowania].[Rok Data Oddokowania].ALLMEMBERS * [Pobyt Statku Data Oddokowania].[Miesiac Data Oddokowania].[Miesiac Data Oddokowania].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM [Warehouseheaven] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</Statement>
               <ParameterDefinitions />
             </Query>
           </QueryDefinition>
         </rd:DesignerState>
       </Query>
       <Fields>
-        <Field Name="Id_Dok">
-          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dok].[Id Dok].[Id Dok]" /&gt;</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Id_Port">
           <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Terminal].[Id Port].[Id Port]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id_Dok">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dok].[Id Dok].[Id Dok]" /&gt;</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Id_Terminal">
@@ -1291,5 +1282,5 @@
   <Language>en-US</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>814c2d2e-9d06-44f4-af96-34c3f0add790</rd:ReportID>
+  <rd:ReportID>fae8745a-7c06-4651-9e38-31bdbde5c508</rd:ReportID>
 </Report>

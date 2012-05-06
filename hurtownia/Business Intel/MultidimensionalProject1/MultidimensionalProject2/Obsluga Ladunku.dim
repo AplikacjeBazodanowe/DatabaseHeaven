@@ -1,0 +1,136 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="daf6584f-5763-44f4-9732-11dca010e1cc" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Obsluga Ladunku</ID>
+  <Name>Obsluga Ladunku</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="685e134d-e7a0-4987-8f00-ddb5fedca402">
+    <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="c29dd088-8b2b-47b0-8ba7-2e06d6065f79">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="f61d6dd6-13ee-4e3d-86c0-a2f21478ec80">
+      <ID>Data Odbioru</ID>
+      <Name>Data Odbioru</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="77192ad3-54a0-4dd0-99a9-f4153acee89d">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bdc8ae4e-ee91-4f20-b398-214a047ae316">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>data_odbioru</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="800419cf-7c5f-4f2c-b064-65eca9520b6e">
+          <AttributeID>Rok Data Odbioru</AttributeID>
+          <Name>Rok Data Odbioru</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="f0110b31-7e4a-4a54-8364-72bfec298546">
+          <AttributeID>Miesiac Data Odbioru</AttributeID>
+          <Name>Miesiac Data Odbioru</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="a14f6a61-7a61-4456-978e-4d1094cc865d">
+          <AttributeID>Dzien Data Odbioru</AttributeID>
+          <Name>Dzien Data Odbioru</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="6e7e7d60-75ba-4aca-8080-0dcc621955a9">
+      <ID>Rok Data Odbioru</ID>
+      <Name>Rok Data Odbioru</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="ec433052-6953-4e73-8bc8-e3e2e96a8e1f">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="a3a06cd0-9f0d-4e63-bf57-781e459ebfdc">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>rok_data_odbioru</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="4ab50a38-3681-44d9-9ddf-647a2ff821b1">
+      <ID>Miesiac Data Odbioru</ID>
+      <Name>Miesiac Data Odbioru</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="65a19174-b5dc-4388-9872-7b245fb7add9">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="180be37d-6a1a-4a96-a782-4607ad267ac7">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>miesiac_data_odbioru</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="42064a60-00e2-4c29-8436-14c93e524358">
+      <ID>Dzien Data Odbioru</ID>
+      <Name>Dzien Data Odbioru</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="7008ede0-56bf-4fe4-8cef-8ba2fa64407e">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="bd263450-0a75-4fc3-97cf-7ea56afb290e">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>dzien_data_odbioru</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

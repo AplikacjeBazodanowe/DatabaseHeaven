@@ -2,7 +2,8 @@
 <RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
   <ConnectionProperties>
     <Extension>OLEDB-MD</Extension>
-    <ConnectString>Data Source=PAWELQ-KOMPUTER;Initial Catalog=MultidimensionalProject1</ConnectString>
+    <ConnectString>Data Source=PAWELQ-KOMPUTER;Initial Catalog=MultidimensionalProject2</ConnectString>
+    <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>22fabb7a-fb28-4989-be30-788f87be0f53</DataSourceID>
 </RptDataSource>

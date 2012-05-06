@@ -1,0 +1,137 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="064fc36e-a410-4ec8-a789-2f075b402932" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Pobyt Statku Data Oddokowania</ID>
+  <Name>Pobyt Statku Data Oddokowania</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="6ce76d02-0c5d-4f9e-9d07-227ccb170c39">
+    <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="8b500a6f-6d30-4231-895f-ef42219e8d74">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="555b4a33-c9d1-4246-bf41-fcbc970943e3">
+      <ID>Data Oddokowania</ID>
+      <Name>Data Oddokowania</Name>
+      <Usage>Key</Usage>
+      <EstimatedCount>184</EstimatedCount>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="487637c9-1c03-485d-ac7c-93486bf8b7c1">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="2183dde3-5029-493e-99b2-dc2ca5a58e8d">
+            <TableID>dbo_Pobyt_Statku</TableID>
+            <ColumnID>data_oddokowania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="40745426-9b7e-413e-95e7-1e0b520586ee">
+          <AttributeID>Rok Data Oddokowania</AttributeID>
+          <Name>Rok Data Oddokowania</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="0a4cb04a-5de9-41c7-88db-53830bfafdb2">
+          <AttributeID>Miesiac Data Oddokowania</AttributeID>
+          <Name>Miesiac Data Oddokowania</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="89053062-e28b-488d-a187-32b902e00fcd">
+          <AttributeID>Dzien Data Oddokowania</AttributeID>
+          <Name>Dzien Data Oddokowania</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="f769bfac-00d3-4b63-8042-efa56a940197">
+      <ID>Rok Data Oddokowania</ID>
+      <Name>Rok Data Oddokowania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="7ad82ba7-d3f0-4388-9619-886429049eb7">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="83dce6a5-1896-419d-aa56-3cea7c398c3e">
+            <TableID>dbo_Pobyt_Statku</TableID>
+            <ColumnID>rok_data_oddokowania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="5d74ceb2-1ba7-491d-8475-7761340ffd6c">
+      <ID>Miesiac Data Oddokowania</ID>
+      <Name>Miesiac Data Oddokowania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="1dfdda58-d6c5-4da9-8fc3-50068d449769">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="5c1d2585-fb59-42d3-96e2-a07b83d9e369">
+            <TableID>dbo_Pobyt_Statku</TableID>
+            <ColumnID>miesiac_data_oddokowania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="0dda361d-2d22-4fcb-9431-5ecf1c274997">
+      <ID>Dzien Data Oddokowania</ID>
+      <Name>Dzien Data Oddokowania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="a0949452-c53f-49b8-8bdb-13bc72fb8cc7">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="de69b880-bbe1-467b-bf4b-36cc35e836a5">
+            <TableID>dbo_Pobyt_Statku</TableID>
+            <ColumnID>dzien_data_oddokowania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

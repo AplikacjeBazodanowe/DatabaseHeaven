@@ -428,14 +428,14 @@
                                   </TablixCell>
                                   <TablixCell>
                                     <CellContents>
-                                      <Textbox Name="textbox13">
+                                      <Textbox Name="Czas_Pobytu1">
                                         <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Sum(Fields!Czas_Pobytu.Value)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontWeight>Bold</FontWeight>
@@ -446,7 +446,7 @@
                                             <Style />
                                           </Paragraph>
                                         </Paragraphs>
-                                        <rd:DefaultName>textbox13</rd:DefaultName>
+                                        <rd:DefaultName>Czas_Pobytu1</rd:DefaultName>
                                         <Style>
                                           <Border>
                                             <Color>LightGrey</Color>

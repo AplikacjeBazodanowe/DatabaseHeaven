@@ -1,0 +1,226 @@
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="309737b3-b99d-4407-a4c3-85add781b685" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Warehouseheaven</ID>
+  <MeasureGroups>
+    <MeasureGroup>
+      <ID>Kontrola Celna</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="e57f0323-2284-46d6-9adc-89ec338624a4">
+          <ID>Kontrola Celna</ID>
+          <Name>Kontrola Celna</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="16f623d2-8772-47cd-a44d-6766a451408f">
+            <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+            <TableID>dbo_Kontrola_Celna</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Obsluga Ladunku</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="df991ba1-505f-460a-a5ad-cffcfaf0f999">
+          <ID>Obsluga Ladunku</ID>
+          <Name>Obsluga Ladunku</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="b331e1e5-1a7e-4e1d-bc0a-f988e4fba586">
+            <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+        </Partition>
+      </Partitions>
+    </MeasureGroup>
+    <MeasureGroup>
+      <ID>Pobyt Statku</ID>
+      <Partitions>
+        <Partition dwd:design-time-name="7c46b5c5-1923-48e0-9a1f-2b3b8c37fb12">
+          <ID>Pobyt Statku</ID>
+          <Name>Pobyt Statku</Name>
+          <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+          <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+          <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+          <State>Unprocessed</State>
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="217ed86e-d942-4e8a-84bf-d9f179db9ead">
+            <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+            <TableID>dbo_Pobyt_Statku</TableID>
+          </Source>
+          <StorageMode>Molap</StorageMode>
+          <CurrentStorageMode>Molap</CurrentStorageMode>
+          <ProcessingMode>Regular</ProcessingMode>
+          <EstimatedRows>184</EstimatedRows>
+          <AggregationDesignID>AggregationDesign Czas zadokowania</AggregationDesignID>
+        </Partition>
+      </Partitions>
+      <AggregationDesigns>
+        <AggregationDesign>
+          <ID>AggregationDesign Czas zadokowania</ID>
+          <Name>AggregationDesign Czas zadokowania</Name>
+          <CreatedTimestamp>2012-05-06T16:44:45.13Z</CreatedTimestamp>
+          <LastSchemaUpdate>2012-05-06T16:44:45.13Z</LastSchemaUpdate>
+          <EstimatedRows>184</EstimatedRows>
+          <Dimensions>
+            <Dimension>
+              <CubeDimensionID>Pobyt Statku Data Zadokowania</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Data Zadokowania</AttributeID>
+                  <EstimatedCount>184</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Rok Data Zadokowania</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Miesiac Data Zadokowania</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Dzien Data Zadokowania</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Pobyt Statku Data Oddokowania</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Data Oddokowania</AttributeID>
+                  <EstimatedCount>184</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Rok Data Oddokowania</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Miesiac Data Oddokowania</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Dzien Data Oddokowania</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Pobyt Statku Czas Zadokowania</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Czas Pobytu</AttributeID>
+                  <EstimatedCount>43</EstimatedCount>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Kontrahent</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Id Kontrahent</AttributeID>
+                  <EstimatedCount>10</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Kraj</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Dok</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Id Dok</AttributeID>
+                  <EstimatedCount>28</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Terminal</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Statek</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Id Statek</AttributeID>
+                  <EstimatedCount>16</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Kontrahent</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Typ Ladunku</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Terminal</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Id Terminal</AttributeID>
+                  <EstimatedCount>14</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Port</AttributeID>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Typ Ladunku</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+            <Dimension>
+              <CubeDimensionID>Statek - Id Kontrahent</CubeDimensionID>
+              <Attributes>
+                <Attribute>
+                  <AttributeID>Id Kontrahent</AttributeID>
+                  <EstimatedCount>10</EstimatedCount>
+                </Attribute>
+                <Attribute>
+                  <AttributeID>Id Kraj</AttributeID>
+                </Attribute>
+              </Attributes>
+            </Dimension>
+          </Dimensions>
+          <Aggregations>
+            <Aggregation>
+              <ID>Aggregation 0</ID>
+              <Name>Aggregation 0</Name>
+              <Dimensions>
+                <Dimension>
+                  <CubeDimensionID>Pobyt Statku Data Zadokowania</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Pobyt Statku Data Oddokowania</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Pobyt Statku Czas Zadokowania</CubeDimensionID>
+                  <Attributes>
+                    <Attribute>
+                      <AttributeID>Czas Pobytu</AttributeID>
+                    </Attribute>
+                  </Attributes>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Kontrahent</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Dok</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Statek</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Terminal</CubeDimensionID>
+                </Dimension>
+                <Dimension>
+                  <CubeDimensionID>Statek - Id Kontrahent</CubeDimensionID>
+                </Dimension>
+              </Dimensions>
+            </Aggregation>
+          </Aggregations>
+        </AggregationDesign>
+      </AggregationDesigns>
+    </MeasureGroup>
+  </MeasureGroups>
+</Cube>

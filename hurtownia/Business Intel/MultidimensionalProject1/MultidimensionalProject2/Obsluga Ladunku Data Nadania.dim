@@ -1,0 +1,136 @@
+﻿<Dimension xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="a5b2eb79-441c-4c2a-94f6-9ae19517a6df" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Obsluga Ladunku Data Nadania</ID>
+  <Name>Obsluga Ladunku Data Nadania</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowRelationshipNames</Name>
+      <Value>false</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:UseDiagramDefaultLayout</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramViewPortTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingLeft</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramBoundingTop</Name>
+      <Value>0</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramZoom</Name>
+      <Value>100</Value>
+    </Annotation>
+  </Annotations>
+  <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
+  <State>Unprocessed</State>
+  <Source xsi:type="DataSourceViewBinding" dwd:design-time-name="471cd029-1db3-412c-859c-fe64c8d23038">
+    <DataSourceViewID>Warehouseheaven</DataSourceViewID>
+  </Source>
+  <ErrorConfiguration dwd:design-time-name="b96558e8-712f-48ae-a3c2-5dbbed4c5458">
+    <KeyNotFound>ReportAndStop</KeyNotFound>
+    <KeyDuplicate>ReportAndStop</KeyDuplicate>
+    <NullKeyNotAllowed>ReportAndStop</NullKeyNotAllowed>
+  </ErrorConfiguration>
+  <CurrentStorageMode>Molap</CurrentStorageMode>
+  <Attributes>
+    <Attribute dwd:design-time-name="7ba31c53-ec58-45a8-b897-92741c6ee946">
+      <ID>Data Nadania</ID>
+      <Name>Data Nadania</Name>
+      <Usage>Key</Usage>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="8189d709-6284-444f-9e5e-910777a45e85">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="17344ad8-fdc0-43c6-8078-ab6488ef8754">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>data_nadania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <AttributeRelationships>
+        <AttributeRelationship dwd:design-time-name="d9c0142d-0d21-4735-831e-89458bef52cf">
+          <AttributeID>Rok Data Nadania</AttributeID>
+          <Name>Rok Data Nadania</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="7ef3efe6-2464-4117-b711-82b588565225">
+          <AttributeID>Miesiac Data Nadania</AttributeID>
+          <Name>Miesiac Data Nadania</Name>
+        </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="c4146131-9390-4235-abef-5b274506789a">
+          <AttributeID>Dzien Data Nadania</AttributeID>
+          <Name>Dzien Data Nadania</Name>
+        </AttributeRelationship>
+      </AttributeRelationships>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="9c8e7459-8dd1-4e7a-b152-8b717aa7e1e5">
+      <ID>Rok Data Nadania</ID>
+      <Name>Rok Data Nadania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="7a06c974-c6f4-4fc3-a9c6-7672992d92b0">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="89702162-6ada-42be-8fbd-4dbe1513240b">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>rok_data_nadania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="c909be6d-038f-4141-8e68-f23726eef6d1">
+      <ID>Miesiac Data Nadania</ID>
+      <Name>Miesiac Data Nadania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="4b8dc713-c2cc-4f42-adca-08bae2775f55">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="01b0bd04-5897-4a79-984e-c2720f04584e">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>miesiac_data_nadania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="255c26c1-9826-47a6-841f-efdf3092b183">
+      <ID>Dzien Data Nadania</ID>
+      <Name>Dzien Data Nadania</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="30e56dc3-03e2-491c-8168-0d53c9ca82b5">
+          <DataType>Integer</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="329fa84d-0d64-4d89-9b19-05198c8e84dc">
+            <TableID>dbo_Obsluga_Ladunku</TableID>
+            <ColumnID>dzien_data_nadania</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
+      <OrderBy>Key</OrderBy>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+      <ddl300:AttributeHierarchyProcessingState>Unprocessed</ddl300:AttributeHierarchyProcessingState>
+    </Attribute>
+  </Attributes>
+  <ddl300:ProcessingState>Unprocessed</ddl300:ProcessingState>
+</Dimension>

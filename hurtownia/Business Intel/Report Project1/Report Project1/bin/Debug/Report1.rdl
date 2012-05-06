@@ -85,7 +85,7 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>Miesiac </Value>
+                                                <Value>Miesiąc </Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>11pt</FontSize>
@@ -1063,7 +1063,11 @@
                         </Textbox>
                       </ReportItems>
                       <KeepTogether>true</KeepTogether>
-                      <Style />
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                      </Style>
                     </Rectangle>
                   </CellContents>
                 </TablixCell>
@@ -1083,9 +1087,6 @@
                 <GroupExpressions>
                   <GroupExpression>=Fields!Rok_Data_Oddokowania.Value</GroupExpression>
                 </GroupExpressions>
-                <PageBreak>
-                  <BreakLocation>Between</BreakLocation>
-                </PageBreak>
               </Group>
               <SortExpressions>
                 <SortExpression>

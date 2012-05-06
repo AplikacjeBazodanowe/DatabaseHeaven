@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource3">
   <ConnectionProperties>
     <Extension>OLEDB-MD</Extension>
     <ConnectString>Data Source=PAWELQ-KOMPUTER;Initial Catalog=MultidimensionalProject2</ConnectString>
     <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
-  <DataSourceID>22fabb7a-fb28-4989-be30-788f87be0f53</DataSourceID>
+  <DataSourceID>9a98551e-78b6-43d2-af4c-e5117b07a73e</DataSourceID>
 </RptDataSource>

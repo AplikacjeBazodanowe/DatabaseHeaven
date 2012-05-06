@@ -10,6 +10,10 @@
       <Name>DataSource2.rds</Name>
       <FullPath>DataSource2.rds</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>DataSource3.rds</Name>
+      <FullPath>DataSource3.rds</FullPath>
+    </ProjectItem>
   </DataSources>
   <DataSets>
     <ProjectItem>
@@ -53,6 +57,10 @@
     <ProjectItem>
       <Name>Report9.rdl</Name>
       <FullPath>Report9.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Report1again1.rdl</Name>
+      <FullPath>Report1again1.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
