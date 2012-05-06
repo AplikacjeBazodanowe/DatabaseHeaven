@@ -19,56 +19,63 @@
     <ObjectSnapshots>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
-        <TimeStamp>JuRz5wDPWFBg8+bmT+0U9C3VdQQ=2012-05-05 18:51:212012-05-05 18:51:21</TimeStamp>
+        <TimeStamp>m5ohDpnD+M409fud7gHfIKi5ths=2012-05-05 20:59:152012-05-05 20:59:15</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.OlapDataSource</Type>
+        <TimeStamp>DyFzJu016tvEb4mdzaJ4pUV4kpg=2012-05-06 00:53:542012-05-06 00:53:54</TimeStamp>
+        <ID>
+          <String>PAWELQ-KOMPUTER</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.DataSourceView</Type>
-        <TimeStamp>vDyL1NVkTgjdk7tgpFFFHTw1vOs=2012-05-05 19:57:252012-05-05 18:51:31</TimeStamp>
+        <TimeStamp>4AllnR2zOQBdxwhw71PzsNhATjA=2012-05-06 03:01:532012-05-05 20:59:25</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>QmncMAeZJKpJk2hCT40bhpqFvoE=2012-05-05 17:44:542012-05-05 17:44:53</TimeStamp>
+        <TimeStamp>+rvulw0zOjeplKFzBqAUbuG1L8M=2012-05-05 23:50:462012-05-05 17:44:53</TimeStamp>
         <ID>
           <String>Towar</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>gmot9MK0CKb/TasrcNnaaAgx1uo=2012-05-05 17:44:552012-05-05 17:44:53</TimeStamp>
+        <TimeStamp>NtLy0jikTeP9KPv0TwnJT88JafQ=2012-05-05 23:50:462012-05-05 17:44:53</TimeStamp>
         <ID>
           <String>Kontrahent</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>oiIFMN9HG3HV4oqTCdgeHAIOQDM=2012-05-05 17:44:552012-05-05 17:44:53</TimeStamp>
+        <TimeStamp>A/7+DWBJ8vp6zCalOy3TWO001C4=2012-05-05 23:50:462012-05-05 17:44:53</TimeStamp>
         <ID>
           <String>Dok</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>g6V//NeJjHuWS6MDGTpA6btmj3I=2012-05-05 17:44:552012-05-05 17:44:54</TimeStamp>
+        <TimeStamp>/QgYI5pUlnuMhXIHUXu2kKK0AsI=2012-05-05 23:50:462012-05-05 17:44:54</TimeStamp>
         <ID>
           <String>Statek</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>IMI4O10AuO1NKlKyDjQfQnTYgFY=2012-05-05 17:44:552012-05-05 17:44:54</TimeStamp>
+        <TimeStamp>1npsEKXqhPVLd2hmKI5gYI97XVQ=2012-05-05 23:51:292012-05-05 17:44:54</TimeStamp>
         <ID>
           <String>Terminal</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>TZy4s44wuDm9ARs7jfeJBzo/PVk=2012-05-05 19:58:282012-05-05 18:34:30</TimeStamp>
+        <TimeStamp>TZy4s44wuDm9ARs7jfeJBzo/PVk=2012-05-05 23:52:022012-05-05 18:34:30</TimeStamp>
         <ID>
           <String>Kontrola Celna</String>
         </ID>
@@ -96,14 +103,21 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>Dgh6IgOj5YISbgtC4OFvOExM3ds=2012-05-05 19:49:442012-05-05 18:42:38</TimeStamp>
+        <TimeStamp>Dgh6IgOj5YISbgtC4OFvOExM3ds=2012-05-05 23:52:162012-05-05 18:42:38</TimeStamp>
         <ID>
           <String>Pobyt Statku Data Oddokowania</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
+        <Type>Microsoft.AnalysisServices.Dimension</Type>
+        <TimeStamp>xFB+AjKwO7OlpQ2I2raDmyFlzhw=2012-05-06 03:04:052012-05-06 03:04:04</TimeStamp>
+        <ID>
+          <String>Czas zadokowania</String>
+        </ID>
+      </ObjectSnapshot>
+      <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>qCM8jmHL2uEfFKL8mecOvoL9efk=2012-05-05 20:10:172012-05-05 18:58:183trVWPgFBuRQjaYe7RIymijv36w=2012-05-05 18:58:182012-05-05 18:58:18</TimeStamp>
+        <TimeStamp>Jj8fSVRAtSmGfloD3Pf5oxK9OCQ=2012-05-06 03:04:502012-05-06 03:04:509Wp8hZZva0af0WR3p5qZ48GIi8w=2012-05-06 03:04:502012-05-06 03:04:50</TimeStamp>
         <ID>
           <String>Warehouseheaven</String>
         </ID>
@@ -120,5 +134,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2012-05-05T18:11:47.426667Z</LastDeployed>
+  <LastDeployed>2012-05-06T01:04:59.6Z</LastDeployed>
 </DeploymentSnapshot>

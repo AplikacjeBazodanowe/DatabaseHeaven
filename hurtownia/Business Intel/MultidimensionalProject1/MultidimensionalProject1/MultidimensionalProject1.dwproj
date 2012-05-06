@@ -59,11 +59,19 @@
       <Name>Pobyt Statku Data Oddokowania.dim</Name>
       <FullPath>Pobyt Statku Data Oddokowania.dim</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>Czas zadokowania.dim</Name>
+      <FullPath>Czas zadokowania.dim</FullPath>
+    </ProjectItem>
   </Dimensions>
   <DataSources>
     <ProjectItem>
       <Name>Warehouseheaven.ds</Name>
       <FullPath>Warehouseheaven.ds</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>PAWELQ-KOMPUTER.ds</Name>
+      <FullPath>PAWELQ-KOMPUTER.ds</FullPath>
     </ProjectItem>
   </DataSources>
   <DataSourceViews>
@@ -82,11 +90,21 @@
             <Name>Warehouseheaven</Name>
             <Value xsi:type="xsd:string">Provider=SQLNCLI11.1;Data Source=PAWELQ-KOMPUTER;Integrated Security=SSPI;Initial Catalog=warehouseheaven</Value>
           </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>PAWELQ-KOMPUTER</Id>
+            <Name>PAWELQ-KOMPUTER</Name>
+            <Value xsi:type="xsd:string">Provider=MSOLAP.5;Data Source=PAWELQ-KOMPUTER;Integrated Security=SSPI</Value>
+          </ConfigurationSetting>
         </ConnectionMappings>
         <ConnectionSecurityMappings>
           <ConfigurationSetting>
             <Id>Warehouseheaven</Id>
             <Name>Warehouseheaven</Name>
+            <Value xsi:type="xsd:int">0</Value>
+          </ConfigurationSetting>
+          <ConfigurationSetting>
+            <Id>PAWELQ-KOMPUTER</Id>
+            <Name>PAWELQ-KOMPUTER</Name>
             <Value xsi:type="xsd:int">0</Value>
           </ConfigurationSetting>
         </ConnectionSecurityMappings>

@@ -10,6 +10,14 @@
           <ImpersonationInfoSecurity xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">PasswordRemoved</ImpersonationInfoSecurity>
         </ImpersonationInfo>
       </DataSource>
+      <DataSource>
+        <ID>PAWELQ-KOMPUTER</ID>
+        <ConnectionString>Provider=MSOLAP.5;Data Source=PAWELQ-KOMPUTER;Integrated Security=SSPI</ConnectionString>
+        <ImpersonationInfo>
+          <ImpersonationMode xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">ImpersonateServiceAccount</ImpersonationMode>
+          <ImpersonationInfoSecurity xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">Unchanged</ImpersonationInfoSecurity>
+        </ImpersonationInfo>
+      </DataSource>
     </DataSources>
     <Dimensions>
       <Dimension>
@@ -42,6 +50,9 @@
       <Dimension>
         <ID>Pobyt Statku Data Oddokowania</ID>
       </Dimension>
+      <Dimension>
+        <ID>Czas zadokowania</ID>
+      </Dimension>
     </Dimensions>
     <Cubes>
       <Cube>
@@ -56,18 +67,18 @@
             </Partitions>
           </MeasureGroup>
           <MeasureGroup>
-            <ID>Pobyt Statku</ID>
-            <Partitions>
-              <Partition>
-                <ID>Pobyt Statku</ID>
-              </Partition>
-            </Partitions>
-          </MeasureGroup>
-          <MeasureGroup>
             <ID>Obsluga Ladunku</ID>
             <Partitions>
               <Partition>
                 <ID>Obsluga Ladunku</ID>
+              </Partition>
+            </Partitions>
+          </MeasureGroup>
+          <MeasureGroup>
+            <ID>Pobyt Statku</ID>
+            <Partitions>
+              <Partition>
+                <ID>Pobyt Statku</ID>
               </Partition>
             </Partitions>
           </MeasureGroup>
